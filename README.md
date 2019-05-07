@@ -1,2 +1,2 @@
-# Proy_Dise-o_Software
+# Proy_Diseno_Software
 Proyecto final de diseño de software
