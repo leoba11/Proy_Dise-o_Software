@@ -23,6 +23,9 @@ class genBoard():
     def saveBoard():
         print("save")
 
+    def loadBoard():
+        print("Load")
+
     def boardType():
         print("Type")
 
