@@ -13,7 +13,7 @@ class VentanaInicial(Frame):
         self.master.title("Ajedrez Diseno de Software")
         self.pack()
 
-		# Creates the labels with the Entry boxes for the white and black pieces players
+        # Creates the labels with the Entry boxes for the white and black pieces players
         self.lbl1 = Label(master, text="Jugador con fichas blancas:", width=25, anchor=NW, fg="white",font=("Helvetica", 16))
         
         # places the object in a relative position of the window
@@ -38,6 +38,7 @@ class VentanaInicial(Frame):
         
     # Subroutine that extracts the players names and stores them into the class attributes 
     def button_click(self):
+		# stores into the variables of the class the names written names
         playerWhite_name = self.entry1.get()
         playerBlack_name = self.entry2.get()
         self.box.delete(0.0, END)
@@ -48,7 +49,6 @@ class VentanaInicial(Frame):
         #print(playerBlack_name)
 
 def main():
-
     root = Tk()
     root.geometry("600x300")
     app = VentanaInicial(root)#.pack()
