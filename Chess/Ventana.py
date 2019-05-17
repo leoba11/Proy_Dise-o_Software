@@ -4,49 +4,42 @@ from tkinter import *
 class VentanaInicial(Frame):
 
 	# Builder of the class
-    def __init__(self):
+    def __init__(self, master):
         super().__init__()
 
-        self.initUI()
+        self.initUI(master)
 
 	# Subrotuine that "builds" all the labels and boxes needed to 
 	# load the player's name
-    def initUI(self):
+    def initUI(self, master):
 
-        self.master.title("Ajedrez Diseño de Software")
-        self.pack(fill=BOTH, expand=True)
-
-        frame1 = Frame(self)
-        frame1.pack(fill=X)
+        self.master.title("Ajedrez Diseno de Software")
+        self.pack()
 
 		# Creates the first label with the Entry box for the white pieces player
-        lbl1 = Label(frame1, text="Jugador con fichas blancas:", width=25, fg="white",font=("Helvetica", 16))
-        lbl1.pack(side=LEFT, padx=10, pady=50)
+        lbl1 = Label(master, text="Jugador con fichas blancas:", width=25, anchor=NW, fg="white",font=("Helvetica", 16))
+        
+        # places the object in a relative position of the window
+        lbl1.place(relx=0.08, rely=0.2)
 
-        entry1 = Entry(frame1, width=20, bg="white", justify = CENTER, font=("Helvetica", 16)).pack(fill=X, padx=5, pady=50, expand=False)
-        
-        # PARA EXPANDIR LA COSA CONFORME AGRANDO LA VENTANA
-        #entry1.pack(fill=X, padx=5, expand=True)
-        
-        frame2 = Frame(self)
-        
-        frame2.pack(fill=X)
+        entry1 = Entry(master, width=20, bg="white", justify = CENTER, font=("Helvetica", 16))
+        entry1.place(relx=0.55, rely=0.2)
 
-        lbl2 = Label(frame2, text="Jugador con fichas negras:", width=25, font=("Helvetica", 16))
-        lbl2.pack(side=LEFT, padx=10, pady=15)
+        lbl2 = Label(master, text="Jugador con fichas negras:", width=25, anchor=NW, font=("Helvetica", 16))
+        lbl2.place(relx=0.08, rely=0.5)
 
-        entry2 = Entry(frame2, width=20, bg="white", justify = CENTER, font=("Helvetica", 16)).pack(fill=X, padx=5, pady=40, expand=False)
+        entry2 = Entry(master, width=20, bg="white", justify = CENTER, font=("Helvetica", 16))
+        entry2.place(relx=0.55, rely=0.5)
         
-        #buttonPlay = Button(frame2, text="Jugar!!", bd=5, justify=CENTER, width=25, font=("Helvetica", 16)).pack(fill=X, padx=5, pady=40)        
-        #buttonPlay.pack(padx=10, pady=15)
+        buttonPlay = Button(master, text="Jugar!!", bg="green", bd=5, justify=CENTER, width=10, font=("Helvetica", 16))
+        buttonPlay.place(relx=0.65, rely=0.75)
 
 def main():
 
     root = Tk()
     root.geometry("600x300+650+300")
-    app = VentanaInicial()
+    app = VentanaInicial(root).pack()
     root.mainloop()
-
 
 if __name__ == '__main__':
     main()
