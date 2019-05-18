@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import messagebox
+import time
 
 class VentanaInicial(Frame):
 	
@@ -29,24 +31,47 @@ class VentanaInicial(Frame):
         self.entry2.place(relx=0.55, rely=0.5)
         
         # Creates a text box
-        self.box = Text(master, width=45, height=4, wrap=WORD, background="white")
-        self.box.place(relx=0.10, rely=0.75)
+        self.box = Text(master, width=25, height=4, wrap=WORD, background="white")
+        self.box.place(relx=0.08, rely=0.75)
 		
         # Creates the button to submit the players names
         self.buttonPlay = Button(master, text="Jugar!!", bg="green", bd=5, justify=CENTER, width=10, font=("Helvetica", 16), command=self.button_click)
         self.buttonPlay.place(relx=0.65, rely=0.75)
-        
+
+        self.buttonQuit = Button(master, text="Salir!", bg="red", bd=5, justify=CENTER, width=10, font=("Helvetica",16), command=self.button_quit)
+        self.buttonQuit.place(relx=0.40, rely=0.75)        
+
     # Subroutine that extracts the players names and stores them into the class attributes 
     def button_click(self):
-		# stores into the variables of the class the names written names
+        # stores into the variables of the class the names written names
         playerWhite_name = self.entry1.get()
         playerBlack_name = self.entry2.get()
-        self.box.delete(0.0, END)
-        self.box.insert(END, playerWhite_name + " juega con fichas blancas")
-        self.box.insert(END, " y ")
-        self.box.insert(END, playerBlack_name + " juega con fichas negras")
+
+        # Checks if the players names have been written in order to start the game
+        if len(playerWhite_name) is 0 or len(playerBlack_name) is 0:
+            self.no_names()
+        else:
+            self.box.delete(0.0, END)
+            self.box.insert(END, playerWhite_name + " juega con fichas blancas")
+            self.box.insert(END, " y ")
+            self.box.insert(END, playerBlack_name + " juega con fichas negras")
+            
         #print(playerWhite_name)
         #print(playerBlack_name)
+        
+        # function to hide the window
+        self.master.withdraw()
+        time.sleep(3)
+        # function to show the window
+        self.master.deiconify()
+
+    # Subroutine that closes the complete window
+    def button_quit(self):
+        self.quit()
+
+    # Subroutine that shows the error message box to the user
+    def no_names(self):
+        messagebox.showerror("Error!", "Falta uno o más nombres de jugador")
 
 def main():
     root = Tk()
