@@ -4,9 +4,9 @@ import tkinter as tk
 import PIL.Image
 import PIL.ImageTk
 
-def create_window():
+def reglas():
 
-    text1 = Text(root, height=36, width=68)
+    text1 = Text(root, height=37, width=68)
 
     im = PIL.Image.open("che.jpg")
     photo = PIL.ImageTk.PhotoImage(im)
@@ -35,9 +35,15 @@ def create_window():
     text2.pack(side=LEFT)
     scroll.pack(side=RIGHT, fill=Y)
 
-    
-root = tk.Tk()
-b = tk.Button(root, text="Precione para ver las reglas", width=30, command=create_window)
+def create_window():
+
+    newwin = Toplevel()
+    newwin.title("Reglas")
+
+  
+root = Tk()
+
+b = Button(root, text="Precione para ver las reglas", width=30, command=create_window)
 b.pack()
 
 
