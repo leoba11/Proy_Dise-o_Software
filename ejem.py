@@ -5,7 +5,7 @@ import PIL.ImageTk
 
 root = Tk()
 
-text1 = Text(root, height=36, width=68)
+text1 = Text(root, height=37, width=68)
 
 im = PIL.Image.open("che.jpg")
 photo = PIL.ImageTk.PhotoImage(im)
