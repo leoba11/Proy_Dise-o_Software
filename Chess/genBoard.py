@@ -1,6 +1,6 @@
 
 
-class genBoard():
+class genBoard(object):
 
     #Constructor
     def __init__(self, rows, columns, color1, color2):
