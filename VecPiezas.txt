@@ -1,0 +1,8 @@
+Pieza {
+	id/nombre:
+	x:
+	y:
+}
+
+VectorPiezas
+[ id x y ][ id x y ]

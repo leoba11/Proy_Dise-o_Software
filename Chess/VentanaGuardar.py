@@ -21,14 +21,15 @@ class VentanaGuardar(Frame):
         self.buttonLoad = Button(master, text="Salir", bg="red", bd=5, justify=CENTER, width=10, font=("Helvetica", 16), command=self.button_quit)
         self.buttonLoad.place(relx=0.40, rely=0.80)
 
-    # Subroutine that extracts the players names and stores them into the class attributes
+    # Subroutina a la que le llega el vector un piezas de Tablero y se encarga de guardarlo en un .csv
     def button_load(self):
         pass
 
+    # Subroutina que e encarga de leer de un .csv a un vector de piezas que luego se le pasa a Tablero para que las coloque
     def button_save(self):
         pass
 
-    # Subroutine that closes the complete window
+
     def button_quit(self):
         self.quit()
 
