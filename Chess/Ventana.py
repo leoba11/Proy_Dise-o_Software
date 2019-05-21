@@ -15,6 +15,9 @@ class VentanaInicial(Frame):
         self.master.title("Ajedrez Diseno de Software")
         self.pack()
 
+        self.labelito = Label(master, image=PhotoImage(file="avion.gif"))
+        self.labelito.pack()
+
         # Creates the labels with the Entry boxes for the white and black pieces players
         self.lbl1 = Label(master, text="Jugador con fichas blancas:", width=25, anchor=NW, fg="white",font=("Helvetica", 16))
         
