@@ -2,14 +2,15 @@ from tkinter import *
 from tkinter import messagebox
 import time
 
-class VentanaInicial(Frame):
+class Interface(Frame):
 	
     # Variables to store the players names
     playerWhite_name = "" 
     playerBlack_name = ""
 	
-    # Builder of the class
-    def __init__(self, master):
+#-----------------------initWidow-----------------------------------------------
+    def initialWindow(self, master):
+        
         super().__init__()
         
         self.master.title("Ajedrez Diseno de Software")
@@ -58,7 +59,6 @@ class VentanaInicial(Frame):
             
         #print(playerWhite_name)
         #print(playerBlack_name)
-        
         # function to hide the window
         self.master.withdraw()
         time.sleep(3)
@@ -72,12 +72,28 @@ class VentanaInicial(Frame):
     # Subroutine that shows the error message box to the user
     def no_names(self):
         messagebox.showerror("Error!", "Falta uno o más nombres de jugador")
+#-----------------------initWidow-----------------------------------------------
+
+
+#-----------------------principalWidow-----------------------------------------------
+
+    def mainWindow(self, master, board):
+        super().__init__()
+        self.master.title("Ajedrez Diseno de Software")
+        self.pack()
+
+        
+
+#-----------------------principalWidow-----------------------------------------------
+
 
 def main():
     root = Tk()
     root.geometry("600x300")
-    app = VentanaInicial(root)#.pack()
+    app = Interface().initialWindow(root)#.pack()
+    print('kkkkk')
     root.mainloop()
+    print('dsfs')
 
 if __name__ == '__main__':
     main()
