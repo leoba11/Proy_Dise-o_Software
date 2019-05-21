@@ -56,8 +56,8 @@ class gameBoard(tk.Frame):
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
-        for name in self.pieces:
-            self.placepiece(name, self.pieces[name][0], self.pieces[name][1])
+        #for name in self.pieces:
+            #self.placepiece(name, self.pieces[name][0], self.pieces[name][1])
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
 
