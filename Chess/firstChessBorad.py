@@ -3,7 +3,7 @@ from tkinter import *
 
 class gameBoard(tk.Frame):
 
-    def __init__(self, parent, rows=8, columns=8, size=32, co1or1 ='white', color2='blue'):
+    def __init__(self, parent, rows=8, columns=8, size=32, co1or1 ='white', color2='black'):
         #Constructors
         self.rows = rows
         self.columns = columns
@@ -13,11 +13,12 @@ class gameBoard(tk.Frame):
         self.pieces = {} 
 
         #Dimensions
+        '''
         canvas_width = columns * size
         canvas_height = rows * size
-
+        '''
         tk.Frame.__init__(self, parent)
-        self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvas_width, height = canvas_height, background = 'bisque')
+        self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = 600, height = 300, background = 'bisque')
         self.canvas.pack(side = 'top', fill = 'both', expand =True, padx = 2, pady = 2)
 
 
@@ -34,7 +35,9 @@ class gameBoard(tk.Frame):
         '''Place a piece at the given row/column'''
         self.pieces[name] = (row, column)
         x0 = (column * self.size) + int(self.size/2)
+        print(x0)
         y0 = (row * self.size) + int(self.size/2)
+        print(y0)
         self.canvas.coords(name, x0, y0)
 
     def refresh(self, event):
@@ -83,7 +86,7 @@ imagedata = '''
 if __name__ == "__main__":
     root = tk.Tk()
     board = gameBoard(root)
-    board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
+    board.pack(side='top', fill='both', expand='true', padx=10, pady=5)
     player1 = tk.PhotoImage(data=imagedata)
-    board.addpiece("player1", player1, 0,0)
+    board.addpiece("player1", player1, 7,7)
     root.mainloop()

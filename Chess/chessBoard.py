@@ -27,10 +27,9 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.canvas.create_image(0,0, image = image, tags = (name, 'piece'), anchor = 'c')
         self.placepiece(name, row, column)
 
-    
+
     def placePiece(self, name, row, column):
-        self.pieces[name] = (row, column) #Map con una tupla
-        print (self.pieces)
+        #print (self.pieces)
         x0 = (column * self.size) + int(self.size/2)
         y0 = (row * self.size) + int(self.size/2)
         self.canvas.coords(name, x0, y0)
@@ -52,14 +51,17 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 color = self.color1 if color == self.color2 else self.color2
         for name in self.pieces:
             self.placePiece(name, self.pieces[name][0], self.pieces[name][1])
-        self.canvas.tagRaise("piece")
-        self.canvas.tagLower("square")
+        
+        self.canvas.tag_raise("piece")
+        self.canvas.tag_lower("square")
 
 
 
 if __name__ == "__main__":
     root = tk.Tk()
-    board = chessBoard(8, 8, 'white', 'black', 3, root)
-    board.placePiece('holu', 0, 1)
+    
+    board = chessBoard(8, 8, 'white', 'black', 64, root)
+    board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
+    #board.placePiece('holu', 0, 1)
     root.mainloop()
     # board = genBoard(8,8,'white','black')
