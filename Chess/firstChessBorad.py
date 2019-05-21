@@ -18,9 +18,16 @@ class gameBoard(tk.Frame):
         canvas_height = rows * size
         '''
         tk.Frame.__init__(self, parent)
+        
+
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = 600, height = 300, background = 'bisque')
         self.canvas.pack(side = 'top', fill = 'both', expand =True, padx = 2, pady = 2)
-
+        
+        # Crear el menu principal
+        self.menubarra = Menu(parent)
+        self.menubarra.add_command(label="Reglas", command=self.show_reglas)
+        self.menubarra.add_command(label="Salir", command=self.quit)
+        parent.config(menu=self.menubarra)
 
         #For the refresh
         self.canvas.bind('<Configure>', self.refresh)
@@ -60,7 +67,11 @@ class gameBoard(tk.Frame):
             #self.placepiece(name, self.pieces[name][0], self.pieces[name][1])
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
-
+        
+    def show_reglas(self):
+        print("Reglas")
+		
+		
 imagedata = '''
     R0lGODlhEAAQAOeSAKx7Fqx8F61/G62CILCJKriIHM+HALKNMNCIANKKANOMALuRK7WOVLWPV9eR
     ANiSANuXAN2ZAN6aAN+bAOCcAOKeANCjKOShANKnK+imAOyrAN6qSNaxPfCwAOKyJOKyJvKyANW0
