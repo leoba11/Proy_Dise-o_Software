@@ -32,7 +32,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
 
         self.pieces[name] = (row, column)
         
-        print(self.pieces)
+        #print(self.pieces)
         
         x0 = (column * self.size) + int(self.size/2)
         y0 = (row * self.size) + int(self.size/2)
@@ -58,7 +58,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 photo2 = tk.PhotoImage(file = defPath+"bk.gif")
                 self.addPiece("bk", photo2, 0, 4)
 
-    def printPieces(sel):
+    def printPieces(self):
         print(self.pieces)
     
     def refresh(self, event):
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     imgs = os.listdir(defPath)
 
     for piece in imgs:
-        
+
         #----------------Black ones---------------------
         if piece == "bb.gif": #Black Bishop 2
             photo = tk.PhotoImage(file = defPath+"bb.gif")
@@ -177,5 +177,8 @@ if __name__ == "__main__":
 
         #----------------White ones---------------------
     #----------------------GeneraTablero---------------------------------
+
+    board.printPieces()
+
     root.mainloop()
     
