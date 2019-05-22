@@ -19,9 +19,13 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         self.canvas.pack(side = 'top', fill = 'both', expand = True, padx = 2, pady = 2)
+        self.menubar = Menu(self)
+        self.menubar.add_command(label="Reglas")
+        self.master.config(menu=self.menubar)
 
         self.canvas.bind('<Configure>', self.refresh)
-    
+        
+        
     #Add a piece to the tab to be used
     #TODO: HAcer el algortimo de las piezas de ajedrez
     def addPiece(self, name, image, row, column):
