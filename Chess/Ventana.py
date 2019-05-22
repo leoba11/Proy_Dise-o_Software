@@ -14,11 +14,6 @@ class VentanaInicial(Frame):
         
         self.master.title("Ajedrez Diseno de Software")
         self.pack()
-        
-        # Crear el menu principal
-        self.menubarra = Menu(master)
-        self.menubarra.add_command(label="Reglas", command=self.hola)
-        master.config(menu=self.menubarra)
 
         self.labelito = Label(master, image=PhotoImage(file="avion.gif"))
         self.labelito.pack()
@@ -80,10 +75,7 @@ class VentanaInicial(Frame):
     # Subroutine that shows the error message box to the user
     def no_names(self):
         messagebox.showerror("Error!", "Falta uno o más nombres de jugador")
-        
-    def hola(self):
-        print("Hola")
-		
+
 def main():
     root = Tk()
     root.geometry("600x300")
