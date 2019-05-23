@@ -23,14 +23,15 @@ class Demo2:
         self.frame = tk.Frame(self.master)
         self.iconPath1 = 'images/che.jpg'
 
-        text1 = tk.Text(self.frame, height=37, width=68)
+        text1 = tk.Text(self.frame, height=39, width=67)
         im = PIL.Image.open(self.iconPath1)
+        im = im.resize((536,662))
         photo = PIL.ImageTk.PhotoImage(im)
         photo.image = photo
         text1.image_create(tk.END, image=photo)
         text1.pack(side=tk.LEFT)
 
-        text2 = tk.Text(self.frame, height=36, width=67)
+        text2 = tk.Text(self.frame, height=39, width=67)
         scroll = tk.Scrollbar(self.frame, command=text2.yview)
         text2.configure(yscrollcommand=scroll.set)
         text2.tag_configure('bold_italics', font=('Arial', 10, 'italic'))
