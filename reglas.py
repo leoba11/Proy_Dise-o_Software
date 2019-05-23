@@ -26,6 +26,7 @@ class Demo2:
         text1 = tk.Text(self.frame, height=37, width=68)
         im = PIL.Image.open(self.iconPath1)
         photo = PIL.ImageTk.PhotoImage(im)
+        photo.image = photo
         text1.image_create(tk.END, image=photo)
         text1.pack(side=tk.LEFT)
 
@@ -69,11 +70,13 @@ En otras palabras, no se puede saltar el turno para mover.
         """
         text2.insert(tk.END, quote1, 'color')
          
-        self.iconPath = 'images/ima2.png'
+        self.iconPath = 'images/ima2.png'   
+
         im2 = PIL.Image.open(self.iconPath)
         im2 = im2.resize((200,200))
-        photo2 = PIL.ImageTk.PhotoImage(im2)
-        text2.image_create(tk.END, image=photo2)
+        self.icon = PIL.ImageTk.PhotoImage(im2)
+        self.icon.image = self.icon  # <== this is were we anchor the img object
+        text2.image_create(tk.END, image=self.icon)
 
         text2.insert(tk.END, '\n')
 
