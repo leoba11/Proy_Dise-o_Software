@@ -43,12 +43,15 @@ class initialWindow(tk.Frame):
         self.entry2 = Entry(master, width=20, bg="white", justify = CENTER, font=("Helvetica", 16))
         self.entry2.place(relx=0.55, rely=0.5)
 		
+        #self.box = Text(master, width=25, height=4, wrap=WORD, background="white")
+        #self.box.place(relx=0.08, rely=0.75) To display players selection
+
         # Creates the button to submit the players names
         self.buttonPlay = Button(master, text="Jugar!!", bg="green", bd=5, justify=CENTER, width=10, font=("Helvetica", 16), command=self.button_click)
         self.buttonPlay.place(relx=0.65, rely=0.75)
 
         self.buttonQuit = Button(master, text="Salir!", bg="red", bd=5, justify=CENTER, width=10, font=("Helvetica",16), command=self.button_quit)
-        self.buttonQuit.place(relx=0.40, rely=0.75)        
+        self.buttonQuit.place(relx=0.40, rely=0.75)
 
     # Subroutine that extracts the players names and stores them into the class attributes 
     def button_click(self):
@@ -59,12 +62,13 @@ class initialWindow(tk.Frame):
         # Checks if the players names have been written in order to start the game
         if len(playerWhite_name) is 0 or len(playerBlack_name) is 0:
             self.no_names()
+        ''' To display players selection
         else:
             self.box.delete(0.0, END)
             self.box.insert(END, playerWhite_name + " juega con fichas blancas")
             self.box.insert(END, " y ")
             self.box.insert(END, playerBlack_name + " juega con fichas negras")
-            
+        '''    
         # Hides this window and shows the board
         time.sleep(1)
         self.master.withdraw()
@@ -76,7 +80,6 @@ class initialWindow(tk.Frame):
         board = chessBoard(8, 8, 'blue', 'green', 64, board_root)
         board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
         board.loadInitPosPiece()
-
         board.printPieces()
 
     def button_quit(self):

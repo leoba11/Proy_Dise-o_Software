@@ -3,7 +3,7 @@ import os
 from tkinter import *
 from genBoard import *
 
-from chessRules import chessRules
+from chessRules import *
 
 
 class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
@@ -33,12 +33,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
     #Agregar nueva ventana
     def new_window(self):
         self.newWindow = tk.Toplevel()
-        self.newWindow.title('REGLAS AJEDREZ')
+        self.newWindow.title('CHESS RULES')
         self.app = chessRules(self.newWindow)
-
+        #self.refresh(self.refresh)
 
     #Add a piece to the tab to be used
-    #TODO: HAcer el algortimo de las piezas de ajedrez
     def addPiece(self, name, image, row, column):
         self.canvas.create_image(0,0, image = image, tags = (name, 'piece'), anchor = 'c')
         self.placePiece(name, row, column)
@@ -165,9 +164,9 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
 
-        #for name in self.pieces:
+        for name in self.pieces:
             #print ("entré al for de refresh")
-            #self.placePiece(name, self.pieces[name][0], self.pieces[name][1]) #Add the piece
+            self.placePiece(name, self.pieces[name][0], self.pieces[name][1]) #Add the piece
         
         
 
@@ -175,7 +174,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.canvas.tag_lower("square")
 
 
-
+'''
 if __name__ == "__main__":
     
     #----------------------GeneraTablero---------------------------------
@@ -183,7 +182,7 @@ if __name__ == "__main__":
     board = chessBoard(8, 8, 'blue', 'green', 64, root)
     board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
     #board.loadInitPosPiece()
-    '''
+    
     path = os.getcwd()  
     defPath = path + "/images/"
     imgs = os.listdir(defPath)
@@ -265,9 +264,4 @@ if __name__ == "__main__":
 
         #----------------White ones---------------------
         '''
-    #----------------------GeneraTablero---------------------------------
-
-    board.printPieces()
-
-    root.mainloop()
     

@@ -26,9 +26,3 @@ class genBoard(object):
 
     def boardType():
         print("Type")
-
-
-if __name__ == "__main__":
-    board = genBoard(8,8,'white','black')
-    print(board.rows)
-    board.addPiece()

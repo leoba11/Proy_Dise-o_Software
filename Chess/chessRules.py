@@ -1,10 +1,13 @@
 import tkinter as tk
+#from genRules import *
 
 import PIL.Image
 import PIL.ImageTk
 
-class chessRules:
+class chessRules():
+
     def __init__(self, master):
+        #genericRules.__init__(self, textType, game)
         self.master = master
         self.frame = tk.Frame(self.master)
         self.iconPath1 = 'images/che.jpg'
