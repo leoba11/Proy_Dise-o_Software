@@ -5,6 +5,9 @@ from chessBoard import chessBoard
 import os
 import time
 
+import PIL.Image
+import PIL.ImageTk
+
 class VentanaInicial(Frame):
 	
     # Variables to store the players names
@@ -18,8 +21,12 @@ class VentanaInicial(Frame):
         self.master.title("Ajedrez Diseno de Software")
         self.pack()
 
-        self.labelito = Label(master, image=PhotoImage(file="avion.gif"))
-        self.labelito.pack()
+        # im2 = PIL.Image.open('images/ajedrez.jpg')
+        # self.icon = PIL.ImageTk.PhotoImage(im2)
+        # self.icon.image = self.icon 
+
+        # self.labelito = Label(master, image=self.icon)
+        # self.labelito.pack()
 
         # Creates the labels with the Entry boxes for the white and black pieces players
         self.lbl1 = Label(master, text="Jugador con fichas blancas:", width=25, anchor=NW, fg="white",font=("Helvetica", 16))
@@ -35,10 +42,6 @@ class VentanaInicial(Frame):
 
         self.entry2 = Entry(master, width=20, bg="white", justify = CENTER, font=("Helvetica", 16))
         self.entry2.place(relx=0.55, rely=0.5)
-        
-        # Creates a text box
-        self.box = Text(master, width=25, height=4, wrap=WORD, background="white")
-        self.box.place(relx=0.08, rely=0.75)
 		
         # Creates the button to submit the players names
         self.buttonPlay = Button(master, text="Jugar!!", bg="green", bd=5, justify=CENTER, width=10, font=("Helvetica", 16), command=self.button_click)

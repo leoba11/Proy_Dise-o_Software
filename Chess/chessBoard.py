@@ -3,6 +3,8 @@ import os
 from tkinter import *
 from genBoard import *
 
+from chessRules import Reglas
+
 
 class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
     
@@ -19,13 +21,22 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         self.canvas.pack(side = 'top', fill = 'both', expand = True, padx = 2, pady = 2)
-        self.menubar = Menu(self)
-        self.menubar.add_command(label="Reglas")
-        self.master.config(menu=self.menubar)
+
+        self.frame = tk.Frame(self)
+
+        self.button1 = tk.Button(self.frame, text = 'Ver Reglas', width = 25, command = self.new_window)
+        self.button1.pack()
+        self.frame.pack()
 
         self.canvas.bind('<Configure>', self.refresh)
         
-        
+    #Agregar nueva ventana
+    def new_window(self):
+        self.newWindow = tk.Toplevel()
+        self.newWindow.title('REGLAS AJEDREZ')
+        self.app = Reglas(self.newWindow)
+
+
     #Add a piece to the tab to be used
     #TODO: HAcer el algortimo de las piezas de ajedrez
     def addPiece(self, name, image, row, column):
