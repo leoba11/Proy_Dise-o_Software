@@ -1,5 +1,3 @@
-
-
 class genBoard(object):
 
     #Constructor

@@ -3,7 +3,7 @@ import os
 from tkinter import *
 from genBoard import *
 
-from chessRules import Reglas
+from chessRules import chessRules
 
 
 class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
@@ -34,7 +34,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
     def new_window(self):
         self.newWindow = tk.Toplevel()
         self.newWindow.title('REGLAS AJEDREZ')
-        self.app = Reglas(self.newWindow)
+        self.app = chessRules(self.newWindow)
 
 
     #Add a piece to the tab to be used

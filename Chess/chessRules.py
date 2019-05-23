@@ -3,7 +3,7 @@ import tkinter as tk
 import PIL.Image
 import PIL.ImageTk
 
-class Reglas:
+class chessRules:
     def __init__(self, master):
         self.master = master
         self.frame = tk.Frame(self.master)
