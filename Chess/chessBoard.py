@@ -5,6 +5,12 @@ from genBoard import *
 
 from chessRules import *
 
+from caballo import Caballo
+from peon import Peon
+from reina import Reina
+from rey import Rey
+from torre import Torre
+
 
 class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
     
@@ -23,7 +29,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.canvas.pack(side = 'top', fill = 'both', expand = True, padx = 2, pady = 2)
 
         self.frame = tk.Frame(self)
-
         self.button1 = tk.Button(self.frame, text = 'Ver Reglas', width = 25, command = self.new_window)
         self.button1.pack()
         self.frame.pack()
@@ -36,6 +41,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.newWindow.title('CHESS RULES')
         self.app = chessRules(self.newWindow)
         #self.refresh(self.refresh)
+
 
     #Add a piece to the tab to be used
     def addPiece(self, name, image, row, column):

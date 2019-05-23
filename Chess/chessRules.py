@@ -1,10 +1,11 @@
 import tkinter as tk
-#from genRules import *
+# from genRules import *
 
 import PIL.Image
 import PIL.ImageTk
 
 class chessRules():
+
 
     def __init__(self, master):
         #genericRules.__init__(self, textType, game)
@@ -121,8 +122,8 @@ puede hacer ningún movimiento legal y su rey no esta en
 jaque. Esto finaliza inmediatamente el juego.
         """
         text2.insert(tk.END, quote4, 'color')
-
         text2.pack(side=tk.LEFT)
         scroll.pack(side=tk.RIGHT, fill=tk.Y)
        
         self.frame.pack()
+
