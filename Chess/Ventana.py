@@ -189,4 +189,5 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.geometry("600x300")
     app = VentanaInicial(root)#.pack()
+    
     root.mainloop()
