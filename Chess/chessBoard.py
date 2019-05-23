@@ -43,24 +43,97 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.canvas.coords(name, x0, y0)
    
     def loadInitPosPiece(self):
-
         path = os.getcwd()
         defPath = path + "/images/"
         imgs = os.listdir(defPath)
 
         for piece in imgs:
-            if piece == "bb.gif": #Black Bishop
-                photo = tk.PhotoImage(file = defPath+"bb.gif")
-                self.addPiece("bbl", photo, 0, 1)
-                self.addPiece("bbr", photo, 0, 6)
 
-            if piece == "br.gif": #Balck Rook
-                photo1 = tk.PhotoImage(file = defPath+"br.gif")
-                self.addPiece("br", photo1, 0, 0)
+            #----------------Black ones---------------------
+            if piece == "bb.gif": #Black Bishop 2
+                photo = tk.PhotoImage(file = defPath+"bb.gif")
+                photo.image = photo
+                self.addPiece("bbr", photo, 0, 1)
+                self.addPiece("bbl", photo, 0, 6)
 
             if piece == "bk.gif": #Black King
                 photo2 = tk.PhotoImage(file = defPath+"bk.gif")
+                photo2.image = photo2
                 self.addPiece("bk", photo2, 0, 4)
+
+            if piece == "bn.gif": #Black Knigth 2 
+                photo3 = tk.PhotoImage(file = defPath+"bn.gif")
+                photo3.image = photo3
+                self.addPiece("bnl", photo3, 0, 2)     
+                self.addPiece("bnr", photo3, 0, 5)
+
+            if piece == "bp.gif": #Black Pawn 8
+                photo4 = tk.PhotoImage(file = defPath+"bp.gif")
+                photo4.image = photo4
+                self.addPiece("bp", photo4, 1, 0)     
+                self.addPiece("bp1", photo4, 1, 1)
+                self.addPiece("bp2", photo4, 1, 2)
+                self.addPiece("bp3", photo4, 1, 3)
+                self.addPiece("bp4", photo4, 1, 4)
+                self.addPiece("bp5", photo4, 1, 5)
+                self.addPiece("bp6", photo4, 1, 6)
+                self.addPiece("bp7", photo4, 1, 7)                
+
+            if piece == "br.gif": #Balck Rook 2
+                photo5 = tk.PhotoImage(file = defPath+"br.gif")
+                photo5.image = photo5
+                self.addPiece("brl", photo5, 0, 0)
+                self.addPiece("brr", photo5, 0, 7)
+
+            if piece == "bq.gif": #Balck Queen 
+                photo6 = tk.PhotoImage(file = defPath+"bq.gif")
+                photo6.image = photo6
+                self.addPiece("bq", photo6, 0, 3)      
+
+            #----------------Black ones---------------------
+            #----------------White ones---------------------
+        
+            if piece == "wb.gif": #White Bishop 2
+                photo7 = tk.PhotoImage(file = defPath+"wb.gif")
+                photo7.image = photo7
+                self.addPiece("wbr", photo7, 7, 1)
+                self.addPiece("wbl", photo7, 7, 6)
+
+            if piece == "wk.gif": #White King
+                photo8 = tk.PhotoImage(file = defPath+"wk.gif")
+                photo8.image = photo8
+                self.addPiece("wk", photo8, 7, 4)
+
+            if piece == "wn.gif": #White Knigth 2 
+                photo9 = tk.PhotoImage(file = defPath+"wn.gif")
+                photo9.image = photo9
+                self.addPiece("wnl", photo9, 7, 2)     
+                self.addPiece("wnr", photo9, 7, 5)
+
+            if piece == "wp.gif": #white Pawn 8
+                photo10 = tk.PhotoImage(file = defPath+"wp.gif")
+                photo10.image = photo10
+                self.addPiece("wp", photo10, 6, 0)     
+                self.addPiece("wp1", photo10, 6, 1)
+                self.addPiece("wp2", photo10, 6, 2)
+                self.addPiece("wp3", photo10, 6, 3)
+                self.addPiece("wp4", photo10, 6, 4)
+                self.addPiece("wp5", photo10, 6, 5)
+                self.addPiece("wp6", photo10, 6, 6)
+                self.addPiece("wp7", photo10, 6, 7)                
+
+            if piece == "wr.gif": #White Rook 2
+                photo11 = tk.PhotoImage(file = defPath+"wr.gif")
+                photo11.image = photo11
+                self.addPiece("wrl", photo11, 7, 0)
+                self.addPiece("wrr", photo11, 7, 7)
+
+            if piece == "wq.gif": #White
+                photo12 = tk.PhotoImage(file = defPath+"wq.gif")
+                photo12.image = photo12
+                self.addPiece("wq", photo12, 7, 3) 
+
+            #----------------White ones---------------------
 
     def printPieces(self):
         print(self.pieces)
@@ -99,7 +172,7 @@ if __name__ == "__main__":
     board = chessBoard(8, 8, 'blue', 'green', 64, root)
     board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
     #board.loadInitPosPiece()
-    
+    '''
     path = os.getcwd()  
     defPath = path + "/images/"
     imgs = os.listdir(defPath)
@@ -180,6 +253,7 @@ if __name__ == "__main__":
             board.addPiece("wq", photo12, 7, 3) 
 
         #----------------White ones---------------------
+        '''
     #----------------------GeneraTablero---------------------------------
 
     board.printPieces()

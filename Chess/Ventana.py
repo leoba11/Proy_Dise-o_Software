@@ -5,7 +5,7 @@ from chessBoard import chessBoard
 import os
 import time
 
-class VentanaInicial(Frame):
+class VentanaInicial(tk.Frame):
 	
     # Variables to store the players names
     playerWhite_name = "" 
@@ -72,7 +72,8 @@ class VentanaInicial(Frame):
         board_root = Toplevel(self.master)
         board = chessBoard(8, 8, 'blue', 'green', 64, board_root)
         board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
-        
+        board.loadInitPosPiece()
+        '''
         path = os.getcwd()
         defPath = path + "/images/"
         imgs = os.listdir(defPath)
@@ -116,12 +117,11 @@ class VentanaInicial(Frame):
                 board.addPiece("brr", photo5, 0, 7)
 
             if piece == "bq.gif": #Balck Queen 
-                photo6 = tk.PhotoImage(file = defPath+"br.gif")
+                photo6 = tk.PhotoImage(file = defPath+"bq.gif")
                 photo6.image = photo6
                 board.addPiece("bq", photo6, 0, 3)      
 
             #----------------Black ones---------------------
-
             #----------------White ones---------------------
         
             if piece == "wb.gif": #White Bishop 2
@@ -160,23 +160,17 @@ class VentanaInicial(Frame):
                 board.addPiece("wrr", photo11, 7, 7)
 
             if piece == "wq.gif": #White
-                photo12 = tk.PhotoImage(file = defPath+"wr.gif")
+                photo12 = tk.PhotoImage(file = defPath+"wq.gif")
                 photo12.image = photo12
                 board.addPiece("wq", photo12, 7, 3) 
 
             #----------------White ones---------------------
-        #----------------------GeneraTablero---------------------------------
-
+        '''
         board.printPieces()
-        
-        
-        
-        
-        
-        
         
 
     # Subroutine that closes the complete window
+
     def button_quit(self):
         self.quit()
 
@@ -184,11 +178,15 @@ class VentanaInicial(Frame):
     def no_names(self):
         messagebox.showerror("Error!", "Falta uno o más nombres de jugador")
 
+'''
 def main():
     root = Tk()
     root.geometry("600x300")
     app = VentanaInicial(root)#.pack()
     root.mainloop()
-
+'''
 if __name__ == '__main__':
-    main()
+    root = tk.Tk()
+    root.geometry("600x300")
+    app = VentanaInicial(root)#.pack()
+    root.mainloop()
