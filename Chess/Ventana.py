@@ -82,20 +82,24 @@ class VentanaInicial(Frame):
             #----------------Black ones---------------------
             if piece == "bb.gif": #Black Bishop 2
                 photo = tk.PhotoImage(file = defPath+"bb.gif")
+                photo.image = photo
                 board.addPiece("bbr", photo, 0, 1)
                 board.addPiece("bbl", photo, 0, 6)
 
             if piece == "bk.gif": #Black King
                 photo2 = tk.PhotoImage(file = defPath+"bk.gif")
+                photo2.image = photo2
                 board.addPiece("bk", photo2, 0, 4)
 
             if piece == "bn.gif": #Black Knigth 2 
                 photo3 = tk.PhotoImage(file = defPath+"bn.gif")
+                photo3.image = photo3
                 board.addPiece("bnl", photo3, 0, 2)     
                 board.addPiece("bnr", photo3, 0, 5)
 
             if piece == "bp.gif": #Black Pawn 8
                 photo4 = tk.PhotoImage(file = defPath+"bp.gif")
+                photo4.image = photo4
                 board.addPiece("bp", photo4, 1, 0)     
                 board.addPiece("bp1", photo4, 1, 1)
                 board.addPiece("bp2", photo4, 1, 2)
@@ -107,11 +111,13 @@ class VentanaInicial(Frame):
 
             if piece == "br.gif": #Balck Rook 2
                 photo5 = tk.PhotoImage(file = defPath+"br.gif")
+                photo5.image = photo5
                 board.addPiece("brl", photo5, 0, 0)
                 board.addPiece("brr", photo5, 0, 7)
 
             if piece == "bq.gif": #Balck Queen 
                 photo6 = tk.PhotoImage(file = defPath+"br.gif")
+                photo6.image = photo6
                 board.addPiece("bq", photo6, 0, 3)      
 
             #----------------Black ones---------------------
@@ -120,20 +126,24 @@ class VentanaInicial(Frame):
         
             if piece == "wb.gif": #White Bishop 2
                 photo7 = tk.PhotoImage(file = defPath+"wb.gif")
+                photo7.image = photo7
                 board.addPiece("wbr", photo7, 7, 1)
                 board.addPiece("wbl", photo7, 7, 6)
 
             if piece == "wk.gif": #White King
                 photo8 = tk.PhotoImage(file = defPath+"wk.gif")
+                photo8.image = photo8
                 board.addPiece("wk", photo8, 7, 4)
 
             if piece == "wn.gif": #White Knigth 2 
                 photo9 = tk.PhotoImage(file = defPath+"wn.gif")
+                photo9.image = photo9
                 board.addPiece("wnl", photo9, 7, 2)     
                 board.addPiece("wnr", photo9, 7, 5)
 
             if piece == "wp.gif": #white Pawn 8
                 photo10 = tk.PhotoImage(file = defPath+"wp.gif")
+                photo10.image = photo10
                 board.addPiece("wp", photo10, 6, 0)     
                 board.addPiece("wp1", photo10, 6, 1)
                 board.addPiece("wp2", photo10, 6, 2)
@@ -145,11 +155,13 @@ class VentanaInicial(Frame):
 
             if piece == "wr.gif": #White Rook 2
                 photo11 = tk.PhotoImage(file = defPath+"wr.gif")
+                photo11.image = photo11
                 board.addPiece("wrl", photo11, 7, 0)
                 board.addPiece("wrr", photo11, 7, 7)
 
             if piece == "wq.gif": #White
                 photo12 = tk.PhotoImage(file = defPath+"wr.gif")
+                photo12.image = photo12
                 board.addPiece("wq", photo12, 7, 3) 
 
             #----------------White ones---------------------
