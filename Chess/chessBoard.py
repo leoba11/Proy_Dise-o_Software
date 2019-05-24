@@ -63,8 +63,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             if piece == "bb.gif": #Black Bishop 2
                 photo = tk.PhotoImage(file = defPath+"bb.gif")
                 photo.image = photo
-                self.addPiece("bbr", photo, 0, 1)
-                self.addPiece("bbl", photo, 0, 6)
+                self.addPiece("bbr", photo, 0, 2)
+                self.addPiece("bbl", photo, 0, 5)
 
             if piece == "bk.gif": #Black King
                 photo2 = tk.PhotoImage(file = defPath+"bk.gif")
@@ -74,8 +74,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             if piece == "bn.gif": #Black Knigth 2 
                 photo3 = tk.PhotoImage(file = defPath+"bn.gif")
                 photo3.image = photo3
-                self.addPiece("bnl", photo3, 0, 2)     
-                self.addPiece("bnr", photo3, 0, 5)
+                self.addPiece("bnl", photo3, 0, 1)     
+                self.addPiece("bnr", photo3, 0, 6)
 
             if piece == "bp.gif": #Black Pawn 8
                 photo4 = tk.PhotoImage(file = defPath+"bp.gif")
@@ -106,8 +106,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             if piece == "wb.gif": #White Bishop 2
                 photo7 = tk.PhotoImage(file = defPath+"wb.gif")
                 photo7.image = photo7
-                self.addPiece("wbr", photo7, 7, 1)
-                self.addPiece("wbl", photo7, 7, 6)
+                self.addPiece("wbr", photo7, 7, 2)
+                self.addPiece("wbl", photo7, 7, 5)
 
             if piece == "wk.gif": #White King
                 photo8 = tk.PhotoImage(file = defPath+"wk.gif")
@@ -117,8 +117,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             if piece == "wn.gif": #White Knigth 2 
                 photo9 = tk.PhotoImage(file = defPath+"wn.gif")
                 photo9.image = photo9
-                self.addPiece("wnl", photo9, 7, 2)     
-                self.addPiece("wnr", photo9, 7, 5)
+                self.addPiece("wnl", photo9, 7, 1)     
+                self.addPiece("wnr", photo9, 7, 6)
 
             if piece == "wp.gif": #white Pawn 8
                 photo10 = tk.PhotoImage(file = defPath+"wp.gif")
