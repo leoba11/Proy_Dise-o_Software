@@ -69,6 +69,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             if piece == "bb.gif": #Black Bishop 2
                 photo = tk.PhotoImage(file = defPath+"bb.gif")
                 photo.image = photo
+
+                # im = PIL.Image.open('images/bb.jpg')
+                # im = im.resize((50,50))
+                # photo = PIL.ImageTk.PhotoImage(im)
+                # photo.image = photo
+                
                 self.addPiece("bbr", photo, 0, 1)
                 self.addPiece("bbl", photo, 0, 6)
 
