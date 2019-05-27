@@ -14,3 +14,6 @@ class Reina(Pieza):
 		
 	def canMove(self):
 		pass
+		
+	def getImage(self):
+		return self.image
