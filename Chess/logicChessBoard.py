@@ -28,12 +28,10 @@ class logicChessBoard():
         defPath = path + "/images/"
         imgs = os.listdir(defPath)
 
-        black_king = Rey('b', 0, 4, defPath + "bk.gif")
-        black_king.image.image = black_king.image
+        self.black_king = Rey('b', 0, 4, defPath + "bk.gif")
         piecesforLogic[0] = (black_king, (0,4))
 
-        black_queen = Reina('b', 0,3, defPath + "bq.gif")
-        black_queen.image.image = black_queen.image
+        self.black_queen = Reina('b', 0,3, defPath + "bq.gif")
         piecesforLogic[1] = (black_queen, (0,3))
 
 
