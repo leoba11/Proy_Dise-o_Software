@@ -164,6 +164,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         white_pawn8 = Peon('w', 6, 7, defPath + "wp.gif")
         white_pawn8.image.image = white_pawn8.image
         self.addPiece("wp7", white_pawn8.image, white_pawn8.getCoordX(), white_pawn8.getCoordY())
+        return self.pieces
+        
         '''for piece in imgs:
 
             #----------------Black ones---------------------
