@@ -5,6 +5,7 @@ from reina import *
 from rey import *
 from torre import *
 from chessBoard import *
+from tkinter import *
 
 class logicChessBoard():
 
