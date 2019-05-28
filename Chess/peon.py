@@ -8,10 +8,61 @@ class Peon(Pieza):
 		self.coordX = coordX
 		self.coordY = coordY
 		self.image = PhotoImage(file=imagen_archivo)
+		self.noMove = True
         
 	def printCoords(self):
 		print("Color es: "+ self.getColor() + " y coordenadas(x,y) son: " + str(self.getCoordX()) + " " + str(self.getCoordY()))
 		
-	def canMove(self):
-		pass
+	# Function that checks if the pawn is allowed to do the double-step
+	def noFirstMove(self):
+		if (self.getColor() == 'b' and self.getCoordY() == 1 and self.noMove == True):
+			return True
+		if (self.getColor() == 'w' and self.getCoordY() == 6 and self.noMove == True):
+			return True
+		return False
+		
+		
+    # Checks if pawn can move, and returns the coordinates of possible moves for the pawn
+	def canMove(self, chessBoard):
+		actual_coordX = self.getCoordX()
+		actual_coordY = self.getCoordY()
+		
+		# Creates an empty list
+		possible_moves = []
+		
+		# Sets the direction of the pawn, checking if it is a black one or a white one
+		direction = 1 if (self.getColor() == 'b') else -1
+		
+		# Checks if the board at the position requested is empty or not
+		if ( self.noFirstMove() and chessBoard.isEmpty(actual_coordX, actual_coordY + (2 * direction)) ) :
+			possible_moves.append((actual_coordX, actual_coordY + direction))
+			possible_moves.append((actual_coordX, actual_coordY + (direction * 2)))
+			
+		else:
+			if ( chessBoard.isEmpty(actual_coordX, actual_coordY + direction) ) :
+				possible_moves.append((actual_coordX, actual_coordY + direction))
+		
+		# Checks if it can moves to a position for eating another piece (left)			
+		if ( chessBoard.isEnemy(self.getColor(), actual_coordX - 1, actual_coordY + direction) ):
+			possible_moves.append((actual_coordX - 1, actual_coordY + direction))
+			
+		# Checks if it can moves to a position for eating another piece (right)			
+		if ( chessBoard.isEnemy(self.getColor(), actual_coordX + 1, actual_coordY + direction) ):
+			possible_moves.append((actual_coordX + 1, actual_coordY + direction))
+			
+		# It has to be checked if the pawn makes it to the final, in order to convert it into a Queen
+		
+		
+		return possible_moves
+		
+	# Makes the pawn movement
+	def movePiece(self, newCoordinates):
+		# Checks and sets the no movement variable
+		if (noFirstMove()):
+			self.noMove = False
+		self.setCoordX(newCoordinates[0])
+		self.setCoordY(newCoordinates[1])
 
+root = Tk()
+peoncito = Peon('b', 1, 4, "images/bp.gif")
+peoncito.printCoords()
