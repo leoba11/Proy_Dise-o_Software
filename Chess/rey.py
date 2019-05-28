@@ -73,7 +73,7 @@ class Rey(Pieza):
 				possible_moves.append((actual_coordX + coordsX[index], actual_coordY + coordsY[index]))
 				
 			# Checks if the position is occupied by an enemy
-			if ( chessBoard.isEnemy(actual_coordX + coordsX[index], actual_coordY + coordsY[index]) ):
+			if ( chessBoard.isEnemy(self.getColor(), actual_coordX + coordsX[index], actual_coordY + coordsY[index]) ):
 				possible_moves.append((actual_coordX + coordsX[index], actual_coordY  + coordsY[index]))
 		
 		# Calls to function for checking castling
@@ -91,5 +91,5 @@ class Rey(Pieza):
 		self.setCoordY(newCoordinates[1])
 		
 root = Tk()
-reicito = Rey('b', 4, 0, "images/bk.gif")
+reicito = Rey('b', 0, 4, "images/bk.gif")
 reicito.printCoords()
