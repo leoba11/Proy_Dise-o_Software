@@ -42,18 +42,44 @@ class chessBoard(genBoard): #Hereda de tk y genBoard
 		
         if(not (math.isnan(self.tablero[coordX][coordY]))):
             self.tablero[coordX][coordY] = pieza
+            
+            
+            
+    def isEmpty(self, coordX, coordY):
+		
+        if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
+            return False
+        else:
+            if(type(self.tablero[coordX][coordY]) != type(14)):
+                return False
+            else:
+                return True
+			
+			
+    def isEnemy(self, color, coordX, coordY):
+		
+        if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
+            return False
+        if(type(self.tablero[coordX][coordY]) != type(14)):
+            return False
+        else:
+            if (self.tablero[coordX][coordY].getColor() == color):
+                return True
+            else:
+                return False
+		
 		
 root = Tk()
-tablerito = chessBoard(6, 6, 'blue', 'green', 36, '')
+tablerito = chessBoard(8, 8, 'blue', 'green', 64, '')
 
 reicito = Rey('b', 0, 4, "images/bk.gif")
 caballito = Caballo('b', 0, 6, "images/bn.gif")
 torrecita = Torre('b', 0, 7, "images/br.gif")
-peoncito = Peon('b', 1, 4, "images/bp.gif")
+peoncito = Peon('w', 1, 4, "images/bp.gif")
 alfilito = Alfil('b', 0, 5, "images/bb.gif")
 reinita = Reina('b', 0, 3, "images/bq.gif")
 
-
+tablerito.add_piece(peoncito, peoncito.getCoordX(), peoncito.getCoordY())
 tablerito.add_piece(alfilito, alfilito.getCoordX(), alfilito.getCoordY())
 
 print(tablerito.tablero)
@@ -64,5 +90,9 @@ for i in tablerito.tablero:
 	for j in i:
 		print(j, )
 	print()
+
+possible_moves = tablerito.tablero[0][5].canMove(tablerito)
+
+print(possible_moves)
 
 input()
