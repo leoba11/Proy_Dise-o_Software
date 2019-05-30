@@ -42,6 +42,6 @@ class Caballo(Pieza):
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
 		
-root = Tk()
+'''root = Tk()
 caballito = Caballo('b', 0, 6, "images/bn.gif")
-caballito.printCoords()
+caballito.printCoords()'''

@@ -47,7 +47,10 @@ class Alfil(Pieza):
 		
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
+		
+	def getName(self):
+		return "alfil"
 
-root = Tk()
+'''root = Tk()
 alfilito = Alfil('b', 0, 5, "images/bb.gif")
-alfilito.printCoords()
+alfilito.printCoords()'''

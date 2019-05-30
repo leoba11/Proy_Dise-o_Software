@@ -51,6 +51,6 @@ class Reina(Pieza):
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
 
-root = Tk()
+'''root = Tk()
 reinita = Reina('b', 0, 3, "images/bq.gif")
-reinita.printCoords()
+reinita.printCoords()'''

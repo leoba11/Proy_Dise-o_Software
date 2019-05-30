@@ -63,7 +63,7 @@ class Torre(Pieza):
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
 		
-root = Tk()
+'''root = Tk()
 torrecita = Torre('b', 0, 7, "images/br.gif")
-torrecita.printCoords()
+torrecita.printCoords()'''
 		

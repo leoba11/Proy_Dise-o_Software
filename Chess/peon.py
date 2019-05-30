@@ -63,6 +63,7 @@ class Peon(Pieza):
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
 
+'''
 root = Tk()
 peoncito = Peon('b', 1, 4, "images/bp.gif")
-peoncito.printCoords()
+peoncito.printCoords()'''

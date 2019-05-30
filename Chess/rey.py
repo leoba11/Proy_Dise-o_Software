@@ -90,6 +90,6 @@ class Rey(Pieza):
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
 		
-root = Tk()
+'''root = Tk()
 reicito = Rey('b', 0, 4, "images/bk.gif")
-reicito.printCoords()
+reicito.printCoords()'''
