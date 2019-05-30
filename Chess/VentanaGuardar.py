@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import time
-#from logicChessBoard import *
+from logicChessBoard import *
 
 class VentanaGuardar(Frame):
 
