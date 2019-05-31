@@ -26,6 +26,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         # Relates the mouse clicked to a function called piece_clicked
         self.canvas.bind("<Button-1>", self.piece_clicked)
         
+        self.canvas.bind("<ButtonRelease-1>", self.piece_dropped)
+        
         self.canvas.pack(side = 'top', fill = 'both', expand = True, padx = 2, pady = 2)
 
         self.frame = tk.Frame(self)
@@ -41,6 +43,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
         print ("clicked at", event.x, event.y, coord_x, coord_y)
+        
+    # Relates the dropped cell of the board to a duple of coordinates
+    def piece_dropped(self, event):
+        coord_x = int((event.y / self.size))
+        coord_y = int((event.x / self.size))
+        print ("dropped at", event.x, event.y, coord_x, coord_y)
         
         
     #Agregar nueva ventana
