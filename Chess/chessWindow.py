@@ -79,7 +79,7 @@ class initialWindow(tk.Frame):
         board_root = Toplevel(self.master)
         board = chessBoard(8, 8, "#F3D484", "#A05D06", 64, board_root)
         board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
-        #board.loadInitPosPiece()
+        board.loadInitPosPiece()
         board.printPieces()
 
     def button_quit(self):
