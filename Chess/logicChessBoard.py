@@ -8,7 +8,7 @@ from chessBoard import *
 from tkinter import *
 
 #Se inicializa en 0's para evitar problemas
-#Variables globales
+#Variables globalesda
 piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
 board = []
 
