@@ -27,6 +27,10 @@ class Pieza(metaclass=ABCMeta):
 	@abstractmethod
 	def canMove(self):
 		pass
+	
+	@abstractmethod
+	def movePiece(self, newCoordinates):
+		pass
 		
 		
 ##piece = Pieza('b', 1, 6)
