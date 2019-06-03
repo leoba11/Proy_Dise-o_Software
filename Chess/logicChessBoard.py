@@ -10,6 +10,7 @@ from tkinter import *
 #Se inicializa en 0's para evitar problemas
 #Variables globales
 piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
+board = []
 
 class logicChessBoard():
 
@@ -18,6 +19,7 @@ class logicChessBoard():
         self.cols = cols
 
     def drawBoard(self):
+        global board
         board = []
         for i in range(self.rows):
             row = []
@@ -134,12 +136,9 @@ class logicChessBoard():
         #--------------------White Empire-----------------------------
         return piecesforLogic
 
-    def prueba(self):
-        global piecesforLogic
-        print (piecesforLogic[0][1][0])
-
     def putPiecesOnBoard(self): #Saca las piezas del vector y los
         global piecesforLogic
+        global board 
         board = self.drawBoard()
 
         for i in range(0, len(piecesforLogic)):
@@ -149,11 +148,39 @@ class logicChessBoard():
         
         return board
 
+    def game(self):
+        global piecesforLogic
+        piecesforLogic[0][1][0].append(5)
+        piecesforLogic[0][1][0].append(5)
+        
+
+    def prueba(self):
+        global piecesforLogic
+        print("Pimer Campo: ", piecesforLogic[0])
+        print("Segundo Campo [0]: ", piecesforLogic[0][0])
+        print("Segundo Campo [1]: ", piecesforLogic[0][1])
+        #print("tercer Campo [0][0]: ", piecesforLogic[0][0][0]) #no usar
+        #print("tercer Campo [0][1]: ", piecesforLogic[0][0][1]) #No usar
+        print("tercer Campo [1][0]: ", piecesforLogic[0][1][0])
+        print("tercer Campo [1][1]: ", piecesforLogic[0][1][1])
+
+    def refresh(self):
+        global piecesforLogic
+        global board
+        for i in range(0, len(piecesforLogic)):
+            cx=piecesforLogic[i][1][0]
+            cy=piecesforLogic[i][1][1]
+            board[cx][cy] = piecesforLogic[i]
 
 if __name__ == '__main__':
-    board = logicChessBoard()
+    gboard = logicChessBoard()
 
-    print(board.loadPieces())
+    print(gboard.loadPieces())
     print("=====================================")
-    print(board.putPiecesOnBoard())
+    print(gboard.putPiecesOnBoard())
+    print("=====================================")
+
+    #gboard.prueba()
+    gboard.game()
+    #print(gboard.refresh())
 
