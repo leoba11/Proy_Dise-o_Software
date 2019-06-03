@@ -63,7 +63,7 @@ class chessBoard(genBoard): #Hereda de tk y genBoard
         if(type(self.tablero[coordX][coordY]) != type(14)):
             return False
         else:
-            if (self.tablero[coordX][coordY].getColor() == color):
+            if (self.tablero[coordX][coordY].getColor() != color):
                 return True
             else:
                 return False
@@ -75,12 +75,15 @@ tablerito = chessBoard(8, 8, 'blue', 'green', 64, '')
 reicito = Rey('b', 0, 4, "images/bk.gif")
 caballito = Caballo('b', 0, 6, "images/bn.gif")
 torrecita = Torre('b', 0, 7, "images/br.gif")
-peoncito = Peon('w', 1, 4, "images/bp.gif")
+peoncito = Peon('b', 1, 4, "images/bp.gif")
 alfilito = Alfil('b', 0, 5, "images/bb.gif")
 reinita = Reina('b', 0, 3, "images/bq.gif")
 
 tablerito.add_piece(peoncito, peoncito.getCoordX(), peoncito.getCoordY())
 tablerito.add_piece(alfilito, alfilito.getCoordX(), alfilito.getCoordY())
+tablerito.add_piece(reinita, reinita.getCoordX(), reinita.getCoordY())
+tablerito.add_piece(reicito, reicito.getCoordX(), reicito.getCoordY())
+tablerito.add_piece(caballito, caballito.getCoordX(), caballito.getCoordY())
 
 print(tablerito.tablero)
 
@@ -92,6 +95,16 @@ for i in tablerito.tablero:
 	print()
 
 possible_moves = tablerito.tablero[0][5].canMove(tablerito)
+
+print(possible_moves)
+
+possible_moves = tablerito.tablero[0][3].canMove(tablerito)
+
+print(possible_moves)
+
+possible_moves = tablerito.tablero[0][6].canMove(tablerito)
+
+print('')
 
 print(possible_moves)
 

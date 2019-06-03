@@ -22,10 +22,10 @@ class Caballo(Pieza):
 		possible_moves = []
 		
 		# Sets the possible coordenates of the movements for the knight
-		coordsX = [-1, -1, -2, 2, 1, 1, -2, 2]
-		coordsY = [-2, 2, -1, 1, -2, 2, 1, 1]
+		coordsX = [-2, -2, -1, -1, 1, 1, 2, 2]
+		coordsY = [1, -1, -2, 2, 2, -2,-1, 1]
 		
-		for index in range(7):
+		for index in range(8):
 			
 			if ( chessBoard.isEmpty(actual_coordX + coordsX[index], actual_coordY + coordsY[index]) ):
 				possible_moves.append( (actual_coordX + coordsX[index], actual_coordY + coordsY[index]) )
