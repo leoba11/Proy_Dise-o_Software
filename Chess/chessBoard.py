@@ -77,9 +77,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         path = os.getcwd()
         defPath = path + "/pieces/"
         imgs = os.listdir(defPath)
-<<<<<<< Updated upstream
-
-=======
         '''
         # Creates all the black pieces and draws them into the board
         black_king = Rey('b', 0, 4, defPath + "bk.gif")
@@ -183,7 +180,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.addPiece("wp7", white_pawn8.image, white_pawn8.getCoordX(), white_pawn8.getCoordY())
         return self.pieces
         '''
->>>>>>> Stashed changes
+
         for piece in imgs:
 
             #----------------Black ones---------------------
