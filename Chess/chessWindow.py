@@ -94,4 +94,5 @@ if __name__ == '__main__':
     root.geometry("600x300")
     app = initialWindow(root)#.pack()
     
+    print (root.winfo_pointerxy())
     root.mainloop()
