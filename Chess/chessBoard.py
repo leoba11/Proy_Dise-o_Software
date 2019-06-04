@@ -2,6 +2,12 @@ import tkinter as tk
 import os
 from tkinter import *
 from genBoard import *
+from caballo import Caballo
+from rey import Rey
+from reina import Reina
+from alfil import Alfil
+from torre import Torre
+from peon import Peon
 
 from chessRules import *
 #caca
@@ -23,6 +29,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         
+        self.caballito = Caballo('b', 0, 6, "images/bn.gif")
+        
         # Relates the mouse clicked to a function called piece_clicked
         self.canvas.bind("<Button-1>", self.piece_clicked)
         
@@ -43,6 +51,32 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
         print ("clicked at", event.x, event.y, coord_x, coord_y)
+        
+        
+        # Checks if the black knight was clicked
+        if (coord_x == 0 and coord_y == 6):
+			
+            possible_moves = [(2,5), (2,7)]
+            for i in range(len(possible_moves)):
+				#print(type(i))
+                x1 = (possible_moves[i][1] * self.size)
+                y1 = (possible_moves[i][0] * self.size)
+                x2 = x1 + self.size
+                y2 = y1 + self.size
+                self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
+                self.canvas.update_idletasks()
+        else:
+            possible_moves = [(2,5), (2,7)]
+            for i in range(len(possible_moves)):
+				#print(type(i))
+                x1 = (possible_moves[i][1] * self.size)
+                y1 = (possible_moves[i][0] * self.size)
+                x2 = x1 + self.size
+                y2 = y1 + self.size
+                self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#A05D06", tags="square")
+                self.canvas.update_idletasks()
+			
+			
         
     # Relates the dropped cell of the board to a duple of coordinates
     def piece_dropped(self, event):
