@@ -90,9 +90,9 @@ print(tablerito.tablero)
 #print(tablerito.tablero[0][5].printCoords())
 
 for i in tablerito.tablero:
-	for j in i:
-		print(j, )
-	print()
+	#for j in i:
+	print(i)
+	print('\n')
 
 possible_moves = tablerito.tablero[0][5].canMove(tablerito)
 
