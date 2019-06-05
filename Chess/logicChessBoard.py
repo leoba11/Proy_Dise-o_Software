@@ -10,11 +10,12 @@ from tkinter import *
 #Se inicializa en 0's para evitar problemas
 #Variables globalesda
 piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
-board = []
+#board = []
 
 class logicChessBoard():
 
     def __init__(self, rows = 8, cols = 8):
+        self.board = []
         self.rows = rows
         self.cols = cols
 
@@ -138,15 +139,15 @@ class logicChessBoard():
 
     def putPiecesOnBoard(self): #Saca las piezas del vector y los
         global piecesforLogic
-        global board 
-        board = self.drawBoard()
+        #global board 
+        self.board = self.drawBoard()
 
         for i in range(0, len(piecesforLogic)):
             cx=piecesforLogic[i][1][0]
             cy=piecesforLogic[i][1][1]
             board[cx][cy] = piecesforLogic[i]
         
-        return board
+        return self.board
 
     def game(self):
         global piecesforLogic
@@ -166,11 +167,11 @@ class logicChessBoard():
 
     def refresh(self):
         global piecesforLogic
-        global board
+        #global board
         for i in range(0, len(piecesforLogic)):
             cx=piecesforLogic[i][1][0]
             cy=piecesforLogic[i][1][1]
-            board[cx][cy] = piecesforLogic[i]
+            self.board[cx][cy] = piecesforLogic[i]
 
 if __name__ == '__main__':
     gboard = logicChessBoard()
