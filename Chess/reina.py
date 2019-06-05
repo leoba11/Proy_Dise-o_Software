@@ -15,7 +15,7 @@ class Reina(Pieza):
 	
 		
 	# Function that returns the tuples with the possible moves of the piece
-	def canMove(self):
+	def canMove(self, chessBoard):
 		
 		actual_coordX = self.getCoordX()
 		actual_coordY = self.getCoordY()

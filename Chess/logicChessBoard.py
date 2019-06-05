@@ -18,16 +18,46 @@ class logicChessBoard():
         self.board = []
         self.rows = rows
         self.cols = cols
+        
+        self.loadPieces()
+        self.drawBoard()
+        self.putPiecesOnBoard()
 
     def drawBoard(self):
-        global board
-        board = []
+        #global board
+        #board = []
         for i in range(self.rows):
             row = []
             for j in range(self.cols):
                 row.append("*")
-            board.append(row)
-        return board
+            self.board.append(row)
+        
+    def add_piece(self, pieza, coordX, coordY):
+        if(not (math.isnan(self.tablero[coordX][coordY]))):
+            self.board[coordX][coordY] = pieza
+    
+    def isEmpty(self, coordX, coordY):
+        #print (coordX, coordY)
+        if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
+            return False
+        else:
+            if(self.board[coordX][coordY] != '*'):#type(14)):
+                return False
+            else:
+                return True
+			
+			
+    def isEnemy(self, color, coordX, coordY):
+		
+        if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
+            return False
+        if(type(self.board[coordX][coordY]) != type(14)):
+            return False
+        else:
+            if (self.board[coordX][coordY].getColor() != color):
+                return True
+            else:
+                return False
 
     def loadPieces(self):
         
@@ -38,116 +68,113 @@ class logicChessBoard():
         global piecesforLogic
 
         #--------------------Black Empire-----------------------------
-        black_king = Rey('b', 0, 4, defPath + "bk.gif")
-        piecesforLogic[0] = (black_king.__class__.__name__, (0,4))
+        self.black_king = Rey('b', 0, 4, defPath + "bk.gif")
+        piecesforLogic[0] = self.black_king
 
-        black_queen = Reina('b', 0,3, defPath + "bq.gif")
-        piecesforLogic[1] = (black_queen.__class__.__name__, (0,3))
+        self.black_queen = Reina('b', 0,3, defPath + "bq.gif")
+        piecesforLogic[1] = self.black_queen
 
-        black_bishop1 = Alfil('b', 0, 2, defPath + "bb.gif")
-        piecesforLogic[2] = (black_bishop1.__class__.__name__,(0,2))
+        self.black_bishop1 = Alfil('b', 0, 2, defPath + "bb.gif")
+        piecesforLogic[2] = self.black_bishop1
 
-        black_bishop2 = Alfil('b', 0, 5, defPath + "bb.gif")
-        piecesforLogic[3] = (black_bishop2.__class__.__name__, (0,5))
+        self.black_bishop2 = Alfil('b', 0, 5, defPath + "bb.gif")
+        piecesforLogic[3] = self.black_bishop2
 
-        black_knigth1 = Caballo('b', 0, 1, defPath + "bn.gif")
-        piecesforLogic[4] = (black_knigth1.__class__.__name__, (0,1))
+        self.black_knight1 = Caballo('b', 0, 1, defPath + "bn.gif")
+        piecesforLogic[4] = self.black_knight1
 
-        black_knigth2 = Caballo('b', 0, 6, defPath + "bn.gif")
-        piecesforLogic[5] = (black_knigth2.__class__.__name__, (0,6))
+        self.black_knight2 = Caballo('b', 0, 6, defPath + "bn.gif")
+        piecesforLogic[5] = self.black_knight2
 
-        black_rook1 = Torre('b', 0, 0, defPath + "br.gif")
-        piecesforLogic[6] = (black_rook1.__class__.__name__, (0,0))
+        self.black_rook1 = Torre('b', 0, 0, defPath + "br.gif")
+        piecesforLogic[6] = self.black_rook1
 
-        black_rook2 = Torre('b', 0, 7, defPath + "br.gif")
-        piecesforLogic[7] = (black_rook2.__class__.__name__, (0,7))
+        self.black_rook2 = Torre('b', 0, 7, defPath + "br.gif")
+        piecesforLogic[7] = self.black_rook2
 
-        black_pawn1 = Peon('b', 1, 0, defPath + "bp.gif")
-        piecesforLogic[8] = (black_pawn1.__class__.__name__, (1,0))
+        self.black_pawn1 = Peon('b', 1, 0, defPath + "bp.gif")
+        piecesforLogic[8] = self.black_pawn1
 
-        black_pawn2 = Peon('b', 1, 1, defPath + "bp.gif")
-        piecesforLogic[9] = (black_pawn2.__class__.__name__, (1,1))
+        self.black_pawn2 = Peon('b', 1, 1, defPath + "bp.gif")
+        piecesforLogic[9] = self.black_pawn2
 
-        black_pawn3 = Peon('b', 1, 2, defPath + "bp.gif")
-        piecesforLogic[10] = (black_pawn3.__class__.__name__, (1,2))
+        self.black_pawn3 = Peon('b', 1, 2, defPath + "bp.gif")
+        piecesforLogic[10] = self.black_pawn3
 
-        black_pawn4 = Peon('b', 1, 3, defPath + "bp.gif")
-        piecesforLogic[11] = (black_pawn4.__class__.__name__, (1,3))
+        self.black_pawn4 = Peon('b', 1, 3, defPath + "bp.gif")
+        piecesforLogic[11] = self.black_pawn4
+        #piecesforLogic[11] = '*'
 
-        black_pawn5 = Peon('b', 1, 4, defPath + "bp.gif")
-        piecesforLogic[12] = (black_pawn5.__class__.__name__, (1,4))
+        self.black_pawn5 = Peon('b', 1, 4, defPath + "bp.gif")
+        piecesforLogic[12] = self.black_pawn5
 
-        black_pawn6 = Peon('b', 1, 5, defPath + "bp.gif")
-        piecesforLogic[13] = (black_pawn6.__class__.__name__, (1,5))
+        self.black_pawn6 = Peon('b', 1, 5, defPath + "bp.gif")
+        piecesforLogic[13] = self.black_pawn6
 
-        black_pawn7 = Peon('b', 1, 6, defPath + "bp.gif")
-        piecesforLogic[14] = (black_pawn7.__class__.__name__, (1,6))
+        self.black_pawn7 = Peon('b', 1, 6, defPath + "bp.gif")
+        piecesforLogic[14] = self.black_pawn7
 
-        black_pawn8 = Peon('b', 1, 7, defPath + "bp.gif")
-        piecesforLogic[15] = (black_pawn8.__class__.__name__, (1,7))
+        self.black_pawn8 = Peon('b', 1, 7, defPath + "bp.gif")
+        piecesforLogic[15] = self.black_pawn8
         #--------------------Black Empire-----------------------------
         #--------------------White Empire-----------------------------
-        white_king = Rey('w', 7, 4, defPath + "wk.gif")
-        piecesforLogic[16] = (white_king.__class__.__name__, (7,4))
+        self.white_king = Rey('w', 7, 4, defPath + "wk.gif")
+        piecesforLogic[16] = self.white_king
 
-        white_queen = Reina('w', 7,3, defPath + "wq.gif")
-        piecesforLogic[17] = (white_queen.__class__.__name__, (7,3))
+        self.white_queen = Reina('w', 7,3, defPath + "wq.gif")
+        piecesforLogic[17] = self.white_queen
 
-        white_bishop1 = Alfil('w', 7, 2, defPath + "wb.gif")
-        piecesforLogic[18] = (white_bishop1.__class__.__name__, (7,2))
+        self.white_bishop1 = Alfil('w', 7, 2, defPath + "wb.gif")
+        piecesforLogic[18] = self.white_bishop1
 
-        white_bishop2 = Alfil('w', 7, 5, defPath + "wb.gif") 
-        piecesforLogic[19] = (white_bishop2.__class__.__name__, (7,5))
+        self.white_bishop2 = Alfil('w', 7, 5, defPath + "wb.gif") 
+        piecesforLogic[19] = self.white_bishop2
 
-        white_knigth1 = Caballo('w', 7, 1, defPath + "wn.gif")
-        piecesforLogic[20] = (white_knigth1.__class__.__name__, (7,1))
+        self.white_knight1 = Caballo('w', 7, 1, defPath + "wn.gif")
+        piecesforLogic[20] = self.white_knight1
 
-        white_knigth2 = Caballo('w', 7, 6, defPath + "wn.gif")
-        piecesforLogic[21] = (white_knigth2.__class__.__name__, (7,6))
+        self.white_knight2 = Caballo('w', 7, 6, defPath + "wn.gif")
+        piecesforLogic[21] = self.white_knight2
 
-        white_rook1 = Torre('w', 7, 0, defPath + "wr.gif")
-        piecesforLogic[22] = (white_rook1.__class__.__name__, (7,0))
+        self.white_rook1 = Torre('w', 7, 0, defPath + "wr.gif")
+        piecesforLogic[22] = self.white_rook1
 
-        white_rook2 = Torre('w', 7, 7, defPath + "wr.gif")
-        piecesforLogic[23] =  (white_rook2.__class__.__name__, (7,7))
+        self.white_rook2 = Torre('w', 7, 7, defPath + "wr.gif")
+        piecesforLogic[23] = self.white_rook2
 
-        white_pawn1 = Peon('w', 6, 0, defPath + "wp.gif")
-        piecesforLogic[24] = (white_pawn1.__class__.__name__, (6,0))
+        self.white_pawn1 = Peon('w', 6, 0, defPath + "wp.gif")
+        piecesforLogic[24] = self.white_pawn1
 
-        white_pawn2 = Peon('w', 6, 1, defPath + "wp.gif")
-        piecesforLogic[25] = (white_pawn2.__class__.__name__, (6,1))        
+        self.white_pawn2 = Peon('w', 6, 1, defPath + "wp.gif")
+        piecesforLogic[25] = self.white_pawn2
 
-        white_pawn3 = Peon('w', 6, 2, defPath + "wp.gif")
-        piecesforLogic[26] = (white_pawn3.__class__.__name__, (6,2))
+        self.white_pawn3 = Peon('w', 6, 2, defPath + "wp.gif")
+        piecesforLogic[26] = self.white_pawn3
 
-        white_pawn4 = Peon('w', 6, 3, defPath + "wp.gif")
-        piecesforLogic[27] = (white_pawn4.__class__.__name__, (6,3))
+        self.white_pawn4 = Peon('w', 6, 3, defPath + "wp.gif")
+        piecesforLogic[27] = self.white_pawn4
 
-        white_pawn5 = Peon('w', 6, 4, defPath + "wp.gif")
-        piecesforLogic[28] = (white_pawn5.__class__.__name__, (6,4))
+        self.white_pawn5 = Peon('w', 6, 4, defPath + "wp.gif")
+        piecesforLogic[28] = self.white_pawn5
 
-        white_pawn6 = Peon('w', 6, 5, defPath + "wp.gif")
-        piecesforLogic[29] = (white_pawn6.__class__.__name__, (6,5))
+        self.white_pawn6 = Peon('w', 6, 5, defPath + "wp.gif")
+        piecesforLogic[29] = self.white_pawn6
 
-        white_pawn7 = Peon('w', 6, 6, defPath + "wp.gif")
-        piecesforLogic[30] = (white_pawn7.__class__.__name__, (6,6))
+        self.white_pawn7 = Peon('w', 6, 6, defPath + "wp.gif")
+        piecesforLogic[30] = self.white_pawn7
 
-        white_pawn8 = Peon('w', 6, 7, defPath + "wp.gif")
-        piecesforLogic[31] = (white_pawn8.__class__.__name__, (6,7))
+        self.white_pawn8 = Peon('w', 6, 7, defPath + "wp.gif")
+        piecesforLogic[31] = self.white_pawn8
         #--------------------White Empire-----------------------------
-        return piecesforLogic
 
     def putPiecesOnBoard(self): #Saca las piezas del vector y los
         global piecesforLogic
-        #global board 
-        self.board = self.drawBoard()
 
         for i in range(0, len(piecesforLogic)):
-            cx=piecesforLogic[i][1][0]
-            cy=piecesforLogic[i][1][1]
-            board[cx][cy] = piecesforLogic[i]
-        
-        return self.board
+            if (piecesforLogic[i] != '*'):
+                cx=piecesforLogic[i].getCoordX()
+                cy=piecesforLogic[i].getCoordY()
+                self.board[cx][cy] = piecesforLogic[i]
 
     def game(self):
         global piecesforLogic

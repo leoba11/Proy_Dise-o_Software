@@ -15,11 +15,13 @@ class initialWindow(tk.Frame):
     playerBlack_name = ""
 	
     # Builder of the class
-    def __init__(self, master):
+    def __init__(self, master, logic_chessboard):
         super().__init__()
         
         self.master.title("Ajedrez Diseño de Software")
         self.pack()
+        
+        self.logic_chessboard = logic_chessboard
 
         # im2 = PIL.Image.open('images/ajedrez.jpg')
         # self.icon = PIL.ImageTk.PhotoImage(im2)
@@ -77,7 +79,7 @@ class initialWindow(tk.Frame):
         self.master.deiconify()
         
         board_root = Toplevel(self.master)
-        board = chessBoard(8, 8, "#F3D484", "#A05D06", 64, board_root)
+        board = chessBoard(self.logic_chessboard, 8, 8, "#F3D484", "#A05D06", 64, board_root)
         board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
         board.loadInitPosPiece()
         board.printPieces()

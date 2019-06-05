@@ -12,19 +12,19 @@ class Controller():
 	
 	# Constructor 
     def __init__(self):
-        self.inicio = initialWindow(root)
         self.tablero_logico = logicChessBoard()
+        self.inicio = initialWindow(root, self.tablero_logico)
         mainloop()
         
     def begin(self):
         #print("hi")
-        self.tablero_logico.loadPieces()
-        print("=====================================")
-        print(self.tablero_logico.putPiecesOnBoard())
-        print("=====================================")
+        #self.tablero_logico.loadPieces()
+        #print("=====================================")
+        #print(self.tablero_logico.putPiecesOnBoard())
+        
         
         # CAMBIAR LO DE LOGIC CHESSBOARD PARA QUE LO QUE INCLUYA EN LA MATRIZ SEAN A HUEVO LAS PIEZAS!
-        possible_moves = self.tablero_logico.board[0][6][0].canMove(self, tablero_logico.board,0,6)
+        possible_moves = self.tablero_logico.board[0][6].canMove(self.tablero_logico)
 
 
 if __name__ == '__main__':
