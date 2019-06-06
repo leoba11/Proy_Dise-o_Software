@@ -17,9 +17,9 @@ class Rey(Pieza):
 		
 	# Function that returns if the King is allowed to do the castling-step
 	def noFirstMove(self):
-		if (self.getColor() == 'b' and self.getCoordY() == 0 and self.noMove == True):
+		if (self.getColor() == 'b' and self.getCoordX() == 0 and self.getCoordY() == 4 and self.noMove == True):
 			return True
-		if (self.getColor() == 'w' and self.getCoordY() == 7 and self.noMove == True):
+		if (self.getColor() == 'w' and self.getCoordX() == 7 and self.getCoordY() == 4 and self.noMove == True):
 			return True
 		return False
 		
@@ -36,22 +36,24 @@ class Rey(Pieza):
 			# Checks for the right side of the actual row
 			for index in range(2):	
 				# the index + 1 is for not to count the actual position of the king
-				if ( not (chessBoard.isEmpty(self.getCoordX() + (index + 1), self.getCoordY())) ):
+				if ( not (chessBoard.isEmpty(self.getCoordX(), self.getCoordY() + (index + 1))) ):
 					freeRow = False
 					
 			# Checks if right side of the row is free and if the rook for the castling has not been moved
-			if (freeRow and chessBoard[7][self.getCoordY()].noFirstMove()):
-				possible_moves.append(self.getCoordX() + 2, self.getCoordY())
+			if (freeRow and chessBoard.board[self.getCoordX()][7].noFirstMove()):
+				possible_moves.append((self.getCoordX(), self.getCoordY() + 2))
+				
+			freeRow = True
 				
 			# Checks for the left side of the actual row
 			for index in range(3):	
 				# the index + 1 is for not to count the actual position of the king
-				if ( not (chessBoard.isEmpty(self.getCoordX() - (index + 1), self.getCoordY())) ):
+				if ( not (chessBoard.isEmpty(self.getCoordX(), self.getCoordY()- (index + 1))) ):
 					freeRow = False
 					
 			# Checks if left side of the row is free and if the rook for the castling has not been moved
-			if (freeRow and chessBoard[0][self.getCoordY()].noFirstMove()):
-				possible_moves.append(self.getCoordX() - 2, self.getCoordY())
+			if (freeRow and chessBoard.board[self.getCoordX()][0].noFirstMove()):
+				possible_moves.append((self.getCoordX(), self.getCoordY() - 2))
 		
 	
 	# Function that returns the tuples with the possible moves of the piece

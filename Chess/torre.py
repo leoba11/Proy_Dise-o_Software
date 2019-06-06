@@ -17,15 +17,15 @@ class Torre(Pieza):
 		
 	# Function that returns if the Rook is allowed to do the castling-step
 	def noFirstMove(self):
-		if (self.getColor() == 'b' and self.getCoordY() == 0 and self.noMove == True):
+		if (self.getColor() == 'b' and (self.getCoordY() == 0 or self.getCoordY() == 7) and self.getCoordX() == 0 and self.noMove == True):
 			return True
-		if (self.getColor() == 'w' and self.getCoordY() == 7 and self.noMove == True):
+		if (self.getColor() == 'w' and (self.getCoordY() == 0 or self.getCoordY() == 7) and self.getCoordX() == 7 and self.noMove == True):
 			return True
 		return False
 		
 		
 	# Function that returns the tuples with the possible moves of the piece
-	def canMove(self):
+	def canMove(self, chessBoard):
 		
 		actual_coordX = self.getCoordX()
 		actual_coordY = self.getCoordY()
@@ -48,6 +48,7 @@ class Torre(Pieza):
 				else:
 					if ( chessBoard.isEnemy(self.getColor(), actual_coordX + (coordsX[i] * (index + 1)), actual_coordY + (coordsY[i] * (index+1))) ):
 						possible_moves.append( (actual_coordX + (coordsX[i] * (index + 1)), actual_coordY + (coordsY[i] * (index+1))) )
+						break;
 						
 					else:
 						break

@@ -17,6 +17,7 @@ class Controller():
         mainloop()
         
     def begin(self):
+        pass
         #print("hi")
         #self.tablero_logico.loadPieces()
         #print("=====================================")
@@ -24,7 +25,7 @@ class Controller():
         
         
         # CAMBIAR LO DE LOGIC CHESSBOARD PARA QUE LO QUE INCLUYA EN LA MATRIZ SEAN A HUEVO LAS PIEZAS!
-        possible_moves = self.tablero_logico.board[0][6].canMove(self.tablero_logico)
+        #possible_moves = self.tablero_logico.board[0][6].canMove(self.tablero_logico)
 
 
 if __name__ == '__main__':

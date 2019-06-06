@@ -41,17 +41,17 @@ class logicChessBoard():
         if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
             return False
         else:
-            if(self.board[coordX][coordY] != '*'):#type(14)):
-                return False
-            else:
+            if(self.board[coordX][coordY] == '*'):#type(14)):
                 return True
+            else:
+                return False
 			
 			
     def isEnemy(self, color, coordX, coordY):
 		
         if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
             return False
-        if(type(self.board[coordX][coordY]) != type(14)):
+        if(self.board[coordX][coordY] == '*'):
             return False
         else:
             if (self.board[coordX][coordY].getColor() != color):
@@ -71,20 +71,25 @@ class logicChessBoard():
         self.black_king = Rey('b', 0, 4, defPath + "bk.gif")
         piecesforLogic[0] = self.black_king
 
-        self.black_queen = Reina('b', 0,3, defPath + "bq.gif")
-        piecesforLogic[1] = self.black_queen
+        #self.black_queen = Reina('b', 0,3, defPath + "bq.gif")
+        #piecesforLogic[1] = self.black_queen
+        piecesforLogic[1] = '*'
 
-        self.black_bishop1 = Alfil('b', 0, 2, defPath + "bb.gif")
-        piecesforLogic[2] = self.black_bishop1
+        #self.black_bishop1 = Alfil('b', 0, 2, defPath + "bb.gif")
+        #piecesforLogic[2] = self.black_bishop1
+        piecesforLogic[2] = '*'
 
         self.black_bishop2 = Alfil('b', 0, 5, defPath + "bb.gif")
         piecesforLogic[3] = self.black_bishop2
+        #piecesforLogic[3] = '*'
 
-        self.black_knight1 = Caballo('b', 0, 1, defPath + "bn.gif")
-        piecesforLogic[4] = self.black_knight1
+        #self.black_knight1 = Caballo('b', 0, 1, defPath + "bn.gif")
+        #piecesforLogic[4] = self.black_knight1
+        piecesforLogic[4] = '*'
 
         self.black_knight2 = Caballo('b', 0, 6, defPath + "bn.gif")
         piecesforLogic[5] = self.black_knight2
+        #piecesforLogic[5] = '*'
 
         self.black_rook1 = Torre('b', 0, 0, defPath + "br.gif")
         piecesforLogic[6] = self.black_rook1
@@ -107,15 +112,18 @@ class logicChessBoard():
 
         self.black_pawn5 = Peon('b', 1, 4, defPath + "bp.gif")
         piecesforLogic[12] = self.black_pawn5
+        #piecesforLogic[12] = '*'
 
         self.black_pawn6 = Peon('b', 1, 5, defPath + "bp.gif")
         piecesforLogic[13] = self.black_pawn6
+        #piecesforLogic[13] = '*'
 
         self.black_pawn7 = Peon('b', 1, 6, defPath + "bp.gif")
         piecesforLogic[14] = self.black_pawn7
 
-        self.black_pawn8 = Peon('b', 1, 7, defPath + "bp.gif")
-        piecesforLogic[15] = self.black_pawn8
+        #self.black_pawn8 = Peon('b', 1, 7, defPath + "bp.gif")
+        #piecesforLogic[15] = self.black_pawn8
+        piecesforLogic[15] = '*'
         #--------------------Black Empire-----------------------------
         #--------------------White Empire-----------------------------
         self.white_king = Rey('w', 7, 4, defPath + "wk.gif")
