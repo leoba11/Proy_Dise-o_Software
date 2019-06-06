@@ -8,7 +8,7 @@ from chessBoard import *
 from tkinter import *
 
 #Se inicializa en 0's para evitar problemas
-#Variables globalesda
+#Variables globales
 piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
 #board = []
 
@@ -22,13 +22,15 @@ class logicChessBoard():
         self.loadPieces()
         self.drawBoard()
         self.putPiecesOnBoard()
+        self.gameTest()
 
     def drawBoard(self):
         for i in range(self.rows):
             row = []
             for j in range(self.cols):
-                row.append("*")
+                row.append('*')
             self.board.append(row)
+        #print(self.board)
         
     def add_piece(self, pieza, coordX, coordY):
         if(not (math.isnan(self.tablero[coordX][coordY]))):
@@ -170,12 +172,31 @@ class logicChessBoard():
 
     def putPiecesOnBoard(self): #Saca las piezas del vector y los
         global piecesforLogic
-
         for i in range(0, len(piecesforLogic)):
-            if (piecesforLogic[i] != '*'):
-                cx=piecesforLogic[i].getCoordX()
-                cy=piecesforLogic[i].getCoordY()
-                self.board[cx][cy] = piecesforLogic[i]
+            #if (piecesforLogic[i] != '*'):
+            cx=piecesforLogic[i].getCoordX()
+            cy=piecesforLogic[i].getCoordY()
+            self.board[cx][cy] = piecesforLogic[i]
+
+    def savePosition(self, pieza):
+        coords = [0,0]
+        coords[0] = pieza.getCoordX()
+        coords[1] = pieza.getCoordY()
+        return coords
+
+    def gameTest(self):
+        global piecesforLogic
+        lastCoords = []
+        lastCoords = self.savePosition(piecesforLogic[4])
+        piecesforLogic[4].setCoordX(2)
+        piecesforLogic[4].setCoordY(2)
+        self.board[lastCoords[0]][lastCoords[1]] = '*'
+
+
+    def printPieces(self):
+        print(piecesforLogic)
+    def printBoard(self):
+        print(self.board)
 
 
 
@@ -183,8 +204,15 @@ if __name__ == '__main__':
 
     gboard = logicChessBoard()
 
-    print(gboard.loadPieces())
+    gboard.drawBoard()
     print("=====================================")
-    print(gboard.putPiecesOnBoard())
+    gboard.loadPieces()
+    #gboard.printPieces()
     print("=====================================")
+    gboard.putPiecesOnBoard()
+    gboard.printBoard()
+    print("=====================================")
+    gboard.gameTest()
+    gboard.printBoard()
+    
 
