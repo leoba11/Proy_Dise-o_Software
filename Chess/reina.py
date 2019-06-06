@@ -6,7 +6,8 @@ import PIL.ImageTk
 
 class Reina(Pieza):
 	
-	def __init__(self, color, coordX, coordY, imagen_archivo):
+	def __init__(self, name, color, coordX, coordY, imagen_archivo):
+		self.name = name
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY
@@ -46,6 +47,7 @@ class Reina(Pieza):
 				else:
 					if ( chessBoard.isEnemy(self.getColor(), actual_coordX + (coordsX[i] * (index + 1)), actual_coordY + (coordsY[i] * (index+1))) ):
 						possible_moves.append( (actual_coordX + (coordsX[i] * (index + 1)), actual_coordY + (coordsY[i] * (index+1))) )
+						break
 						
 					else:
 						break

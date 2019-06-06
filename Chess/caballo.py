@@ -5,7 +5,8 @@ import PIL.ImageTk
 
 class Caballo(Pieza):
 	
-	def __init__(self, color, coordX, coordY, imagen_archivo):
+	def __init__(self, name, color, coordX, coordY, imagen_archivo):
+		self.name = name
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY

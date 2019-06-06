@@ -7,6 +7,7 @@ class Pieza(metaclass=ABCMeta):
 	color = ''
 	coordX = 0
 	coordY = 0
+	name = ''
 	isPlaying = True
 		
 	def getColor(self):
@@ -23,6 +24,9 @@ class Pieza(metaclass=ABCMeta):
 	
 	def setCoordY(self, nuevaCoordY):
 		self.coordY = nuevaCoordY
+	
+	def getName(self):
+		return self.name
 
 	@abstractmethod
 	def canMove(self):

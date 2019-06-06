@@ -6,7 +6,8 @@ import PIL.ImageTk
 
 class Torre(Pieza):
 	
-	def __init__(self, color, coordX, coordY, imagen_archivo):
+	def __init__(self, name, color, coordX, coordY, imagen_archivo):
+		self.name = name
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY
@@ -67,7 +68,7 @@ class Torre(Pieza):
 	# Makes the rook movement
 	def movePiece(self, newCoordinates):
 		# Checks and sets the no movement variable
-		if (noFirstMove()):
+		if (self.noFirstMove()):
 			self.noMove = False
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])

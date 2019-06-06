@@ -28,6 +28,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.isPieceClicked = False
         
         self.temporarySquares = []
+        self.possible_moves = []
         
         #Dimensions
         canvasWidth = columns * size
@@ -36,7 +37,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         
-        self.caballito = Caballo('b', 0, 6, "images/bn.gif")
+        #self.caballito = Caballo("wnr",'b', 0, 6, "images/bn.gif")
         
         # Relates the mouse clicked to a function called piece_clicked
         self.canvas.bind("<Button-1>", self.piece_clicked)
@@ -51,27 +52,34 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.button1.pack()
         self.frame.pack()
 
-        self.canvas.bind('<Configure>', self.refresh)
+        #self.canvas.bind('<Configure>', self.refresh)
+        self.refresh()
         
     # Relates the clicked cell of the board to a duple of coordinates
     def piece_clicked(self, event):
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
-        #print ("clicked at", event.x, event.y, coord_x, coord_y)
         
         # Checks if the square clicked is a piece and if not other one has been pressed
         if ((not (self.logic_board.isEmpty(coord_x, coord_y))) and (not (self.isPieceClicked))):
 			
             self.isPieceClicked = True
-            possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+            self.possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+            
+            self.temporary_pos_x = coord_x
+            self.temporary_pos_y = coord_y
+            
+            #print("temp coords")
+            #print((self.temporary_pos_x, self.temporary_pos_y))
             
             # Copies all the list from possible moves to the temporary colored
-            self.temporarySquares = possible_moves[:]
+            self.temporarySquares = self.possible_moves[:]
             
-            for i in range(len(possible_moves)):
-                print(possible_moves)
-                x1 = (possible_moves[i][1] * self.size)
-                y1 = (possible_moves[i][0] * self.size)
+            # Creates the GREY squares
+            for i in range(len(self.possible_moves)):
+                print(self.possible_moves)
+                x1 = (self.possible_moves[i][1] * self.size)
+                y1 = (self.possible_moves[i][0] * self.size)
                 x2 = x1 + self.size
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
@@ -80,7 +88,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         else:
 			# Checks if the another piece was clicked
             if ( (self.isPieceClicked) and (not (self.logic_board.isEmpty(coord_x, coord_y)))):
-
+				
+                #print("entrefeo")
                 for j in range(len(self.temporarySquares)):
                     x1 = (self.temporarySquares[j][1] * self.size)
                     y1 = (self.temporarySquares[j][0] * self.size)
@@ -92,19 +101,40 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 
                 del (self.temporarySquares[:])    
                 possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+                
+                self.temporary_pos_x = coord_x
+                self.temporary_pos_y = coord_y
             
                 # Copies all the list from possible moves to the temporary colored
                 self.temporarySquares = possible_moves[:]
+                self.possible_moves = possible_moves[:]
             
-                for i in range(len(possible_moves)):
+                for i in range(len(self.possible_moves)):
                     x1 = (possible_moves[i][1] * self.size)
                     y1 = (possible_moves[i][0] * self.size)
                     x2 = x1 + self.size
                     y2 = y1 + self.size
                     self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
-                
+                   
                 # Refresh the changes on the board
+                #self.loadInitPosPiece() 
+                #self.refresh()
                 self.canvas.update_idletasks()
+            
+            # In case that the user wants to move the piece already clicked
+            else:
+                if ( (self.isPieceClicked) and ( (self.logic_board.isEmpty(coord_x, coord_y) or 
+				    (self.logic_board.isEnemy(self.logic_board.board[self.temporary_pos_x][temporary_pos_y].getColor(), coord_x, coord_y)  ) ) )):
+						
+                        if ((coord_x, coord_y) in self.possible_moves):
+                            temp_x = self.temporary_pos_x
+                            temp_y = self.temporary_pos_y
+                            self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
+                            self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
+                            self.logic_board.board[temp_x][temp_y] = '*'
+                            self.loadInitPosPiece()
+                            self.refresh()
+                  
 				
         
         return (coord_x, coord_y)
@@ -139,9 +169,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.canvas.coords(name, x0, y0)
    
     def loadInitPosPiece(self):
-        names = ["brl", "bnl", "bbl", "bq", "bk", "bbr", "bnr", "brr", "bp", "bp1", "bp2", "bp3", "bp4", "bp5", "bp6", "bp7", "wp",
-        "wp1", "wp2", "wp3", "wp4", "wp5", "wp6", "wp7", "wrl", "wnl", "wbl", "wq", "wk", "wbr", "wnr", "wrr"]
-        
+        self.pieces.clear()
         counter = 0
         # Checks the entire board
         for i in range(self.rows):
@@ -149,17 +177,17 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 
                 # Checks if the square checked has a piece
                 if (self.logic_board.board[i][j] != '*'):
-                    self.addPiece(names[counter], self.logic_board.board[i][j].getImage(), i, j)
+                    self.addPiece(self.logic_board.board[i][j].getName(), self.logic_board.board[i][j].getImage(), i, j)
                     counter +=1
 
     def printPieces(self):
         print(self.pieces)
     
-    def refresh(self, event):
-        xsize = int((event.width-1) / self.columns)
+    def refresh(self):
+        '''xsize = int((event.width-1) / self.columns)
         ysize = int((event.height-1) / self.rows)
         self.size = min(xsize, ysize)
-        self.canvas.delete("square")
+        self.canvas.delete("square")'''
         color = self.color2
         for row in range(self.rows):
             color = self.color1 if color == self.color2 else self.color2

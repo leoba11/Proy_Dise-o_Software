@@ -6,7 +6,8 @@ import PIL.ImageTk
 
 class Alfil(Pieza):
 	
-	def __init__(self, color, coordX, coordY, imagen_archivo):
+	def __init__(self, name, color, coordX, coordY, imagen_archivo):
+		self.name = name
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY
@@ -56,9 +57,6 @@ class Alfil(Pieza):
 		
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
-		
-	def getName(self):
-		return "alfil"
 
 '''root = Tk()
 alfilito = Alfil('b', 0, 5, "images/bb.gif")
