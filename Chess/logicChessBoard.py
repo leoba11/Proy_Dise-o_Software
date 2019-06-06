@@ -24,8 +24,6 @@ class logicChessBoard():
         self.putPiecesOnBoard()
 
     def drawBoard(self):
-        #global board
-        #board = []
         for i in range(self.rows):
             row = []
             for j in range(self.cols):
@@ -45,10 +43,9 @@ class logicChessBoard():
                 return True
             else:
                 return False
-			
-			
+
+
     def isEnemy(self, color, coordX, coordY):
-		
         if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
             return False
         if(self.board[coordX][coordY] == '*'):
@@ -60,11 +57,7 @@ class logicChessBoard():
                 return False
 
     def loadPieces(self):
-        
         root = Tk()
-        #path = os.getcwd()
-        #defPath = path + "/pieces/"
-        #imgs = os.listdir(defPath)
         global piecesforLogic
 
         #--------------------Black Empire-----------------------------
@@ -124,8 +117,6 @@ class logicChessBoard():
         self.black_pawn8 = Peon('b', 1, 7, "pieces/icons8-peón-48.png")
         piecesforLogic[15] = self.black_pawn8
         #piecesforLogic[15] = '*'
-        
-        
         #--------------------Black Empire-----------------------------
         #--------------------White Empire-----------------------------
         self.white_king = Rey('w', 7, 4, "pieces/icons8-rey-48 (1).png")
@@ -186,39 +177,14 @@ class logicChessBoard():
                 cy=piecesforLogic[i].getCoordY()
                 self.board[cx][cy] = piecesforLogic[i]
 
-    def game(self):
-        global piecesforLogic
-        piecesforLogic[0][1][0].append(5)
-        piecesforLogic[0][1][0].append(5)
-        
 
-    def prueba(self):
-        global piecesforLogic
-        print("Pimer Campo: ", piecesforLogic[0])
-        print("Segundo Campo [0]: ", piecesforLogic[0][0])
-        print("Segundo Campo [1]: ", piecesforLogic[0][1])
-        #print("tercer Campo [0][0]: ", piecesforLogic[0][0][0]) #no usar
-        #print("tercer Campo [0][1]: ", piecesforLogic[0][0][1]) #No usar
-        print("tercer Campo [1][0]: ", piecesforLogic[0][1][0])
-        print("tercer Campo [1][1]: ", piecesforLogic[0][1][1])
-
-    def refresh(self):
-        global piecesforLogic
-        #global board
-        for i in range(0, len(piecesforLogic)):
-            cx=piecesforLogic[i][1][0]
-            cy=piecesforLogic[i][1][1]
-            self.board[cx][cy] = piecesforLogic[i]
 
 if __name__ == '__main__':
+
     gboard = logicChessBoard()
 
     print(gboard.loadPieces())
     print("=====================================")
     print(gboard.putPiecesOnBoard())
     print("=====================================")
-
-    #gboard.prueba()
-    gboard.game()
-    #print(gboard.refresh())
 
