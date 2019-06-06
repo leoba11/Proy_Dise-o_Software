@@ -26,3 +26,11 @@ class genBoard(object):
 
     def boardType():
         print("Type")
+     
+    # Retorna el color de la posición par
+    def getEvenColor(self):
+        return self.color1
+        
+    # Retorna el color de la posicion impar
+    def getOddColor(self):
+        return self.color2

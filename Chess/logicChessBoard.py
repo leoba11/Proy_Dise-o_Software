@@ -71,21 +71,21 @@ class logicChessBoard():
         self.black_king = Rey('b', 0, 4, defPath + "bk.gif")
         piecesforLogic[0] = self.black_king
 
-        #self.black_queen = Reina('b', 0,3, defPath + "bq.gif")
-        #piecesforLogic[1] = self.black_queen
-        piecesforLogic[1] = '*'
+        self.black_queen = Reina('b', 0,3, defPath + "bq.gif")
+        piecesforLogic[1] = self.black_queen
+        #piecesforLogic[1] = '*'
 
-        #self.black_bishop1 = Alfil('b', 0, 2, defPath + "bb.gif")
-        #piecesforLogic[2] = self.black_bishop1
-        piecesforLogic[2] = '*'
+        self.black_bishop1 = Alfil('b', 0, 2, defPath + "bb.gif")
+        piecesforLogic[2] = self.black_bishop1
+        #piecesforLogic[2] = '*'
 
         self.black_bishop2 = Alfil('b', 0, 5, defPath + "bb.gif")
         piecesforLogic[3] = self.black_bishop2
         #piecesforLogic[3] = '*'
 
-        #self.black_knight1 = Caballo('b', 0, 1, defPath + "bn.gif")
-        #piecesforLogic[4] = self.black_knight1
-        piecesforLogic[4] = '*'
+        self.black_knight1 = Caballo('b', 0, 1, defPath + "bn.gif")
+        piecesforLogic[4] = self.black_knight1
+        #piecesforLogic[4] = '*'
 
         self.black_knight2 = Caballo('b', 0, 6, defPath + "bn.gif")
         piecesforLogic[5] = self.black_knight2
@@ -121,9 +121,11 @@ class logicChessBoard():
         self.black_pawn7 = Peon('b', 1, 6, defPath + "bp.gif")
         piecesforLogic[14] = self.black_pawn7
 
-        #self.black_pawn8 = Peon('b', 1, 7, defPath + "bp.gif")
-        #piecesforLogic[15] = self.black_pawn8
-        piecesforLogic[15] = '*'
+        self.black_pawn8 = Peon('b', 1, 7, defPath + "bp.gif")
+        piecesforLogic[15] = self.black_pawn8
+        #piecesforLogic[15] = '*'
+        
+        
         #--------------------Black Empire-----------------------------
         #--------------------White Empire-----------------------------
         self.white_king = Rey('w', 7, 4, defPath + "wk.gif")

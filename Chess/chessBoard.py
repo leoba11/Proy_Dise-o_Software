@@ -24,6 +24,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         
         self.logic_board = logic_board
         
+        # Variable to check if one piece is already clicked
+        self.isPieceClicked = False
+        
+        self.temporarySquares = []
+        
         #Dimensions
         canvasWidth = columns * size
         canvasHeight = rows * size
@@ -54,9 +59,14 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         coord_y = int((event.x / self.size))
         #print ("clicked at", event.x, event.y, coord_x, coord_y)
         
-        if (not (self.logic_board.isEmpty(coord_x, coord_y))):
+        # Checks if the square clicked is a piece and if not other one has been pressed
+        if ((not (self.logic_board.isEmpty(coord_x, coord_y))) and (not (self.isPieceClicked))):
 			
+            self.isPieceClicked = True
             possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+            
+            # Copies all the list from possible moves to the temporary colored
+            self.temporarySquares = possible_moves[:]
             
             for i in range(len(possible_moves)):
                 print(possible_moves)
@@ -66,16 +76,38 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
                 self.canvas.update_idletasks()
-        '''else:
-            possible_moves = [(2,5), (2,7)]
-            for i in range(len(possible_moves)):
-				#print(type(i))
-                x1 = (possible_moves[i][1] * self.size)
-                y1 = (possible_moves[i][0] * self.size)
-                x2 = x1 + self.size
-                y2 = y1 + self.size
-                self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#A05D06", tags="square")
-                self.canvas.update_idletasks()'''
+        
+        else:
+			# Checks if the another piece was clicked
+            if ( (self.isPieceClicked) and (not (self.logic_board.isEmpty(coord_x, coord_y)))):
+
+                for j in range(len(self.temporarySquares)):
+                    x1 = (self.temporarySquares[j][1] * self.size)
+                    y1 = (self.temporarySquares[j][0] * self.size)
+                    x2 = x1 + self.size
+                    y2 = y1 + self.size
+                    summ = self.temporarySquares[j][1] + self.temporarySquares[j][0]
+                    color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
+                    self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill=color, tags="square")
+                    
+                    #self.canvas.update_idletasks()
+                
+                del (self.temporarySquares[:])    
+                possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+            
+                # Copies all the list from possible moves to the temporary colored
+                self.temporarySquares = possible_moves[:]
+            
+                for i in range(len(possible_moves)):
+                    x1 = (possible_moves[i][1] * self.size)
+                    y1 = (possible_moves[i][0] * self.size)
+                    x2 = x1 + self.size
+                    y2 = y1 + self.size
+                    self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
+                    #self.canvas.update_idletasks()
+                
+                self.canvas.update_idletasks()
+				
         
         return (coord_x, coord_y)
 			
