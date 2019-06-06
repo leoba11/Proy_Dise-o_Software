@@ -1,19 +1,27 @@
 from tkinter import *
 from pieza import Pieza
 
+import PIL.Image
+import PIL.ImageTk
+
 class Rey(Pieza):
 	
 	def __init__(self, color, coordX, coordY, imagen_archivo):
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY
-		self.image = PhotoImage(file=imagen_archivo)
+		#self.image = PhotoImage(file=imagen_archivo)
+		image = PIL.Image.open(imagen_archivo)
+		self.image = PIL.ImageTk.PhotoImage(image)
+		self.image.photo = self.image
 		self.noMove = True
         
         
 	def printCoords(self):
 		print("Color es: "+ self.getColor() + " y coordenadas(x,y) son: " + str(self.getCoordX()) + " " + str(self.getCoordY()))
 		
+	def getImage(self):
+		return self.image
 		
 	# Function that returns if the King is allowed to do the castling-step
 	def noFirstMove(self):

@@ -89,8 +89,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                     summ = self.temporarySquares[j][1] + self.temporarySquares[j][0]
                     color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
                     self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill=color, tags="square")
-                    
-                    #self.canvas.update_idletasks()
                 
                 del (self.temporarySquares[:])    
                 possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
@@ -104,8 +102,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                     x2 = x1 + self.size
                     y2 = y1 + self.size
                     self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
-                    #self.canvas.update_idletasks()
                 
+                # Refresh the changes on the board
                 self.canvas.update_idletasks()
 				
         
@@ -136,14 +134,26 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
 
         self.pieces[name] = (row, column)
         
-        #print(self.pieces)
-        
         x0 = (column * self.size) + int(self.size/2)
         y0 = (row * self.size) + int(self.size/2)
         self.canvas.coords(name, x0, y0)
    
     def loadInitPosPiece(self):
-        path = os.getcwd()
+        names = ["brl", "bnl", "bbl", "bq", "bk", "bbr", "bnr", "brr", "bp", "bp1", "bp2", "bp3", "bp4", "bp5", "bp6", "bp7", "wp",
+        "wp1", "wp2", "wp3", "wp4", "wp5", "wp6", "wp7", "wrl", "wnl", "wbl", "wq", "wk", "wbr", "wnr", "wrr"]
+        
+        counter = 0
+        # Checks the entire board
+        for i in range(self.rows):
+            for j in range(self.columns):
+                
+                # Checks if the square checked has a piece
+                if (self.logic_board.board[i][j] != '*'):
+					
+                    self.addPiece(names[counter], self.logic_board.board[i][j].getImage(), i, j)
+                    counter +=1
+                    
+        '''path = os.getcwd()
         defPath = path + "/pieces/"
         imgs = os.listdir(defPath)
 
@@ -265,7 +275,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 photo12.image = photo12
                 self.addPiece("wq", photo12, 7, 3) 
 
-            #----------------White ones---------------------
+            #----------------White ones---------------------'''
 
     def printPieces(self):
         print(self.pieces)

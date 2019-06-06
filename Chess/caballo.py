@@ -1,5 +1,7 @@
 from tkinter import *
 from pieza import Pieza
+import PIL.Image
+import PIL.ImageTk
 
 class Caballo(Pieza):
 	
@@ -7,10 +9,16 @@ class Caballo(Pieza):
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY
-		self.image = PhotoImage(file=imagen_archivo)
+		#self.image = PhotoImage(file=imagen_archivo)
+		image = PIL.Image.open(imagen_archivo)
+		self.image = PIL.ImageTk.PhotoImage(image)
+		self.image.photo = image
         
 	def printCoords(self):
 		print("Color es: "+ self.getColor() + " y coordenadas(x,y) son: " + str(self.getCoordX()) + " " + str(self.getCoordY()))
+		
+	def getImage(self):
+		return self.image
 		
 	# Function that returns the tuples with the possible moves of the piece		
 	def canMove(self, chessBoard):
