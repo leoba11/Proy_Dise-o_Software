@@ -49,7 +49,7 @@ class Peon(Pieza):
 			
 		else:
 			if ( chessBoard.isEmpty(actual_coordX + direction, actual_coordY) ) :
-				possible_moves.append((actual_coordX, actual_coordY + direction))
+				possible_moves.append((actual_coordX + direction, actual_coordY ))
 		
 		# Checks if it can moves to a position for eating another piece (left)			
 		if ( chessBoard.isEnemy(self.getColor(), actual_coordX + direction, actual_coordY - 1) ):
@@ -67,7 +67,7 @@ class Peon(Pieza):
 	# Makes the pawn movement
 	def movePiece(self, newCoordinates):
 		# Checks and sets the no movement variable
-		if (noFirstMove()):
+		if (self.noFirstMove()):
 			self.noMove = False
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
