@@ -26,6 +26,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         
         # Variable to check if one piece is already clicked
         self.isPieceClicked = False
+        self.isPieceAboutDie = False
         
         self.temporarySquares = []
         self.possible_moves = []
@@ -55,22 +56,36 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         #self.canvas.bind('<Configure>', self.refresh)
         self.refresh()
         
+        
+        
+    # Function that compares the piece pressed by the user and if the piece is one of the next color to play
+    def is_valid_piece(self, coord_x, coord_y):
+        
+        if (self.logic_board.board[coord_x][coord_y].getColor() == self.logic_board.getNextPlayer()):
+            return True
+        else:
+            return False
+			
+			
+    
     # Relates the clicked cell of the board to a duple of coordinates
     def piece_clicked(self, event):
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
         
         # Checks if the square clicked is a piece and if not other one has been pressed
-        if ((not (self.logic_board.isEmpty(coord_x, coord_y))) and (not (self.isPieceClicked))):
+        if ((not (self.logic_board.isEmpty(coord_x, coord_y))) and (not (self.isPieceClicked)) and (not (self.isPieceAboutDie)) 
+            and (self.is_valid_piece(coord_x, coord_y))):
 			
+            print("first condition")
             self.isPieceClicked = True
+            self.isPieceAboutDie = True
+            
             self.possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
             
+            # Extracts the temporary positions of the piece already clicked
             self.temporary_pos_x = coord_x
             self.temporary_pos_y = coord_y
-            
-            #print("temp coords")
-            #print((self.temporary_pos_x, self.temporary_pos_y))
             
             # Copies all the list from possible moves to the temporary colored
             self.temporarySquares = self.possible_moves[:]
@@ -87,9 +102,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         
         else:
 			# Checks if the another piece was clicked
-            if ( (self.isPieceClicked) and (not (self.logic_board.isEmpty(coord_x, coord_y)))):
+            if ( (self.isPieceClicked) and (self.isPieceAboutDie) and (not (self.logic_board.isEmpty(coord_x, coord_y))) 
+                and (self.is_valid_piece(self.temporary_pos_x, self.temporary_pos_y)) ):
 				
-                #print("entrefeo")
+                print("second condition")
+                
+                # Colors all the possible moves for the piece
                 for j in range(len(self.temporarySquares)):
                     x1 = (self.temporarySquares[j][1] * self.size)
                     y1 = (self.temporarySquares[j][0] * self.size)
@@ -100,8 +118,13 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                     self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill=color, tags="square")
                 
                 del (self.temporarySquares[:])    
+                
                 possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
                 
+                # Changes the next player 
+                #self.logic_board.changeNextPlayer()
+                
+                # Extracts the temporary positions of the piece already clicked
                 self.temporary_pos_x = coord_x
                 self.temporary_pos_y = coord_y
             
@@ -117,16 +140,23 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                     self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
                    
                 # Refresh the changes on the board
-                #self.loadInitPosPiece() 
-                #self.refresh()
                 self.canvas.update_idletasks()
             
             # In case that the user wants to move the piece already clicked
             else:
-                if ( (self.isPieceClicked) and ( (self.logic_board.isEmpty(coord_x, coord_y) or 
-				    (self.logic_board.isEnemy(self.logic_board.board[self.temporary_pos_x][temporary_pos_y].getColor(), coord_x, coord_y)  ) ) )):
+                if ( (self.isPieceClicked) and (self.isPieceAboutDie) and ( (self.logic_board.isEmpty(coord_x, coord_y) or 
+				    (self.logic_board.isEnemy(self.logic_board.board[self.temporary_pos_x][self.temporary_pos_y].getColor(), coord_x, coord_y)  ) ) )
+				    and (self.is_valid_piece(self.temporary_pos_x, self.temporary_pos_y)) ):
 						
+                        print("third condition")
+						# Checks if the movement requested by the user is one of the possible moves
                         if ((coord_x, coord_y) in self.possible_moves):
+							
+							# Changes the next player 
+                            self.logic_board.changeNextPlayer()
+							
+                            self.isPieceClicked = False			# Restart the attribute isPieceClicked
+                            self.isPieceAboutDie = False
                             temp_x = self.temporary_pos_x
                             temp_y = self.temporary_pos_y
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]

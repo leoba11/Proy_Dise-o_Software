@@ -19,10 +19,27 @@ class logicChessBoard():
         self.rows = rows
         self.cols = cols
         
+        # Variable to control who is the next player (first white pieces)
+        self.next_player = 'w'
+        
         self.loadPieces()
         self.drawBoard()
         self.putPiecesOnBoard()
         self.gameTest()
+        
+        
+    # Function that returns the next player color
+    def getNextPlayer(self):
+        return self.next_player
+		
+		
+	# Subroutine that changes or switches the next player
+    def changeNextPlayer(self):
+		
+        if (self.next_player == 'w'):
+            self.next_player = 'b'
+        else:
+            self.next_player = 'w'
 
     def drawBoard(self):
         for i in range(self.rows):
