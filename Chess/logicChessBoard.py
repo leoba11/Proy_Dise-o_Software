@@ -26,17 +26,34 @@ class logicChessBoard():
         self.potential_king_killed = 'b'
         self.potential_king_name = 'bk'
         
+        # Variables to control the positions of the two kings
+        self.posX_bk = 0
+        self.posY_bk = 4
+        
+        self.posX_wk = 7
+        self.posY_wk = 4
+        
         self.loadPieces()
         self.drawBoard()
         self.putPiecesOnBoard()
-        self.gameTest()
+        #self.gameTest()
         
         
     # Function that returns the next player color
     def getNextPlayer(self):
         return self.next_player
-		
-		
+        
+        
+        
+    def refreshBoard(self):
+        print("entré")
+        global piecesforLogic
+        for i in range(len(self.board)):
+            for j in range(len(self.board)):
+                if not self.board[i][j] == '*':
+                    piecesforLogic[i] = self.board[i][j]
+                    
+                    
 		
 	# Subroutine that changes or switches the next player and the king that can be
 	# threatened
@@ -73,14 +90,21 @@ class logicChessBoard():
         return attack_moves
     
     
+    # Function that returns a tuple with the coordinates of the king threatened
+    def returnPositionsKingThreatened(self):
+        if (self.potential_king_killed == 'b'):
+            return (self.posX_bk, self.posY_bk)
+        else:
+            return (self.posX_wk, self.posY_wk)
+		
     
     # Checks if some of the kings is threatened for check-mate
-    def isPotentialCheckMate(self):
+    def isPotentialCheckMate(self, attack_moves):
 		
-		# Traverses all the board in order to ask for the king position
-        for i in range(self.rows):
-            for j in range(self.cols):
-                pass
+        coords_king = self.returnPositionsKingThreatened() 
+        if (coords_king in (attack_moves)):
+            print("SUPER JAQUE")
+		
 		
 
     def drawBoard(self):

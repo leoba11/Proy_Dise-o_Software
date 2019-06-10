@@ -161,8 +161,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*'
                             
+                            self.logic_board.refreshBoard()
+                            
                             attack_moves = self.logic_board.getAttackMoves()
                             
+                            self.logic_board.isPotentialCheckMate(attack_moves)
                             
                             x1 = (temp_y * self.size)
                             y1 = (temp_x * self.size)
@@ -177,7 +180,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             # Refresh the changes on the board
                             self.canvas.update_idletasks()
                             
-                            print (attack_moves)
+                            #print (attack_moves)
                             
                             # Changes the next player 
                             self.logic_board.changeNextPlayer()
