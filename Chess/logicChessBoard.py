@@ -202,12 +202,20 @@ class logicChessBoard():
         return coords
 
     def gameTest(self):
+        lastCoords = []
+        lastCoords = self.savePosition(piecesforLogic[4])
+        piecesforLogic[4].setCoordX(2)
+        piecesforLogic[4].setCoordY(2)
+        self.board[lastCoords[0]][lastCoords[1]] = '*'
+        self.refresh()
+
+    def refresh(self):
         global piecesforLogic
-        #lastCoords = []
-        #lastCoords = self.savePosition(piecesforLogic[4])
-        #piecesforLogic[4].setCoordX(2)
-        #piecesforLogic[4].setCoordY(2)
-        #self.board[lastCoords[0]][lastCoords[1]] = '*'
+        for i in range(0, len(piecesforLogic)):
+            #if (piecesforLogic[i] != '*'):
+            cx=piecesforLogic[i].getCoordX()
+            cy=piecesforLogic[i].getCoordY()
+            self.board[cx][cy] = piecesforLogic[i]
 
 
     def printPieces(self):

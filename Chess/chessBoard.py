@@ -163,10 +163,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*'
                             self.loadInitPosPiece()
-                            self.refresh()
-                  
-				
-        
+                            self.hotRefresh() #-=-=-=-=-=-=-=-=-=-=-=-=-=-
         return (coord_x, coord_y)
 			
 			
@@ -214,10 +211,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         print(self.pieces)
     
     def refresh(self):
-        '''xsize = int((event.width-1) / self.columns)
-        ysize = int((event.height-1) / self.rows)
-        self.size = min(xsize, ysize)
-        self.canvas.delete("square")'''
         color = self.color2
         for row in range(self.rows):
             color = self.color1 if color == self.color2 else self.color2
@@ -232,8 +225,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         for name in self.pieces:
             #print ("entré al for de refresh")
             self.placePiece(name, self.pieces[name][0], self.pieces[name][1]) #Add the piece
-        
-        
 
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
+
+    
+        
+    def hotRefresh(self):
+        for name in self.pieces:
+            self.placePiece(name, self.pieces[name][0], self.pieces[name][1])
