@@ -92,7 +92,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             
             # Creates the GREY squares
             for i in range(len(self.possible_moves)):
-                print(self.possible_moves)
+                #print(self.possible_moves)
                 x1 = (self.possible_moves[i][1] * self.size)
                 y1 = (self.possible_moves[i][0] * self.size)
                 x2 = x1 + self.size
@@ -102,12 +102,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         
         else:
 			# Checks if the another piece was clicked
-            if ( (self.isPieceClicked) and (self.isPieceAboutDie) and (not (self.logic_board.isEmpty(coord_x, coord_y))) 
+            if ( (self.isPieceClicked) and (not (self.isPieceAboutDie)) and (not (self.logic_board.isEmpty(coord_x, coord_y))) 
                 and (self.is_valid_piece(self.temporary_pos_x, self.temporary_pos_y)) ):
 				
                 print("second condition")
                 
-                # Colors all the possible moves for the piece
+                # Colors all moves from the anterior piece clicked into its original state
                 for j in range(len(self.temporarySquares)):
                     x1 = (self.temporarySquares[j][1] * self.size)
                     y1 = (self.temporarySquares[j][0] * self.size)
@@ -132,6 +132,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 self.temporarySquares = possible_moves[:]
                 self.possible_moves = possible_moves[:]
             
+                # Shows the possible moves for the piece 
                 for i in range(len(self.possible_moves)):
                     x1 = (possible_moves[i][1] * self.size)
                     y1 = (possible_moves[i][0] * self.size)
@@ -152,9 +153,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
 						# Checks if the movement requested by the user is one of the possible moves
                         if ((coord_x, coord_y) in self.possible_moves):
 							
-							# Changes the next player 
-                            self.logic_board.changeNextPlayer()
-							
                             self.isPieceClicked = False			# Restart the attribute isPieceClicked
                             self.isPieceAboutDie = False
                             temp_x = self.temporary_pos_x
@@ -162,8 +160,35 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*'
+                            
+                            attack_moves = self.logic_board.getAttackMoves()
+                            
+                            
+                            x1 = (temp_y * self.size)
+                            y1 = (temp_x * self.size)
+                            x2 = x1 + self.size
+                            y2 = y1 + self.size
+                            summ = temp_x + temp_y
+                            color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
+                            self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
+                            
+                            self.ded(temp_x, temp_y)
+                            
+                            # Refresh the changes on the board
+                            self.canvas.update_idletasks()
+                            
+                            print (attack_moves)
+                            
+                            # Changes the next player 
+                            self.logic_board.changeNextPlayer()
+                            
                             self.loadInitPosPiece()
-                            self.hotRefresh() #-=-=-=-=-=-=-=-=-=-=-=-=-=-
+                            #self.logic_board.refresh()
+                            self.refresh()
+                            
+                            
+                            #self.hotRefresh() #-=-=-=-=-=-=-=-=-=-=-=-=-=-
+                            
         return (coord_x, coord_y)
 			
 			
@@ -173,6 +198,16 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
         #print ("dropped at", event.x, event.y, coord_x, coord_y)
+    
+    
+    
+    # Deletes the piece eliminated from the pieces map
+    def ded(self, x, y):
+        for img in self.pieces:
+            if (self.pieces[img][0] == x and self.pieces[img][1] == y):
+                break
+        del (self.pieces[img])
+        
         
         
     #Agregar nueva ventana

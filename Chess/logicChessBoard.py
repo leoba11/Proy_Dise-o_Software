@@ -22,6 +22,10 @@ class logicChessBoard():
         # Variable to control who is the next player (first white pieces)
         self.next_player = 'w'
         
+        # Variables to control who is the king that can be threatened
+        self.potential_king_killed = 'b'
+        self.potential_king_name = 'bk'
+        
         self.loadPieces()
         self.drawBoard()
         self.putPiecesOnBoard()
@@ -33,13 +37,51 @@ class logicChessBoard():
         return self.next_player
 		
 		
-	# Subroutine that changes or switches the next player
+		
+	# Subroutine that changes or switches the next player and the king that can be
+	# threatened
     def changeNextPlayer(self):
 		
         if (self.next_player == 'w'):
             self.next_player = 'b'
+            self.potential_king_killed = 'w'
+            self.potential_king_name = 'wk'
         else:
             self.next_player = 'w'
+            self.potential_king_killed = 'b'
+            self.potential_king_name = 'bk'
+            
+            
+            
+    # Creates a list of all the possible moves of all the pieces in the current play
+    def getAttackMoves(self):
+        attack_moves = []
+        piece_moves = []
+		
+		# Traverses all the board in order to check the possible moves
+        for i in range(self.rows):
+            for j in range(self.cols):
+				
+                if (self.board[i][j] != '*'):
+                    if (self.board[i][j].getColor() == self.next_player):
+						
+                        piece_moves = self.board[i][j].canMove(self)
+						# Adds the potential moves of the piece into the final list
+                        attack_moves.extend(piece_moves)
+                        piece_moves.clear()
+		
+        return attack_moves
+    
+    
+    
+    # Checks if some of the kings is threatened for check-mate
+    def isPotentialCheckMate(self):
+		
+		# Traverses all the board in order to ask for the king position
+        for i in range(self.rows):
+            for j in range(self.cols):
+                pass
+		
 
     def drawBoard(self):
         for i in range(self.rows):
@@ -48,6 +90,7 @@ class logicChessBoard():
                 row.append('*')
             self.board.append(row)
         #print(self.board)
+        
         
     def add_piece(self, pieza, coordX, coordY):
         if(not (math.isnan(self.tablero[coordX][coordY]))):
