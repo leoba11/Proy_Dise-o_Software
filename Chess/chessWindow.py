@@ -21,15 +21,18 @@ class initialWindow(tk.Frame):
         self.master.title("Ajedrez Diseño de Software")
         self.pack()
 
-        # im2 = PIL.Image.open('images/ajedrez.jpg')
-        # self.icon = PIL.ImageTk.PhotoImage(im2)
-        # self.icon.image = self.icon 
+        im2 = PIL.Image.open('images/ajedrez.jpg')
+        self.icon = PIL.ImageTk.PhotoImage(im2)
+        self.icon.image = self.icon 
 
-        # self.labelito = Label(master, image=self.icon)
-        # self.labelito.pack()
+        self.labelito = Label(master, image=self.icon)
+        self.labelito.pack()
+
+        self.grupo = Label(master, text="Diseño de Software", width=20, fg="white",bg="#000000", font=("Helvetica", 24, 'bold'))
+        self.grupo.place(relx=0.53, rely=0.06)
 
         # Creates the labels with the Entry boxes for the white and black pieces players
-        self.lbl1 = Label(master, text="Jugador con fichas blancas:", width=25, anchor=NW, fg="white",font=("Helvetica", 16))
+        self.lbl1 = Label(master, text="Jugador con fichas blancas:", width=25, anchor=NW, fg="white",font=("Helvetica", 16), bg="grey")
         
         # places the object in a relative position of the window
         self.lbl1.place(relx=0.08, rely=0.2)
@@ -37,7 +40,7 @@ class initialWindow(tk.Frame):
         self.entry1 = Entry(master, width=20, bg="white", justify = CENTER, font=("Helvetica", 16))
         self.entry1.place(relx=0.55, rely=0.2)
 
-        self.lbl2 = Label(master, text="Jugador con fichas negras:", width=25, anchor=NW, font=("Helvetica", 16))
+        self.lbl2 = Label(master, text="Jugador con fichas negras:", width=25, anchor=NW, font=("Helvetica", 16), bg="grey")
         self.lbl2.place(relx=0.08, rely=0.5)
 
         self.entry2 = Entry(master, width=20, bg="white", justify = CENTER, font=("Helvetica", 16))
@@ -47,10 +50,10 @@ class initialWindow(tk.Frame):
         #self.box.place(relx=0.08, rely=0.75) To display players selection
 
         # Creates the button to submit the players names
-        self.buttonPlay = Button(master, text="Jugar!!", bg="green", bd=5, justify=CENTER, width=10, font=("Helvetica", 16), command=self.button_click)
+        self.buttonPlay = Button(master, text="¡¡Jugar!!", bg="#5BD317", bd=5, justify=CENTER, width=12, font=("Helvetica", 16), command=self.button_click)
         self.buttonPlay.place(relx=0.65, rely=0.75)
 
-        self.buttonQuit = Button(master, text="Salir!", bg="red", bd=5, justify=CENTER, width=10, font=("Helvetica",16), command=self.button_quit)
+        self.buttonQuit = Button(master, text="¡Salir!", bg="#BF2222", bd=5, justify=CENTER, width=12, font=("Helvetica",16), command=self.button_quit)
         self.buttonQuit.place(relx=0.40, rely=0.75)
 
     # Subroutine that extracts the players names and stores them into the class attributes 
@@ -91,7 +94,7 @@ class initialWindow(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.geometry("600x300")
+    root.geometry("800x490")
     app = initialWindow(root)#.pack()
     
     print (root.winfo_pointerxy())
