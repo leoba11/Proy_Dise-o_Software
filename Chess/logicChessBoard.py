@@ -206,15 +206,16 @@ class logicChessBoard():
         lastCoords = self.savePosition(piecesforLogic[4])
         piecesforLogic[4].setCoordX(2)
         piecesforLogic[4].setCoordY(2)
+        piecesforLogic[3] = '*'
         self.board[lastCoords[0]][lastCoords[1]] = '*'
         self.refresh()
 
     def refresh(self):
         global piecesforLogic
         for i in range(0, len(piecesforLogic)):
-            #if (piecesforLogic[i] != '*'):
-            cx=piecesforLogic[i].getCoordX()
-            cy=piecesforLogic[i].getCoordY()
+            if (piecesforLogic[i] != '*'):
+                cx=piecesforLogic[i].getCoordX()
+                cy=piecesforLogic[i].getCoordY()
             self.board[cx][cy] = piecesforLogic[i]
 
 
