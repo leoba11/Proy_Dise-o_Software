@@ -28,6 +28,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.isPieceClicked = False
         self.isPieceAboutDie = False
         
+        
+        reycito = Rey("rk",'r', 0, 8, "pieces/icons8-rey-48.png")
+        
+        print(type(reycito))
+        
+        
         self.temporarySquares = []
         self.possible_moves = []
         
@@ -152,7 +158,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                         print("third condition")
 						# Checks if the movement requested by the user is one of the possible moves
                         if ((coord_x, coord_y) in self.possible_moves):
-							
+
                             self.isPieceClicked = False			# Restart the attribute isPieceClicked
                             self.isPieceAboutDie = False
                             temp_x = self.temporary_pos_x
@@ -160,6 +166,10 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*'
+                            
+                            
+                            # Checks if one of the kings was the piece moved
+                            self.logic_board.checkPieceKing(coord_x, coord_y)
                             
                             self.logic_board.refreshBoard()
                             

@@ -6,6 +6,7 @@ from rey import *
 from torre import *
 from chessBoard import *
 from tkinter import *
+from tkinter import messagebox
 
 #Se inicializa en 0's para evitar problemas
 #Variables globales
@@ -25,6 +26,9 @@ class logicChessBoard():
         # Variables to control who is the king that can be threatened
         self.potential_king_killed = 'b'
         self.potential_king_name = 'bk'
+        
+        # Creates a king piece for comparing later 
+        self.rey_prueba = Rey('k', 'r', 0, 10, "pieces/icons8-rey-48.png")
         
         # Variables to control the positions of the two kings
         self.posX_bk = 0
@@ -90,21 +94,59 @@ class logicChessBoard():
         return attack_moves
     
     
+    # Function that checks if the king
+    def checkPieceKing(self, coord_x, coord_y):
+        
+        if (type(self.board[coord_x][coord_y]) == type(self.rey_prueba)):
+            self.setPositionKing(self.board[coord_x][coord_y].getColor(), coord_x, coord_y)
+    
+    
     # Function that returns a tuple with the coordinates of the king threatened
     def returnPositionsKingThreatened(self):
         if (self.potential_king_killed == 'b'):
             return (self.posX_bk, self.posY_bk)
         else:
             return (self.posX_wk, self.posY_wk)
-		
+            
+            
+            
+    # Function that sets a tuple for the king MOVED by the user
+    def setPositionKing(self, color, coord_x, coord_y):
+        if (color == 'b'):
+            self.posX_bk = coord_x
+            self.posY_bk = coord_y
+        else:
+            self.posX_wk = coord_x
+            self.posY_wk = coord_y
+            
+            
     
-    # Checks if some of the kings is threatened for check-mate
+    # Checks if one of the kings is threatened for check-mate
     def isPotentialCheckMate(self, attack_moves):
-		
+
+        isCheckMate = True
+        
+        # Stores the name pieces for the board
+        name_pieces = 'blancas' if (self.potential_king_killed == 'b') else 'negras'
+        name_pieces_losing = 'negras' if (self.potential_king_killed == 'b') else 'blancas'
+        
+        # Gets the coords of the king
         coords_king = self.returnPositionsKingThreatened() 
+        
         if (coords_king in (attack_moves)):
-            print("SUPER JAQUE")
-		
+
+            moves_king = self.board[coords_king[0]][coords_king[1]].canMove(self)
+            
+            # Checks if the king can move to escape from the check mate
+            for i in range(len(moves_king)):
+                
+                if (not ( moves_king[i] in (attack_moves))):
+                    isCheckMate = False						# Escapes from the check mate
+			
+            if (isCheckMate):
+                messagebox.showinfo("GANADOR!","JAQUE MATE! Ganaron las piezas " + name_pieces)
+            else:
+                messagebox.showwarning("CUIDADO!", "Piezas " + name_pieces_losing + " en jaque")
 		
 
     def drawBoard(self):
@@ -120,6 +162,8 @@ class logicChessBoard():
         if(not (math.isnan(self.tablero[coordX][coordY]))):
             self.board[coordX][coordY] = pieza
     
+    
+    # Function that checks if the square or field requested for the player is empty
     def isEmpty(self, coordX, coordY):
         #print (coordX, coordY)
         if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
@@ -131,6 +175,7 @@ class logicChessBoard():
                 return False
 
 
+    # Function that checks if on the square requested for the player is occupied by the enemy
     def isEnemy(self, color, coordX, coordY):
         if (coordX < 0  or coordX > 7 or coordY < 0 or coordY > 7):
             return False
@@ -148,6 +193,8 @@ class logicChessBoard():
 
         #--------------------Black Empire-----------------------------
         self.black_king = Rey("bk",'b', 0, 4, "pieces/icons8-rey-48.png")
+        print("HI")
+        print(type(self.black_king))
         piecesforLogic[0] = self.black_king
 
         self.black_queen = Reina("bq",'b', 0,3, "pieces/icons8-reina-48.png")
