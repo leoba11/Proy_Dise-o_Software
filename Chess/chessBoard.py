@@ -81,22 +81,25 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
             
             self.possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
             
-            # Extracts the temporary positions of the piece already clicked
-            self.temporary_pos_x = coord_x
-            self.temporary_pos_y = coord_y
-            
-            # Copies all the list from possible moves to the temporary colored
-            self.temporarySquares = self.possible_moves[:]
-            
-            # Creates the GREY squares
-            for i in range(len(self.possible_moves)):
-                #print(self.possible_moves)
-                x1 = (self.possible_moves[i][1] * self.size)
-                y1 = (self.possible_moves[i][0] * self.size)
-                x2 = x1 + self.size
-                y2 = y1 + self.size
-                self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
-                self.canvas.update_idletasks()
+            if (len(self.possible_moves) != 0):
+                # Extracts the temporary positions of the piece already clicked
+                self.temporary_pos_x = coord_x
+                self.temporary_pos_y = coord_y
+				
+                # Copies all the list from possible moves to the temporary colored
+                self.temporarySquares = self.possible_moves[:]
+                # Creates the GREY squares
+                for i in range(len(self.possible_moves)):
+                    #print(self.possible_moves)
+                    x1 = (self.possible_moves[i][1] * self.size)
+                    y1 = (self.possible_moves[i][0] * self.size)
+                    x2 = x1 + self.size
+                    y2 = y1 + self.size	
+                    self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
+                    self.canvas.update_idletasks()
+            else:
+                self.isPieceClicked = False
+                self.isPieceAboutDie = False
         
         else:
 			# Checks if the another piece was clicked
@@ -176,7 +179,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
                         
                             self.ded(coord_x, coord_y, eaterPiece)
-                            self.logic_board.logicEat(eaterPiece)
+                            #self.logic_board.logicEat(eaterPiece)
 
                             #self.refresh()
                                                     

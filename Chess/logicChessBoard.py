@@ -321,14 +321,18 @@ class logicChessBoard():
         piecesforLogic[3] = '*'
         self.board[lastCoords[0]][lastCoords[1]] = '*'
         self.refresh()
+        
+        
     
     def logicEat(self, ate): #may need a translater
-        piecesforLogic
+        global piecesforLogic
         for piece in piecesforLogic:
             if ate == piece.getName():
                 print(piece.getName())
                 break
         piecesforLogic.remove(piece.getName())
+        
+        
 
     def piecesRefresh(self):
         global piecesforLogic
