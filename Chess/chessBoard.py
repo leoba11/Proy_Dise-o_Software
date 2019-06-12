@@ -158,6 +158,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.isPieceAboutDie = False
                             temp_x = self.temporary_pos_x
                             temp_y = self.temporary_pos_y
+                            
+                            if (self.logic_board.board[coord_x][coord_y] != '*'):
+                                self.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
+                            
+                            
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*' # en la pos de antes ya no está esa pieza
@@ -177,8 +182,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             summ = temp_x + temp_y
                             color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
                             self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
-                        
-                            self.ded(coord_x, coord_y, eaterPiece)
+                            #self.ded(coord_x, coord_y, eaterPiece)
                             #self.logic_board.logicEat(eaterPiece)
 
                             #self.refresh()
@@ -222,7 +226,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
 
     #Add a piece to the tab to be used
     def addPiece(self, name, image, row, column):
-        self.canvas.create_image(0,0, image = image, tags = (name, 'piece'), anchor = 'c')
+        self.canvas.create_image(0,0, image = image, tags = name, anchor = 'c')
         self.placePiece(name, row, column)
 
     def placePiece(self, name, row, column):
