@@ -40,7 +40,7 @@ class logicChessBoard():
         self.loadPieces()
         self.drawBoard()
         self.putPiecesOnBoard()
-        #self.gameTest()
+        self.gameTest()
         
         
     # Function that returns the next player color
@@ -323,15 +323,32 @@ class logicChessBoard():
         piecesforLogic[3] = '*'
         self.board[lastCoords[0]][lastCoords[1]] = '*'
         self.refresh()
+    
+    def eat(self, xEater, yEater):
+        global piecesforLogic
+        for piece in piecesforLogic:
+            if piece.getCoordX() == xEater and piece.getCoordY() == yEater:
+                break
+        piecesforLogic.pop(piece)
+ 
 
-    def refresh(self):
+    def piecesRefresh(self):
         global piecesforLogic
         for i in range(0, len(piecesforLogic)):
             if (piecesforLogic[i] != '*'):
                 cx=piecesforLogic[i].getCoordX()
                 cy=piecesforLogic[i].getCoordY()
             self.board[cx][cy] = piecesforLogic[i]
-
+    
+    def refreshBoard(self):
+        global piecesforLogic
+        #contador = 0
+        for i in range(len(self.board)):
+            for j in range(len(self.board)):
+                if not self.board[i][j] == '*':
+                    #contador += 1 
+                    #print("Encontré una pieza", contador)
+                    piecesforLogic[i] = self.board[i][j]
 
     def printPieces(self):
         print(piecesforLogic)

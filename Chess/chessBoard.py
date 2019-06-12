@@ -28,12 +28,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.isPieceClicked = False
         self.isPieceAboutDie = False
         
-        
-        reycito = Rey("rk",'r', 0, 8, "pieces/icons8-rey-48.png")
-        
-        print(type(reycito))
-        
-        
         self.temporarySquares = []
         self.possible_moves = []
         
@@ -158,7 +152,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                         print("third condition")
 						# Checks if the movement requested by the user is one of the possible moves
                         if ((coord_x, coord_y) in self.possible_moves):
-
+							
                             self.isPieceClicked = False			# Restart the attribute isPieceClicked
                             self.isPieceAboutDie = False
                             temp_x = self.temporary_pos_x
@@ -167,11 +161,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*'
                             
-                            
-                            # Checks if one of the kings was the piece moved
-                            self.logic_board.checkPieceKing(coord_x, coord_y)
-                            
-                            self.logic_board.refreshBoard()
+
+
+                            #self.logic_board.eat(coord_x, coord_y,)
+                            #self.ded(temp_x, temp_y)
+                            #self.logic_board.refreshBoard() ya no se ocupa
                             
                             attack_moves = self.logic_board.getAttackMoves()
                             
@@ -184,9 +178,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             summ = temp_x + temp_y
                             color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
                             self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
-                            
-                            self.ded(temp_x, temp_y)
-                            
+                        
                             # Refresh the changes on the board
                             self.canvas.update_idletasks()
                             
@@ -194,16 +186,10 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             
                             # Changes the next player 
                             self.logic_board.changeNextPlayer()
-                            
                             self.loadInitPosPiece()
-                            #self.logic_board.refresh()
                             self.refresh()
-                            
-                            
-                            #self.hotRefresh() #-=-=-=-=-=-=-=-=-=-=-=-=-=-
-                            
+
         return (coord_x, coord_y)
-			
 			
         
     # Relates the dropped cell of the board to a duple of coordinates
@@ -212,17 +198,15 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         coord_y = int((event.x / self.size))
         #print ("dropped at", event.x, event.y, coord_x, coord_y)
     
-    
-    
     # Deletes the piece eliminated from the pieces map
     def ded(self, x, y):
         for img in self.pieces:
             if (self.pieces[img][0] == x and self.pieces[img][1] == y):
+                print(img)
                 break
         del (self.pieces[img])
         
-        
-        
+
     #Agregar nueva ventana
     def new_window(self):
         self.newWindow = tk.Toplevel()
@@ -269,9 +253,10 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
-
+        c = 0
         for name in self.pieces:
-            #print ("entré al for de refresh")
+            c += 1
+            print(name, c)
             self.placePiece(name, self.pieces[name][0], self.pieces[name][1]) #Add the piece
 
         self.canvas.tag_raise("piece")
