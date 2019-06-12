@@ -10,7 +10,7 @@ from torre import Torre
 from peon import Peon
 
 from chessRules import *
-#caca
+
 import PIL.Image
 import PIL.ImageTk
 
@@ -66,8 +66,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         else:
             return False
 			
-			
-    
     # Relates the clicked cell of the board to a duple of coordinates
     def piece_clicked(self, event):
         coord_x = int((event.y / self.size))
@@ -152,21 +150,19 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                         print("third condition")
 						# Checks if the movement requested by the user is one of the possible moves
                         if ((coord_x, coord_y) in self.possible_moves):
-							
+
                             self.isPieceClicked = False			# Restart the attribute isPieceClicked
                             self.isPieceAboutDie = False
                             temp_x = self.temporary_pos_x
                             temp_y = self.temporary_pos_y
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
-                            self.logic_board.board[temp_x][temp_y] = '*'
-                            
+                            self.logic_board.board[temp_x][temp_y] = '*' # en la pos de antes ya no está esa pieza
 
 
-                            #self.logic_board.eat(coord_x, coord_y,)
-                            #self.ded(temp_x, temp_y)
-                            #self.logic_board.refreshBoard() ya no se ocupa
-                            
+                            eaterPiece = self.getPiece(temp_x,temp_y)
+                            print("la pieza que estoy agarrando es: ", eaterPiece)
+
                             attack_moves = self.logic_board.getAttackMoves()
                             
                             self.logic_board.isPotentialCheckMate(attack_moves)
@@ -179,6 +175,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
                             self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
                         
+                            self.ded(coord_x, coord_y, eaterPiece)
+                            self.logic_board.logicEat(eaterPiece)
+
+                            #self.refresh()
+                                                    
                             # Refresh the changes on the board
                             self.canvas.update_idletasks()
                             
@@ -199,12 +200,14 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         #print ("dropped at", event.x, event.y, coord_x, coord_y)
     
     # Deletes the piece eliminated from the pieces map
-    def ded(self, x, y):
+    def ded(self, x, y, eaterPiece):
+        '''
         for img in self.pieces:
             if (self.pieces[img][0] == x and self.pieces[img][1] == y):
                 print(img)
                 break
-        del (self.pieces[img])
+        '''
+        del (self.pieces[eaterPiece])
         
 
     #Agregar nueva ventana
@@ -220,9 +223,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.placePiece(name, row, column)
 
     def placePiece(self, name, row, column):
-
         self.pieces[name] = (row, column)
-        
         x0 = (column * self.size) + int(self.size/2)
         y0 = (row * self.size) + int(self.size/2)
         self.canvas.coords(name, x0, y0)
@@ -232,8 +233,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         counter = 0
         # Checks the entire board
         for i in range(self.rows):
-            for j in range(self.columns):
-                
+            for j in range(self.columns):      
                 # Checks if the square checked has a piece
                 if (self.logic_board.board[i][j] != '*'):
                     self.addPiece(self.logic_board.board[i][j].getName(), self.logic_board.board[i][j].getImage(), i, j)
@@ -256,14 +256,13 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         c = 0
         for name in self.pieces:
             c += 1
-            print(name, c)
+            #print(name, c)
             self.placePiece(name, self.pieces[name][0], self.pieces[name][1]) #Add the piece
 
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
 
-    
-        
-    def hotRefresh(self):
-        for name in self.pieces:
-            self.placePiece(name, self.pieces[name][0], self.pieces[name][1])
+    def getPiece(self, x, y):
+        for img in self.pieces:
+            if self.pieces[img][0] == x and self.pieces[img][1] == y:
+                return img

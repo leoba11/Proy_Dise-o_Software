@@ -11,7 +11,7 @@ from tkinter import messagebox
 #Se inicializa en 0's para evitar problemas
 #Variables globales
 piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
-#board = []
+
 
 class logicChessBoard():
 
@@ -40,17 +40,15 @@ class logicChessBoard():
         self.loadPieces()
         self.drawBoard()
         self.putPiecesOnBoard()
-        self.gameTest()
+        #self.gameTest()
         
         
     # Function that returns the next player color
     def getNextPlayer(self):
         return self.next_player
         
-        
-        
     def refreshBoard(self):
-        print("entré")
+        print("entré=============================")
         global piecesforLogic
         for i in range(len(self.board)):
             for j in range(len(self.board)):
@@ -304,10 +302,10 @@ class logicChessBoard():
     def putPiecesOnBoard(self): #Saca las piezas del vector y los
         global piecesforLogic
         for i in range(0, len(piecesforLogic)):
-            #if (piecesforLogic[i] != '*'):
-            cx=piecesforLogic[i].getCoordX()
-            cy=piecesforLogic[i].getCoordY()
-            self.board[cx][cy] = piecesforLogic[i]
+            if (piecesforLogic[i] != '*'):
+                cx=piecesforLogic[i].getCoordX()
+                cy=piecesforLogic[i].getCoordY()
+                self.board[cx][cy] = piecesforLogic[i]
 
     def savePosition(self, pieza):
         coords = [0,0]
@@ -324,13 +322,13 @@ class logicChessBoard():
         self.board[lastCoords[0]][lastCoords[1]] = '*'
         self.refresh()
     
-    def eat(self, xEater, yEater):
-        global piecesforLogic
+    def logicEat(self, ate): #may need a translater
+        piecesforLogic
         for piece in piecesforLogic:
-            if piece.getCoordX() == xEater and piece.getCoordY() == yEater:
+            if ate == piece.getName():
+                print(piece.getName())
                 break
-        piecesforLogic.pop(piece)
- 
+        piecesforLogic.remove(piece.getName())
 
     def piecesRefresh(self):
         global piecesforLogic
@@ -339,7 +337,7 @@ class logicChessBoard():
                 cx=piecesforLogic[i].getCoordX()
                 cy=piecesforLogic[i].getCoordY()
             self.board[cx][cy] = piecesforLogic[i]
-    
+    '''
     def refreshBoard(self):
         global piecesforLogic
         #contador = 0
@@ -349,7 +347,7 @@ class logicChessBoard():
                     #contador += 1 
                     #print("Encontré una pieza", contador)
                     piecesforLogic[i] = self.board[i][j]
-
+    '''
     def printPieces(self):
         print(piecesforLogic)
     def printBoard(self):
