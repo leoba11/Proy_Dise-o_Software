@@ -17,7 +17,7 @@ import PIL.ImageTk
 class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
     
     def __init__(self, logic_board,rows, columns, color1, color2, size, parent):
-        pass
+        #pass
         genBoard.__init__(self, rows, columns, color1, color2)
         self.size = size
         self.pieces = {} #Tener ciudado
@@ -38,7 +38,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         
-        #self.caballito = Caballo("wnr",'b', 0, 6, "images/bn.gif")
+        # Creation of a second canvas for the display of lost pieces
+        self.canvasTwo = tk.Canvas(self, width = 150, height = 20)
         
         # Relates the mouse clicked to a function called piece_clicked
         self.canvas.bind("<Button-1>", self.piece_clicked)
@@ -46,11 +47,17 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.canvas.bind("<ButtonRelease-1>", self.piece_dropped)
         
         self.canvas.pack(side = 'top', fill = 'both', expand = True, padx = 2, pady = 2)
+        
+        #self.canvasTwo.pack_propagate()
+        
+        #self.canvasTwo.create_rectangle(10,10,20,20,outline="white", fill="red", tags="square")
 
         self.frame = tk.Frame(self)
 
         self.button1 = tk.Button(self.frame, text = 'Ver Reglas', width = 25, command = self.new_window)
         self.button1.pack()
+        
+        self.label1 = tk.Label(self.frame, text= "Piezas perdidas").pack(anchor=CENTER)
         self.frame.pack()
 
         #self.canvas.bind('<Configure>', self.refresh)
