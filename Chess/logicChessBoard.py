@@ -92,10 +92,14 @@ class logicChessBoard():
         return attack_moves
     
     
-    # Function that checks if the king
+    # Function that checks if the king has already been moved
     def checkPieceKing(self, coord_x, coord_y):
-        
-        if (type(self.board[coord_x][coord_y]) == type(self.rey_prueba)):
+        name = self.board[coord_x][coord_y].getName()
+        #print("Entré chequeo")
+        #if (type(self.board[coord_x][coord_y]) == type(self.rey_prueba)):
+            #print("Entré chequeo")
+        if (name == "wk" or name == "bk"):
+            print("Entré chequeo 2")
             self.setPositionKing(self.board[coord_x][coord_y].getColor(), coord_x, coord_y)
     
     
@@ -110,10 +114,15 @@ class logicChessBoard():
             
     # Function that sets a tuple for the king MOVED by the user
     def setPositionKing(self, color, coord_x, coord_y):
+		
         if (color == 'b'):
+            print("set king black position + ")
+            print((coord_x, coord_y))
             self.posX_bk = coord_x
             self.posY_bk = coord_y
         else:
+            print("set king white position + ")
+            print((coord_x, coord_y))
             self.posX_wk = coord_x
             self.posY_wk = coord_y
             

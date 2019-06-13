@@ -162,8 +162,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             if (self.logic_board.board[coord_x][coord_y] != '*'):
                                 self.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
                             
-                            
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
+                            self.logic_board.checkPieceKing(coord_x, coord_y)
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*' # en la pos de antes ya no está esa pieza
 
