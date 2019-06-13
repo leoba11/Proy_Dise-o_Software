@@ -91,8 +91,38 @@ class logicChessBoard():
 		
         return attack_moves
     
+    # Function that checks if the castling move was made by the king
+    def checkCastlingMove(self, temp_x, temp_y, coord_x, coord_y):
+        
+        name = self.board[coord_x][coord_y].getName()
+        direction = 0
+        orientation = 0
+        coord_y_tower = 0
+        if (name == "wk" or name == "bk"):
+            
+            # Checks if the king moved two squares
+            if ((coord_y == (temp_y - 2))):
+                orientation= 1
+                direction = -2
+                coord_y_tower = (temp_y - 2) + direction
+            if ((coord_y == (temp_y + 2))):
+                orientation = -1
+                direction = 1
+                coord_y_tower = (temp_y + 2) + direction
+            
+            #Set new tower move
+            self.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
     
-    # Function that checks if the king
+    # Function that sets the new tower position from the castling move
+    def changeTowerPosition(self,direction, orientation, coord_y_tower, coord_x, coord_y):
+		
+        print("rook_move")
+        self.board[coord_x][coord_y + orientation] = self.board[coord_x][coord_y_tower]
+        self.board[coord_x][coord_y + orientation].movePiece((coord_x, coord_y + orientation))
+        self.board[coord_x][coord_y_tower] = '*'
+    
+    
+    # Function that checks if the king was moved
     def checkPieceKing(self, coord_x, coord_y):
         
         name = self.board[coord_x][coord_y].getName()
@@ -119,7 +149,7 @@ class logicChessBoard():
             self.posX_wk = coord_x
             self.posY_wk = coord_y
             
-            
+    
     
     # Checks if one of the kings is threatened for check-mate
     def isPotentialCheckMate(self, attack_moves):

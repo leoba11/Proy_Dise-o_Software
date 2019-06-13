@@ -164,6 +164,11 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             
                             
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
+                            
+                            # Checks if castling was made 
+                            self.logic_board.checkCastlingMove(temp_x, temp_y, coord_x, coord_y)
+                            
+                            # Checks if the king was moved 
                             self.logic_board.checkPieceKing(coord_x, coord_y)
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*' # en la pos de antes ya no está esa pieza
