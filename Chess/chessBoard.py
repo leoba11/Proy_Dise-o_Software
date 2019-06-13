@@ -56,11 +56,8 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         #self.canvas.bind('<Configure>', self.refresh)
         self.refresh()
         
-        
-        
     # Function that compares the piece pressed by the user and if the piece is one of the next color to play
     def is_valid_piece(self, coord_x, coord_y):
-        
         if (self.logic_board.board[coord_x][coord_y].getColor() == self.logic_board.getNextPlayer()):
             return True
         else:

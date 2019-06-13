@@ -35,8 +35,4 @@ class Pieza(metaclass=ABCMeta):
 	@abstractmethod
 	def movePiece(self, newCoordinates):
 		pass
-		
-		
-##piece = Pieza('b', 1, 6)
 
-##print("Color es: "+ piece.getColor() + " y coordenadas(x,y) son: " + str(piece.getCoordX()) + " " + str(piece.getCoordY()))

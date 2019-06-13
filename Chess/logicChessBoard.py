@@ -145,7 +145,6 @@ class logicChessBoard():
                 messagebox.showinfo("GANADOR!","JAQUE MATE! Ganaron las piezas " + name_pieces)
             else:
                 messagebox.showwarning("CUIDADO!", "Piezas " + name_pieces_losing + " en jaque")
-		
 
     def drawBoard(self):
         for i in range(self.rows):
@@ -155,11 +154,9 @@ class logicChessBoard():
             self.board.append(row)
         #print(self.board)
         
-        
     def add_piece(self, pieza, coordX, coordY):
         if(not (math.isnan(self.tablero[coordX][coordY]))):
             self.board[coordX][coordY] = pieza
-    
     
     # Function that checks if the square or field requested for the player is empty
     def isEmpty(self, coordX, coordY):
@@ -171,7 +168,6 @@ class logicChessBoard():
                 return True
             else:
                 return False
-
 
     # Function that checks if on the square requested for the player is occupied by the enemy
     def isEnemy(self, color, coordX, coordY):
@@ -188,18 +184,14 @@ class logicChessBoard():
     def loadPieces(self):
         #root = Tk()
         global piecesforLogic
-
         #--------------------Black Empire-----------------------------
         self.black_king = Rey("bk",'b', 0, 4, "pieces/icons8-rey-48.png")
-        #print("HI")
-        #print(type(self.black_king))
         piecesforLogic[0] = self.black_king
         #self.board[0][4] = self.black_king
 
         self.black_queen = Reina("bq",'b', 0,3, "pieces/icons8-reina-48.png")
         #self.board[0][3] = self.black_queen
         piecesforLogic[1] = self.black_queen
-        #piecesforLogic[1] = '*'
 
         self.black_bishop1 = Alfil("bbl",'b', 0, 2, "pieces/icons8-obispo-48.png")
         #self.board[0][2] = self.black_bishop1
@@ -353,10 +345,8 @@ class logicChessBoard():
         piecesforLogic[3] = '*'
         self.board[lastCoords[0]][lastCoords[1]] = '*'
         self.refresh()
-        
-        
     
-    def logicEat(self, ate): #may need a translater
+    def logicEat(self, ate):
         global piecesforLogic
         for piece in piecesforLogic:
             if ate == piece.getName():
@@ -364,8 +354,6 @@ class logicChessBoard():
                 break
         piecesforLogic.remove(piece.getName())
         
-        
-
     def piecesRefresh(self):
         global piecesforLogic
         for i in range(0, len(piecesforLogic)):
@@ -373,37 +361,11 @@ class logicChessBoard():
                 cx=piecesforLogic[i].getCoordX()
                 cy=piecesforLogic[i].getCoordY()
             self.board[cx][cy] = piecesforLogic[i]
-    '''
-    def refreshBoard(self):
-        global piecesforLogic
-        #contador = 0
-        for i in range(len(self.board)):
-            for j in range(len(self.board)):
-                if not self.board[i][j] == '*':
-                    #contador += 1 
-                    #print("Encontré una pieza", contador)
-                    piecesforLogic[i] = self.board[i][j]
-    '''
+
     def printPieces(self):
         print(piecesforLogic)
     def printBoard(self):
         print(self.board)
 
-
-
-if __name__ == '__main__':
-
-    gboard = logicChessBoard()
-
-    gboard.drawBoard()
-    print("=====================================")
-    gboard.loadPieces()
-    #gboard.printPieces()
-    print("=====================================")
-    #gboard.putPiecesOnBoard()
-    gboard.printBoard()
-    print("=====================================")
-    gboard.gameTest()
-    gboard.printBoard()
     
 
