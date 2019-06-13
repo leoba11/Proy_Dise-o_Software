@@ -95,7 +95,9 @@ class logicChessBoard():
     # Function that checks if the king
     def checkPieceKing(self, coord_x, coord_y):
         
-        if (type(self.board[coord_x][coord_y]) == type(self.rey_prueba)):
+        name = self.board[coord_x][coord_y].getName()
+        #if (type(self.board[coord_x][coord_y]) == type(self.rey_prueba)):
+        if (name == "wk" or name == "bk"):
             self.setPositionKing(self.board[coord_x][coord_y].getColor(), coord_x, coord_y)
     
     
@@ -142,7 +144,7 @@ class logicChessBoard():
                     isCheckMate = False						# Escapes from the check mate
 			
             if (isCheckMate):
-                messagebox.showinfo("GANADOR!","JAQUE MATE! Ganaron las piezas " + name_pieces)
+                messagebox.showinfo("FIN DE JUEGO!","JAQUE MATE! Ganaron las piezas " + name_pieces)
             else:
                 messagebox.showwarning("CUIDADO!", "Piezas " + name_pieces_losing + " en jaque")
 

@@ -100,7 +100,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         
         else:
 			# Checks if the another piece was clicked
-            if ( (self.isPieceClicked) and (not (self.isPieceAboutDie)) and (not (self.logic_board.isEmpty(coord_x, coord_y))) 
+            if ( (not (self.isPieceClicked) and (self.isPieceAboutDie)) and (not (self.logic_board.isEmpty(coord_x, coord_y))) 
                 and (self.is_valid_piece(self.temporary_pos_x, self.temporary_pos_y)) ):
 				
                 print("second condition")
@@ -140,6 +140,9 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                    
                 # Refresh the changes on the board
                 self.canvas.update_idletasks()
+                
+                #self.isPieceClicked = False
+                #self.isPieceAboutDie = False
             
             # In case that the user wants to move the piece already clicked
             else:
@@ -161,6 +164,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             
                             
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
+                            self.logic_board.checkPieceKing(coord_x, coord_y)
                             self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
                             self.logic_board.board[temp_x][temp_y] = '*' # en la pos de antes ya no está esa pieza
 
