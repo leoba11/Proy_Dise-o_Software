@@ -179,10 +179,6 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             summ = temp_x + temp_y
                             color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
                             self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
-                            #self.ded(coord_x, coord_y, eaterPiece)
-                            #self.logic_board.logicEat(eaterPiece)
-
-                            #self.refresh()
                                                     
                             # Refresh the changes on the board
                             self.canvas.update_idletasks()
