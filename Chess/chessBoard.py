@@ -10,17 +10,26 @@ from torre import Torre
 from peon import Peon
 
 from chessRules import *
-#caca
+
 import PIL.Image
 import PIL.ImageTk
 
 class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
     
-    def __init__(self, rows, columns, color1, color2, size, parent):
+    def __init__(self, logic_board,rows, columns, color1, color2, size, parent):
         pass
         genBoard.__init__(self, rows, columns, color1, color2)
         self.size = size
         self.pieces = {} #Tener ciudado
+        
+        self.logic_board = logic_board
+        
+        # Variable to check if one piece is already clicked
+        self.isPieceClicked = False
+        self.isPieceAboutDie = False
+        
+        self.temporarySquares = []
+        self.possible_moves = []
         
         #Dimensions
         canvasWidth = columns * size
@@ -29,7 +38,7 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         
-        self.caballito = Caballo('b', 0, 6, "images/bn.gif")
+        #self.caballito = Caballo("wnr",'b', 0, 6, "images/bn.gif")
         
         # Relates the mouse clicked to a function called piece_clicked
         self.canvas.bind("<Button-1>", self.piece_clicked)
@@ -44,47 +53,163 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         self.button1.pack()
         self.frame.pack()
 
-        self.canvas.bind('<Configure>', self.refresh)
+        #self.canvas.bind('<Configure>', self.refresh)
+        self.refresh()
         
+    # Function that compares the piece pressed by the user and if the piece is one of the next color to play
+    def is_valid_piece(self, coord_x, coord_y):
+        if (self.logic_board.board[coord_x][coord_y].getColor() == self.logic_board.getNextPlayer()):
+            return True
+        else:
+            return False
+			
     # Relates the clicked cell of the board to a duple of coordinates
     def piece_clicked(self, event):
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
-        print ("clicked at", event.x, event.y, coord_x, coord_y)
         
-        
-        # Checks if the black knight was clicked
-        if (coord_x == 0 and coord_y == 6):
+        # Checks if the square clicked is a piece and if not other one has been pressed
+        if ((not (self.logic_board.isEmpty(coord_x, coord_y))) and (not (self.isPieceClicked)) and (not (self.isPieceAboutDie)) 
+            and (self.is_valid_piece(coord_x, coord_y))):
 			
-            possible_moves = [(2,5), (2,7)]
-            for i in range(len(possible_moves)):
-				#print(type(i))
-                x1 = (possible_moves[i][1] * self.size)
-                y1 = (possible_moves[i][0] * self.size)
-                x2 = x1 + self.size
-                y2 = y1 + self.size
-                self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
-                self.canvas.update_idletasks()
+            print("first condition")
+            self.isPieceClicked = True
+            self.isPieceAboutDie = True
+            
+            self.possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+            
+            if (len(self.possible_moves) != 0):
+                # Extracts the temporary positions of the piece already clicked
+                self.temporary_pos_x = coord_x
+                self.temporary_pos_y = coord_y
+				
+                # Copies all the list from possible moves to the temporary colored
+                self.temporarySquares = self.possible_moves[:]
+                # Creates the GREY squares
+                for i in range(len(self.possible_moves)):
+                    #print(self.possible_moves)
+                    x1 = (self.possible_moves[i][1] * self.size)
+                    y1 = (self.possible_moves[i][0] * self.size)
+                    x2 = x1 + self.size
+                    y2 = y1 + self.size	
+                    self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
+                    self.canvas.update_idletasks()
+            else:
+                self.isPieceClicked = False
+                self.isPieceAboutDie = False
+        
         else:
-            possible_moves = [(2,5), (2,7)]
-            for i in range(len(possible_moves)):
-				#print(type(i))
-                x1 = (possible_moves[i][1] * self.size)
-                y1 = (possible_moves[i][0] * self.size)
-                x2 = x1 + self.size
-                y2 = y1 + self.size
-                self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#A05D06", tags="square")
+			# Checks if the another piece was clicked
+            if ( (self.isPieceClicked) and (not (self.isPieceAboutDie)) and (not (self.logic_board.isEmpty(coord_x, coord_y))) 
+                and (self.is_valid_piece(self.temporary_pos_x, self.temporary_pos_y)) ):
+				
+                print("second condition")
+                
+                # Colors all moves from the anterior piece clicked into its original state
+                for j in range(len(self.temporarySquares)):
+                    x1 = (self.temporarySquares[j][1] * self.size)
+                    y1 = (self.temporarySquares[j][0] * self.size)
+                    x2 = x1 + self.size
+                    y2 = y1 + self.size
+                    summ = self.temporarySquares[j][1] + self.temporarySquares[j][0]
+                    color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
+                    self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill=color, tags="square")
+                
+                del (self.temporarySquares[:])    
+                
+                possible_moves = self.logic_board.board[coord_x][coord_y].canMove(self.logic_board)
+                
+                # Changes the next player 
+                #self.logic_board.changeNextPlayer()
+                
+                # Extracts the temporary positions of the piece already clicked
+                self.temporary_pos_x = coord_x
+                self.temporary_pos_y = coord_y
+            
+                # Copies all the list from possible moves to the temporary colored
+                self.temporarySquares = possible_moves[:]
+                self.possible_moves = possible_moves[:]
+            
+                # Shows the possible moves for the piece 
+                for i in range(len(self.possible_moves)):
+                    x1 = (possible_moves[i][1] * self.size)
+                    y1 = (possible_moves[i][0] * self.size)
+                    x2 = x1 + self.size
+                    y2 = y1 + self.size
+                    self.canvas.create_rectangle(x1,y1,x2,y2,outline="white", fill="#9C9C9C", tags="square")
+                   
+                # Refresh the changes on the board
                 self.canvas.update_idletasks()
-			
+            
+            # In case that the user wants to move the piece already clicked
+            else:
+                if ( (self.isPieceClicked) and (self.isPieceAboutDie) and ( (self.logic_board.isEmpty(coord_x, coord_y) or 
+				    (self.logic_board.isEnemy(self.logic_board.board[self.temporary_pos_x][self.temporary_pos_y].getColor(), coord_x, coord_y)  ) ) )
+				    and (self.is_valid_piece(self.temporary_pos_x, self.temporary_pos_y)) ):
+						
+                        print("third condition")
+						# Checks if the movement requested by the user is one of the possible moves
+                        if ((coord_x, coord_y) in self.possible_moves):
+
+                            self.isPieceClicked = False			# Restart the attribute isPieceClicked
+                            self.isPieceAboutDie = False
+                            temp_x = self.temporary_pos_x
+                            temp_y = self.temporary_pos_y
+                            
+                            if (self.logic_board.board[coord_x][coord_y] != '*'):
+                                self.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
+                            
+                            
+                            self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
+                            self.logic_board.board[coord_x][coord_y].movePiece((coord_x,coord_y))
+                            self.logic_board.board[temp_x][temp_y] = '*' # en la pos de antes ya no está esa pieza
+
+
+                            eaterPiece = self.getPiece(temp_x,temp_y)
+                            print("la pieza que estoy agarrando es: ", eaterPiece)
+
+                            attack_moves = self.logic_board.getAttackMoves()
+                            
+                            self.logic_board.isPotentialCheckMate(attack_moves)
+                            
+                            x1 = (temp_y * self.size)
+                            y1 = (temp_x * self.size)
+                            x2 = x1 + self.size
+                            y2 = y1 + self.size
+                            summ = temp_x + temp_y
+                            color = self.getEvenColor() if (summ % 2 == 0) else self.getOddColor()
+                            self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
+                                                    
+                            # Refresh the changes on the board
+                            self.canvas.update_idletasks()
+                            
+                            #print (attack_moves)
+                            
+                            # Changes the next player 
+                            self.logic_board.changeNextPlayer()
+                            self.loadInitPosPiece()
+                            self.refresh()
+
+        return (coord_x, coord_y)
 			
         
     # Relates the dropped cell of the board to a duple of coordinates
     def piece_dropped(self, event):
         coord_x = int((event.y / self.size))
         coord_y = int((event.x / self.size))
-        print ("dropped at", event.x, event.y, coord_x, coord_y)
+        #print ("dropped at", event.x, event.y, coord_x, coord_y)
+    
+    # Deletes the piece eliminated from the pieces map
+    def ded(self, x, y, eaterPiece):
+        '''
+        for img in self.pieces:
+            if (self.pieces[img][0] == x and self.pieces[img][1] == y):
+                print(img)
+                break
+        '''
+        del (self.pieces[eaterPiece])
         
-        
+
     #Agregar nueva ventana
     def new_window(self):
         self.newWindow = tk.Toplevel()
@@ -94,152 +219,30 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
 
     #Add a piece to the tab to be used
     def addPiece(self, name, image, row, column):
-        self.canvas.create_image(0,0, image = image, tags = (name, 'piece'), anchor = 'c')
+        self.canvas.create_image(0,0, image = image, tags = name, anchor = 'c')
         self.placePiece(name, row, column)
 
     def placePiece(self, name, row, column):
-
         self.pieces[name] = (row, column)
-        
-        #print(self.pieces)
-        
         x0 = (column * self.size) + int(self.size/2)
         y0 = (row * self.size) + int(self.size/2)
         self.canvas.coords(name, x0, y0)
    
     def loadInitPosPiece(self):
-        path = os.getcwd()
-        defPath = path + "/pieces/"
-        imgs = os.listdir(defPath)
-
-        for piece in imgs:
-
-            #----------------Black ones---------------------
-            if piece == "icons8-obispo-48.png": #Black Bishop 2
-                # photo = tk.PhotoImage(file = defPath+"bb.gif")
-
-                im = PIL.Image.open('pieces/icons8-obispo-48.png')
-                photo = PIL.ImageTk.PhotoImage(im)
-                photo.image = photo
-
-                self.addPiece("bbr", photo, 0, 2)
-                self.addPiece("bbl", photo, 0, 5)
-
-            if piece == "icons8-rey-48.png": #Black King
-                # photo2 = tk.PhotoImage(file = defPath+"bk.gif")
-                im2 = PIL.Image.open('pieces/icons8-rey-48.png')
-                photo2 = PIL.ImageTk.PhotoImage(im2)
-                photo2.image = photo2
-                self.addPiece("bk", photo2, 0, 4)
-
-            if piece == "icons8-caballero-48.png": #Black Knigth 2 
-                # photo3 = tk.PhotoImage(file = defPath+"bn.gif")
-                im3 = PIL.Image.open('pieces/icons8-caballero-48.png')
-                photo3 = PIL.ImageTk.PhotoImage(im3)
-                photo3.image = photo3
-                self.addPiece("bnl", photo3, 0, 1)     
-                self.addPiece("bnr", photo3, 0, 6)
-
-            if piece == "icons8-peón-48.png": #Black Pawn 8
-                # photo4 = tk.PhotoImage(file = defPath+"bp.gif")
-                im4 = PIL.Image.open('pieces/icons8-peón-48.png')
-                photo4 = PIL.ImageTk.PhotoImage(im4)
-                photo4.image = photo4
-                self.addPiece("bp", photo4, 1, 0)     
-                self.addPiece("bp1", photo4, 1, 1)
-                self.addPiece("bp2", photo4, 1, 2)
-                self.addPiece("bp3", photo4, 1, 3)
-                self.addPiece("bp4", photo4, 1, 4)
-                self.addPiece("bp5", photo4, 1, 5)
-                self.addPiece("bp6", photo4, 1, 6)
-                self.addPiece("bp7", photo4, 1, 7)                
-
-            if piece == "icons8-torre-48.png": #Balck Rook 2
-                # photo5 = tk.PhotoImage(file = defPath+"br.gif")
-                im5 = PIL.Image.open('pieces/icons8-torre-48.png')
-                photo5 = PIL.ImageTk.PhotoImage(im5)
-                photo5.image = photo5
-                self.addPiece("brl", photo5, 0, 0)
-                self.addPiece("brr", photo5, 0, 7)
-
-            if piece == "icons8-reina-48.png": #Balck Queen 
-                # photo6 = tk.PhotoImage(file = defPath+"bq.gif")
-                im6 = PIL.Image.open('pieces/icons8-reina-48.png')
-                photo6 = PIL.ImageTk.PhotoImage(im6)
-                photo6.image = photo6
-                self.addPiece("bq", photo6, 0, 3)      
-
-            #----------------Black ones---------------------
-            #----------------White ones---------------------
-        
-            if piece == "icons8-obispo-48 (1).png": #White Bishop 2
-                # photo7 = tk.PhotoImage(file = defPath+"wb.gif")
-                im7 = PIL.Image.open('pieces/icons8-obispo-48 (1).png')
-                im7 = im7.resize((40,40))
-                photo7 = PIL.ImageTk.PhotoImage(im7)
-                photo7.image = photo7
-                self.addPiece("wbr", photo7, 7, 2)
-                self.addPiece("wbl", photo7, 7, 5)
-
-            if piece == "icons8-rey-48 (1).png": #White King
-                # photo8 = tk.PhotoImage(file = defPath+"wk.gif")
-                im8 = PIL.Image.open('pieces/icons8-rey-48 (1).png')
-                im8 = im8.resize((40,40))
-                photo8 = PIL.ImageTk.PhotoImage(im8)
-                photo8.image = photo8
-                self.addPiece("wk", photo8, 7, 4)
-
-            if piece == "icons8-caballero-48 (1).png": #White Knigth 2 
-                # photo9 = tk.PhotoImage(file = defPath+"wn.gif")
-                im9 = PIL.Image.open('pieces/icons8-caballero-48 (1).png')
-                im9 = im9.resize((40,40))
-                photo9 = PIL.ImageTk.PhotoImage(im9)
-                photo9.image = photo9
-                self.addPiece("wnl", photo9, 7, 1)     
-                self.addPiece("wnr", photo9, 7, 6)
-
-            if piece == "icons8-peón-48 (1).png": #white Pawn 8
-                # photo10 = tk.PhotoImage(file = defPath+"wp.gif")
-                im10 = PIL.Image.open('pieces/icons8-peón-48 (1).png')
-                im10 = im10.resize((40,40))
-                photo10 = PIL.ImageTk.PhotoImage(im10)
-                photo10.image = photo10
-                self.addPiece("wp", photo10, 6, 0)     
-                self.addPiece("wp1", photo10, 6, 1)
-                self.addPiece("wp2", photo10, 6, 2)
-                self.addPiece("wp3", photo10, 6, 3)
-                self.addPiece("wp4", photo10, 6, 4)
-                self.addPiece("wp5", photo10, 6, 5)
-                self.addPiece("wp6", photo10, 6, 6)
-                self.addPiece("wp7", photo10, 6, 7)                
-
-            if piece == "icons8-torre-48 (1).png": #White Rook 2
-                # photo11 = tk.PhotoImage(file = defPath+"wr.gif")
-                im11 = PIL.Image.open('pieces/icons8-torre-48 (1).png')
-                im11 = im11.resize((40,40))
-                photo11 = PIL.ImageTk.PhotoImage(im11)
-                photo11.image = photo11
-                self.addPiece("wrl", photo11, 7, 0)
-                self.addPiece("wrr", photo11, 7, 7)
-
-            if piece == "icons8-reina-48 (1).png": #White
-                # photo12 = tk.PhotoImage(file = defPath+"wq.gif")
-                im12 = PIL.Image.open('pieces/icons8-reina-48 (1).png')
-                im12 = im12.resize((40,40))
-                photo12 = PIL.ImageTk.PhotoImage(im12)
-                photo12.image = photo12
-                self.addPiece("wq", photo12, 7, 3) 
-
-            #----------------White ones---------------------
+        self.pieces.clear()
+        counter = 0
+        # Checks the entire board
+        for i in range(self.rows):
+            for j in range(self.columns):      
+                # Checks if the square checked has a piece
+                if (self.logic_board.board[i][j] != '*'):
+                    self.addPiece(self.logic_board.board[i][j].getName(), self.logic_board.board[i][j].getImage(), i, j)
+                    counter +=1
 
     def printPieces(self):
         print(self.pieces)
     
-    def refresh(self, event):
-        xsize = int((event.width-1) / self.columns)
-        ysize = int((event.height-1) / self.rows)
-        self.size = min(xsize, ysize)
-        self.canvas.delete("square")
+    def refresh(self):
         color = self.color2
         for row in range(self.rows):
             color = self.color1 if color == self.color2 else self.color2
@@ -250,105 +253,16 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
-
+        c = 0
         for name in self.pieces:
-            #print ("entré al for de refresh")
+            c += 1
+            #print(name, c)
             self.placePiece(name, self.pieces[name][0], self.pieces[name][1]) #Add the piece
-        
-        
 
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
 
-
-'''
-if __name__ == "__main__":
-    
-    #----------------------GeneraTablero---------------------------------
-    root = tk.Tk()
-    board = chessBoard(8, 8, 'blue', 'green', 64, root)
-    board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
-    #board.loadInitPosPiece()
-    
-    path = os.getcwd()  
-    defPath = path + "/images/"
-    imgs = os.listdir(defPath)
-
-    for piece in imgs:
-
-        #----------------Black ones---------------------
-        if piece == "bb.gif": #Black Bishop 2
-            photo = tk.PhotoImage(file = defPath+"bb.gif")
-            board.addPiece("bbr", photo, 0, 1)
-            board.addPiece("bbl", photo, 0, 6)
-
-        if piece == "bk.gif": #Black King
-            photo2 = tk.PhotoImage(file = defPath+"bk.gif")
-            board.addPiece("bk", photo2, 0, 4)
-
-        if piece == "bn.gif": #Black Knigth 2 
-            photo3 = tk.PhotoImage(file = defPath+"bn.gif")
-            board.addPiece("bnl", photo3, 0, 2)     
-            board.addPiece("bnr", photo3, 0, 5)
-
-        if piece == "bp.gif": #Black Pawn 8
-            photo4 = tk.PhotoImage(file = defPath+"bp.gif")
-            board.addPiece("bp", photo4, 1, 0)     
-            board.addPiece("bp1", photo4, 1, 1)
-            board.addPiece("bp2", photo4, 1, 2)
-            board.addPiece("bp3", photo4, 1, 3)
-            board.addPiece("bp4", photo4, 1, 4)
-            board.addPiece("bp5", photo4, 1, 5)
-            board.addPiece("bp6", photo4, 1, 6)
-            board.addPiece("bp7", photo4, 1, 7)                
-
-        if piece == "br.gif": #Balck Rook 2
-            photo5 = tk.PhotoImage(file = defPath+"br.gif")
-            board.addPiece("brl", photo5, 0, 0)
-            board.addPiece("brr", photo5, 0, 7)
-
-        if piece == "bq.gif": #Balck Queen 
-            photo6 = tk.PhotoImage(file = defPath+"br.gif")
-            board.addPiece("bq", photo6, 0, 3)      
-
-        #----------------Black ones---------------------
-
-        #----------------White ones---------------------
-        
-        if piece == "wb.gif": #White Bishop 2
-            photo7 = tk.PhotoImage(file = defPath+"wb.gif")
-            board.addPiece("wbr", photo7, 7, 1)
-            board.addPiece("wbl", photo7, 7, 6)
-
-        if piece == "wk.gif": #White King
-            photo8 = tk.PhotoImage(file = defPath+"wk.gif")
-            board.addPiece("wk", photo8, 7, 4)
-
-        if piece == "wn.gif": #White Knigth 2 
-            photo9 = tk.PhotoImage(file = defPath+"wn.gif")
-            board.addPiece("wnl", photo9, 7, 2)     
-            board.addPiece("wnr", photo9, 7, 5)
-
-        if piece == "wp.gif": #white Pawn 8
-            photo10 = tk.PhotoImage(file = defPath+"wp.gif")
-            board.addPiece("wp", photo10, 6, 0)     
-            board.addPiece("wp1", photo10, 6, 1)
-            board.addPiece("wp2", photo10, 6, 2)
-            board.addPiece("wp3", photo10, 6, 3)
-            board.addPiece("wp4", photo10, 6, 4)
-            board.addPiece("wp5", photo10, 6, 5)
-            board.addPiece("wp6", photo10, 6, 6)
-            board.addPiece("wp7", photo10, 6, 7)                
-
-        if piece == "wr.gif": #White Rook 2
-            photo11 = tk.PhotoImage(file = defPath+"wr.gif")
-            board.addPiece("wrl", photo11, 7, 0)
-            board.addPiece("wrr", photo11, 7, 7)
-
-        if piece == "wq.gif": #White
-            photo12 = tk.PhotoImage(file = defPath+"wr.gif")
-            board.addPiece("wq", photo12, 7, 3) 
-
-        #----------------White ones---------------------
-        '''
-    
+    def getPiece(self, x, y):
+        for img in self.pieces:
+            if self.pieces[img][0] == x and self.pieces[img][1] == y:
+                return img

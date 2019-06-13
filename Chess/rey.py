@@ -1,25 +1,34 @@
 from tkinter import *
 from pieza import Pieza
 
+import PIL.Image
+import PIL.ImageTk
+
 class Rey(Pieza):
 	
-	def __init__(self, color, coordX, coordY, imagen_archivo):
+	def __init__(self, name, color, coordX, coordY, imagen_archivo):
+		self.name = name
 		self.color = color
 		self.coordX = coordX
 		self.coordY = coordY
-		self.image = PhotoImage(file=imagen_archivo)
+		#self.image = PhotoImage(file=imagen_archivo)
+		image = PIL.Image.open(imagen_archivo)
+		self.image = PIL.ImageTk.PhotoImage(image)
+		self.image.photo = self.image
 		self.noMove = True
         
         
 	def printCoords(self):
 		print("Color es: "+ self.getColor() + " y coordenadas(x,y) son: " + str(self.getCoordX()) + " " + str(self.getCoordY()))
 		
+	def getImage(self):
+		return self.image
 		
 	# Function that returns if the King is allowed to do the castling-step
 	def noFirstMove(self):
-		if (self.getColor() == 'b' and self.getCoordY() == 0 and self.noMove == True):
+		if (self.getColor() == 'b' and self.getCoordX() == 0 and self.getCoordY() == 4 and self.noMove == True):
 			return True
-		if (self.getColor() == 'w' and self.getCoordY() == 7 and self.noMove == True):
+		if (self.getColor() == 'w' and self.getCoordX() == 7 and self.getCoordY() == 4 and self.noMove == True):
 			return True
 		return False
 		
@@ -36,22 +45,24 @@ class Rey(Pieza):
 			# Checks for the right side of the actual row
 			for index in range(2):	
 				# the index + 1 is for not to count the actual position of the king
-				if ( not (chessBoard.isEmpty(self.getCoordX() + (index + 1), self.getCoordY())) ):
+				if ( not (chessBoard.isEmpty(self.getCoordX(), self.getCoordY() + (index + 1))) ):
 					freeRow = False
 					
 			# Checks if right side of the row is free and if the rook for the castling has not been moved
-			if (freeRow and chessBoard[7][self.getCoordY()].noFirstMove()):
-				possible_moves.append(self.getCoordX() + 2, self.getCoordY())
+			if (freeRow and chessBoard.board[self.getCoordX()][7].noFirstMove()):
+				possible_moves.append((self.getCoordX(), self.getCoordY() + 2))
+				
+			freeRow = True
 				
 			# Checks for the left side of the actual row
 			for index in range(3):	
 				# the index + 1 is for not to count the actual position of the king
-				if ( not (chessBoard.isEmpty(self.getCoordX() - (index + 1), self.getCoordY())) ):
+				if ( not (chessBoard.isEmpty(self.getCoordX(), self.getCoordY()- (index + 1))) ):
 					freeRow = False
 					
 			# Checks if left side of the row is free and if the rook for the castling has not been moved
-			if (freeRow and chessBoard[0][self.getCoordY()].noFirstMove()):
-				possible_moves.append(self.getCoordX() - 2, self.getCoordY())
+			if (freeRow and chessBoard.board[self.getCoordX()][0].noFirstMove()):
+				possible_moves.append((self.getCoordX(), self.getCoordY() - 2))
 		
 	
 	# Function that returns the tuples with the possible moves of the piece
@@ -85,7 +96,7 @@ class Rey(Pieza):
 	# Makes the King movement
 	def movePiece(self, newCoordinates):
 		# Checks and sets the no movement variable
-		if (noFirstMove()):
+		if (self.noFirstMove()):
 			self.noMove = False
 		self.setCoordX(newCoordinates[0])
 		self.setCoordY(newCoordinates[1])
