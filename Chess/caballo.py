@@ -42,7 +42,6 @@ class Caballo(Pieza):
 			else:
 				if ( chessBoard.isEnemy(self.getColor(), actual_coordX + coordsX[index], actual_coordY + coordsY[index]) ):
 					possible_moves.append( (actual_coordX + coordsX[index], actual_coordY + coordsY[index]) )
-					break
 					
 		return possible_moves
 		

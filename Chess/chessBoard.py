@@ -38,20 +38,24 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
         tk.Frame.__init__(self, parent)
         self.canvas = tk.Canvas(self, borderwidth = 0, highlightthickness = 0, width = canvasWidth, height = canvasHeight, background = 'bisque')
         
-        #self.caballito = Caballo("wnr",'b', 0, 6, "images/bn.gif")
+        self.canvitas = tk.Canvas(self, borderwidth = 1, highlightthickness = 0,width = 400, height = 200, background = 'bisque')
+        
+        self.canvitas2 = tk.Frame(self, borderwidth = 1, highlightthickness = 0,width = 100, height = 20, background = 'black')
         
         # Relates the mouse clicked to a function called piece_clicked
         self.canvas.bind("<Button-1>", self.piece_clicked)
         
         self.canvas.bind("<ButtonRelease-1>", self.piece_dropped)
-        
-        self.canvas.pack(side = 'top', fill = 'both', expand = True, padx = 2, pady = 2)
-
         self.frame = tk.Frame(self)
-
-        self.button1 = tk.Button(self.frame, text = 'Ver Reglas', width = 25, command = self.new_window)
-        self.button1.pack()
-        self.frame.pack()
+        
+        self.button1 = tk.Button(self.canvitas, text = 'Ver Reglas', width = 61, command = self.new_window)
+        #self.button1 = tk.Button(self.frame, text = 'Ver Reglas', width = 25, command = self.new_window)
+        self.button1.pack(side='bottom', fill='both')
+        
+        self.canvas.pack(side = 'left', fill = 'both', expand = True, padx = 2, pady = 2)
+        self.canvitas.pack(side = 'right', fill = 'both', expand = True, padx = 2, pady = 2)
+        #self.canvitas2.pack(side = 'left', fill = 'both', expand = True, padx = 2, pady = 2)
+        #self.frame.pack()
 
         #self.canvas.bind('<Configure>', self.refresh)
         self.refresh()
