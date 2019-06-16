@@ -82,7 +82,7 @@ class initialWindow(tk.Frame):
         self.master.deiconify()
         
         board_root = Toplevel(self.master)
-        board = chessBoard(self.logic_chessboard, 8, 8, "#F3D484", "#A05D06", 64, board_root)
+        board = chessBoard(self.logic_chessboard, 8, 8, "#F3D484", "#A05D06", 64, board_root, playerWhite_name, playerBlack_name)
         board.pack(side='top', fill='both', expand='true', padx=4, pady=4)
         board.loadInitPosPiece()
         board.printPieces()
