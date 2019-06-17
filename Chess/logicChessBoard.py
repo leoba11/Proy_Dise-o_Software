@@ -105,13 +105,15 @@ class logicChessBoard():
                 orientation= 1
                 direction = -2
                 coord_y_tower = (temp_y - 2) + direction
-            if ((coord_y == (temp_y + 2))):
-                orientation = -1
-                direction = 1
-                coord_y_tower = (temp_y + 2) + direction
-            
-            #Set new tower move
-            self.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
+                #Set new tower move
+                self.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
+            else:
+                if ((coord_y == (temp_y + 2))):
+                    orientation = -1
+                    direction = 1
+                    coord_y_tower = (temp_y + 2) + direction
+                    #Set new tower move
+                    self.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
     
     # Function that sets the new tower position from the castling move
     def changeTowerPosition(self,direction, orientation, coord_y_tower, coord_x, coord_y):

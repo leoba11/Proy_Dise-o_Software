@@ -358,7 +358,9 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
                             
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]
                             
-                            # Checks if castling was made 
+                            # Checks if castling was made
+                            
+                            # ESTE METODO ESTÁ DANDO PROBLEMAS AL MOVER AL PINCHE REY!! 
                             self.logic_board.checkCastlingMove(temp_x, temp_y, coord_x, coord_y)
                             
                             # Checks if the king was moved 
