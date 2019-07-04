@@ -28,8 +28,8 @@ class Pieza(metaclass=ABCMeta):
 	
 	def getName(self):
 		return self.name
-    
-    def getTipo(self):
+	
+	def getTipo(self):
 		return self.tipo
 
 	@abstractmethod

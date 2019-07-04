@@ -19,10 +19,7 @@ class logicChessBoard():
         self.board = []
         self.rows = rows
         self.cols = cols
-        
-        # Variable to control who is the next player (first white pieces)
-        self.next_player = 'w'
-        
+
         # Variables to control who is the king that can be threatened
         self.potential_king_killed = 'b'
         self.potential_king_name = 'bk'
@@ -43,10 +40,6 @@ class logicChessBoard():
         #self.gameTest()
         
         
-    # Function that returns the next player color
-    def getNextPlayer(self):
-        return self.next_player
-        
     def refreshBoard(self):
         print("entré=============================")
         global piecesforLogic
@@ -54,66 +47,7 @@ class logicChessBoard():
             for j in range(len(self.board)):
                 if not self.board[i][j] == '*':
                     piecesforLogic[i] = self.board[i][j]
-                    
-                    
-		
-	# Subroutine that changes or switches the next player and the king that can be
-	# threatened
-    def changeNextPlayer(self):
-		
-        if (self.next_player == 'w'):
-            self.next_player = 'b'
-            self.potential_king_killed = 'w'
-            self.potential_king_name = 'wk'
-        else:
-            self.next_player = 'w'
-            self.potential_king_killed = 'b'
-            self.potential_king_name = 'bk'
-            
-            
-            
-    # Creates a list of all the possible moves of all the pieces in the current play
-    def getAttackMoves(self):
-        attack_moves = []
-        piece_moves = []
-		
-		# Traverses all the board in order to check the possible moves
-        for i in range(self.rows):
-            for j in range(self.cols):
-				
-                if (self.board[i][j] != '*'):
-                    if (self.board[i][j].getColor() == self.next_player):
-						
-                        piece_moves = self.board[i][j].canMove(self)
-						# Adds the potential moves of the piece into the final list
-                        attack_moves.extend(piece_moves)
-                        piece_moves.clear()
-		
-        return attack_moves
     
-    # Function that checks if the castling move was made by the king
-    def checkCastlingMove(self, temp_x, temp_y, coord_x, coord_y):
-        
-        name = self.board[coord_x][coord_y].getName()
-        direction = 0
-        orientation = 0
-        coord_y_tower = 0
-        if (name == "wk" or name == "bk"):
-            
-            # Checks if the king moved two squares
-            if ((coord_y == (temp_y - 2))):
-                orientation= 1
-                direction = -2
-                coord_y_tower = (temp_y - 2) + direction
-                #Set new tower move
-                self.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
-            else:
-                if ((coord_y == (temp_y + 2))):
-                    orientation = -1
-                    direction = 1
-                    coord_y_tower = (temp_y + 2) + direction
-                    #Set new tower move
-                    self.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
     
     # Function that sets the new tower position from the castling move
     def changeTowerPosition(self,direction, orientation, coord_y_tower, coord_x, coord_y):
@@ -128,7 +62,6 @@ class logicChessBoard():
     def checkPieceKing(self, coord_x, coord_y):
         
         name = self.board[coord_x][coord_y].getName()
-        #if (type(self.board[coord_x][coord_y]) == type(self.rey_prueba)):
         if (name == "wk" or name == "bk"):
             self.setPositionKing(self.board[coord_x][coord_y].getColor(), coord_x, coord_y)
     
@@ -151,34 +84,6 @@ class logicChessBoard():
             self.posX_wk = coord_x
             self.posY_wk = coord_y
             
-    
-    
-    # Checks if one of the kings is threatened for check-mate
-    def isPotentialCheckMate(self, attack_moves):
-
-        isCheckMate = True
-        
-        # Stores the name pieces for the board
-        name_pieces = 'blancas' if (self.potential_king_killed == 'b') else 'negras'
-        name_pieces_losing = 'negras' if (self.potential_king_killed == 'b') else 'blancas'
-        
-        # Gets the coords of the king
-        coords_king = self.returnPositionsKingThreatened() 
-        
-        if (coords_king in (attack_moves)):
-
-            moves_king = self.board[coords_king[0]][coords_king[1]].canMove(self)
-            
-            # Checks if the king can move to escape from the check mate
-            for i in range(len(moves_king)):
-                
-                if (not ( moves_king[i] in (attack_moves))):
-                    isCheckMate = False						# Escapes from the check mate
-			
-            if (isCheckMate):
-                messagebox.showinfo("FIN DE JUEGO!","JAQUE MATE! Ganaron las piezas " + name_pieces)
-            else:
-                messagebox.showwarning("CUIDADO!", "Piezas " + name_pieces_losing + " en jaque")
 
     def drawBoard(self):
         for i in range(self.rows):
@@ -192,6 +97,7 @@ class logicChessBoard():
         if(not (math.isnan(self.tablero[coordX][coordY]))):
             self.board[coordX][coordY] = pieza
     
+    
     # Function that checks if the square or field requested for the player is empty
     def isEmpty(self, coordX, coordY):
         #print (coordX, coordY)
@@ -202,6 +108,7 @@ class logicChessBoard():
                 return True
             else:
                 return False
+
 
     # Function that checks if on the square requested for the player is occupied by the enemy
     def isEnemy(self, color, coordX, coordY):
