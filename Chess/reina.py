@@ -22,6 +22,9 @@ class Reina(Pieza):
 	
 	def getImage(self):
 		return self.image
+    
+	def noFirstMove(self):
+		pass
 		
 	# Function that returns the tuples with the possible moves of the piece
 	def canMove(self, chessBoard):

@@ -4,13 +4,14 @@ from logicChessBoard import logicChessBoard
 from chessRules import *
 from referee import *
 from tkinter import *
+from controllerAbs import *
 import os
 import time
 import PIL.Image
 import PIL.ImageTk
 
 
-class Controller():
+class Controller(ControllerAbs):
 	
 	# Constructor 
     def __init__(self, parent):
