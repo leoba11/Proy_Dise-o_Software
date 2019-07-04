@@ -5,6 +5,7 @@ from abc import ABCMeta, abstractmethod
 class Pieza(metaclass=ABCMeta):
 	
 	color = ''
+	tipo = ''
 	coordX = 0
 	coordY = 0
 	name = ''
@@ -27,6 +28,9 @@ class Pieza(metaclass=ABCMeta):
 	
 	def getName(self):
 		return self.name
+    
+    def getTipo(self):
+		return self.tipo
 
 	@abstractmethod
 	def canMove(self):
