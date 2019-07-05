@@ -8,13 +8,14 @@ from chessBoard import *
 from tkinter import *
 from tkinter import messagebox
 from piezagen import PiezaGen
+from tableroAbs import *
 
 #Se inicializa en 0's para evitar problemas
 #Variables globales
-piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
+piecesforLogic = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 
-class logicChessBoard():
+class logicChessBoard(tableroAbs):
 
     def __init__(self, rows = 8, cols = 8):
         self.board = []
@@ -24,21 +25,21 @@ class logicChessBoard():
         # Variables to control who is the king that can be threatened
         self.potential_king_killed = 'b'
         self.potential_king_name = 'bk'
-        
-        
+
+
         # Variables to control the positions of the two kings
         self.posX_bk = 0
         self.posY_bk = 4
-        
+
         self.posX_wk = 7
         self.posY_wk = 4
-        
+
         self.drawBoard()
         self.loadPieces()
         self.putPiecesOnBoard()
         #self.gameTest()
-        
-        
+
+
     def refreshBoard(self):
         print("entré=============================")
         global piecesforLogic
@@ -46,34 +47,34 @@ class logicChessBoard():
             for j in range(len(self.board)):
                 if not self.board[i][j] == '*':
                     piecesforLogic[i] = self.board[i][j]
-    
-    
+
+
     # Function that sets the new tower position from the castling move
     def changeTowerPosition(self,direction, orientation, coord_y_tower, coord_x, coord_y):
-		
+
         print("rook_move")
         self.board[coord_x][coord_y + orientation] = self.board[coord_x][coord_y_tower]
         self.board[coord_x][coord_y + orientation].movePiece((coord_x, coord_y + orientation))
         self.board[coord_x][coord_y_tower] = '*'
-    
-    
+
+
     # Function that checks if the king was moved
     def checkPieceKing(self, coord_x, coord_y):
-        
+
         name = self.board[coord_x][coord_y].getName()
         if (name == "wk" or name == "bk"):
             self.setPositionKing(self.board[coord_x][coord_y].getColor(), coord_x, coord_y)
-    
-    
+
+
     # Function that returns a tuple with the coordinates of the king threatened
     def returnPositionsKingThreatened(self):
         if (self.potential_king_killed == 'b'):
             return (self.posX_bk, self.posY_bk)
         else:
             return (self.posX_wk, self.posY_wk)
-            
-            
-            
+
+
+
     # Function that sets a tuple for the king MOVED by the user
     def setPositionKing(self, color, coord_x, coord_y):
         if (color == 'b'):
@@ -82,7 +83,7 @@ class logicChessBoard():
         else:
             self.posX_wk = coord_x
             self.posY_wk = coord_y
-            
+
 
     def drawBoard(self):
         for i in range(self.rows):
@@ -91,12 +92,12 @@ class logicChessBoard():
                 row.append('*')
             self.board.append(row)
         #print(self.board)
-        
+
     def add_piece(self, pieza, coordX, coordY):
         if(not (math.isnan(self.tablero[coordX][coordY]))):
             self.board[coordX][coordY] = pieza
-    
-    
+
+
     # Function that checks if the square or field requested for the player is empty
     def isEmpty(self, coordX, coordY):
         #print (coordX, coordY)
@@ -285,7 +286,7 @@ class logicChessBoard():
         piecesforLogic[3] = '*'
         self.board[lastCoords[0]][lastCoords[1]] = '*'
         self.refresh()
-    
+
     def logicEat(self, ate):
         global piecesforLogic
         for piece in piecesforLogic:
@@ -293,7 +294,7 @@ class logicChessBoard():
                 print(piece.getName())
                 break
         piecesforLogic.remove(piece.getName())
-        
+
     def piecesRefresh(self):
         global piecesforLogic
         for i in range(0, len(piecesforLogic)):
@@ -306,6 +307,3 @@ class logicChessBoard():
         print(piecesforLogic)
     def printBoard(self):
         print(self.board)
-
-    
-
