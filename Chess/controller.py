@@ -84,9 +84,8 @@ class Controller(ControllerAbs):
     
     #Adds the chess rules window
     def new_window(self):
-        self.newWindow = Toplevel()
-        self.newWindow.title('CHESS RULES')
-        self.app = chessRules(self.newWindow)
+       
+        self.app = chessRules()
 			
 			
 			

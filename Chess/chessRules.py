@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 #from genRules import *
 
 import PIL.Image
@@ -6,9 +7,12 @@ import PIL.ImageTk
 
 class chessRules():
 
-    def __init__(self, master):
-        #genericRules.__init__(self, textType, game)
-        self.master = master
+    def __init__(self):
+        
+        self.newWindow = Toplevel()
+        self.newWindow.title('CHESS RULES')
+        
+        self.master = self.newWindow
         self.frame = tk.Frame(self.master)
         self.iconPath1 = 'images/che.jpg'
 
