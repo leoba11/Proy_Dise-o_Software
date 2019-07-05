@@ -1,4 +1,4 @@
-from chessBoard impor *
+from chessBoard import *
 
 
 class GenChessBoard():
@@ -29,20 +29,20 @@ class GenChessBoard():
 
     def loadInitPosPiece(self):
         
-        return chessBoardConcreto.loadInitPosPiece()
+        return self.chessBoardConcreto.loadInitPosPiece()
 
     def printPieces(self):
 
-        return chessBoardConcreto.printPieces()
+        return self.chessBoardConcreto.printPieces()
 
     def refresh(self):
         
-        return chessBoardConcreto.refresh()
+        return self.chessBoardConcreto.refresh()
 
     def getEvenColor(self):
 
-        return chessBoardConcreto.getEvenColor()
+        return self.chessBoardConcreto.getEvenColor()
 
     
     def getOddColor(self):
-        return chessBoardConcreto.getOddColor()
+        return self.chessBoardConcreto.getOddColor()

@@ -1,5 +1,6 @@
 from chessWindow import initialWindow
 from chessBoard import chessBoard
+from genChessBoard import *
 from logicChessBoard import logicChessBoard
 from chessRules import *
 from genBoard import *
@@ -64,8 +65,8 @@ class Controller(ControllerAbs):
         
         # Creates the view of the board
         board_root = Toplevel(self.parent)
-        self.chessView = chessBoard(self.logic_board, 8, 8, "#F3D484", "#A05D06", 64, board_root, self.playerWhite_name, self.playerBlack_name, self)
-        self.chessView.pack(side='top', fill='both', expand='true', padx=4, pady=4)
+        self.chessView = GenChessBoard(chessBoard(self.logic_board, 8, 8, "#F3D484", "#A05D06", 64, board_root, self.playerWhite_name, self.playerBlack_name, self))
+        self.chessView.chessBoardConcreto.pack(side='top', fill='both', expand='true', padx=4, pady=4)
         self.chessView.loadInitPosPiece()
         
     
@@ -188,7 +189,7 @@ class Controller(ControllerAbs):
                            
                             if (self.logic_board.board[coord_x][coord_y] != '*'):
                                 self.chessView.change_counter_loses(self.logic_board.board[coord_x][coord_y].getName())
-                                self.chessView.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
+                                self.chessView.chessBoardConcreto.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
                             
                             
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]

@@ -5,8 +5,8 @@ from abc import ABCMeta, abstractmethod
 class AbsChessBoard(metaclass=ABCMeta):
 
     
-    self.color = ''
-    self.oddColor = ''
+    color = ''
+    oddColor = ''
 
     
     def getEvenColor(self):
@@ -20,29 +20,29 @@ class AbsChessBoard(metaclass=ABCMeta):
 
     
     @abstractmethod
-	def change_counter_loses(self, piece_dead_name):
-		pass
-
-	@abstractmethod
-	def drawRectangle(self, x1, y1, x2, y2, color):
-		pass
-
-	@abstractmethod
-	def addPiece(self, name, image, row, column):
-		pass
-
-	@abstractmethod
-	def placePiece(self, name, row, column):
-		pass
-
-	@abstractmethod
-	def loadInitPosPiece(self):
-		pass
-
-	@abstractmethod
-	def refresh(self):
-		pass
+    def change_counter_loses(self, piece_dead_name):
+        pass
 
     @abstractmethod
+    def drawRectangle(self, x1, y1, x2, y2, color):
+        pass
+
+    @abstractmethod
+    def addPiece(self, name, image, row, column):
+        pass
+
+    @abstractmethod
+    def placePiece(self, name, row, column):
+        pass
+
+    @abstractmethod
+    def loadInitPosPiece(self):
+        pass
+
+    @abstractmethod
+    def refresh(self):
+        pass
+
+    @abstractmethod    
     def printPieces(self):
-		pass
+        pass
