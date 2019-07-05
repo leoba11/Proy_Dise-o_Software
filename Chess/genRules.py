@@ -1,6 +1,5 @@
 from chessRules import * 
 
-
 # Constructor 
 class genRules():
 

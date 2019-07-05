@@ -2,13 +2,14 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 from chessBoard import chessBoard
+from absChessWindow import AbsChessWindow
 import os
 import time
 import PIL
 import PIL.Image
 import PIL.ImageTk
 
-class initialWindow(tk.Frame):
+class initialWindow(tk.Frame, AbsChessWindow):
 	
     # Builder of the class
     def __init__(self, master, logic_chessboard, controller):

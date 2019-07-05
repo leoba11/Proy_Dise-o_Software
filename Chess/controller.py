@@ -1,6 +1,7 @@
 from chessWindow import initialWindow
 from chessBoard import chessBoard
 from genChessBoard import *
+from genChessWindow import *
 from logicChessBoard import logicChessBoard
 from chessRules import *
 from genBoard import *
@@ -39,7 +40,7 @@ class Controller(ControllerAbs):
         self.referee = Referee(self, self.logic_board)
         
         # Creates the view of the initial window
-        self.inicio = initialWindow(parent, self.logic_board, self)
+        self.inicio = GenChessWindow(initialWindow(parent, self.logic_board, self))
         
         
         
@@ -49,8 +50,8 @@ class Controller(ControllerAbs):
     def button_click(self):
 		
         # stores into the variables of the class the names written names
-        self.playerWhite_name = self.inicio.entry1.get()
-        self.playerBlack_name = self.inicio.entry2.get()
+        self.playerWhite_name = self.inicio.chessWindowConcreta.entry1.get()
+        self.playerBlack_name = self.inicio.chessWindowConcreta.entry2.get()
 
         # Checks if the players names have been written in order to start the game
         if len(self.playerWhite_name) is 0 or len(self.playerBlack_name) is 0:
@@ -72,7 +73,7 @@ class Controller(ControllerAbs):
     
     # Method that closes all the windows and finishes the program execution
     def button_quit(self):
-        self.inicio.quit()
+        self.inicio.chessWindowConcreta.quit()
 
 
     # Subroutine that shows the error message box to the user

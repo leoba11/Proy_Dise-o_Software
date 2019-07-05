@@ -1,11 +1,12 @@
 import tkinter as tk
 from tkinter import *
+from absChessRules import * 
 #from genRules import *
 
 import PIL.Image
 import PIL.ImageTk
 
-class chessRules():
+class chessRules(AbsChessRules):
 
     def __init__(self):
         
