@@ -1,6 +1,11 @@
-class genericRules(object):
+from chessRules import * 
 
-    def __ini__(self, textType, game):
-        self.textType = textType 
-        self.game =game
+
+# Constructor 
+class genRules():
+
+    def __init__(self, reglasConcreta):
+ 
+        self.reglasConcreta = reglasConcreta
+
     

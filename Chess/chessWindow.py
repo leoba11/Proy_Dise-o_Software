@@ -4,6 +4,7 @@ from tkinter import messagebox
 from chessBoard import chessBoard
 import os
 import time
+import PIL
 import PIL.Image
 import PIL.ImageTk
 
