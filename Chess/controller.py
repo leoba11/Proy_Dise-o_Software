@@ -2,6 +2,7 @@ from chessWindow import initialWindow
 from chessBoard import chessBoard
 from logicChessBoard import logicChessBoard
 from chessRules import *
+from genBoard import *
 from referee import *
 from tkinter import *
 from controllerAbs import *
@@ -31,7 +32,7 @@ class Controller(ControllerAbs):
         self.parent = parent
         
         # Creates the logic board
-        self.logic_board = logicChessBoard()
+        self.logic_board = GenericBoard(logicChessBoard(), 8, 8)
         
         # Creates the referee
         self.referee = Referee(self, self.logic_board)

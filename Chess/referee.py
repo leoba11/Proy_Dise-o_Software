@@ -79,8 +79,8 @@ class Referee:
         isCheckMate = True
         
         # Stores the name pieces for the board
-        name_pieces = 'blancas' if (self.logic_board.potential_king_killed == 'b') else 'negras'
-        name_pieces_losing = 'negras' if (self.logic_board.potential_king_killed == 'b') else 'blancas'
+        name_pieces = 'blancas' if (self.logic_board.getPotentialKingThreatened() == 'b') else 'negras'
+        name_pieces_losing = 'negras' if (self.logic_board.getPotentialKingThreatened() == 'b') else 'blancas'
         
         # Gets the coords of the king
         coords_king = self.logic_board.returnPositionsKingThreatened() 
