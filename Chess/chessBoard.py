@@ -299,3 +299,12 @@ class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
 
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
+        
+    # Retorna el color de la posición par
+    def getEvenColor(self):
+        return self.color1
+        
+    # Retorna el color de la posicion impar
+    def getOddColor(self):
+        return self.color2
+

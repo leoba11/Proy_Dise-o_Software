@@ -1,36 +1,25 @@
-class genBoard(object):
+from logicChessBoard import *
+
+class genBoard():
 
     #Constructor
-    def __init__(self, rows, columns, color1, color2):
-        #Posibles cosas a heredar
-        self.rows = rows
-        self.columns = columns
-        self.color1 = color1
-        self.color2 = color2
-
-        #Agregar dimensiones o cosas de interfaz
-
-    #Comprueba la pieza
-    def addPiece(image):
-        print("Add")
-        #Agrega una pieza al tablero
-
-    def restartBoard():
-        print("restart")
-
-    def saveBoard():
-        print("save")
-
-    def loadBoard():
-        print("Load")
-
-    def boardType():
-        print("Type")
-     
-    # Retorna el color de la posición par
-    def getEvenColor(self):
-        return self.color1
+    def __init__(self, tableroConcreto):
         
-    # Retorna el color de la posicion impar
-    def getOddColor(self):
-        return self.color2
+        self.tableroConcreto = tableroConcreto
+
+    # Method that invokes the "Refresh board" method of the concrete board
+    def refreshBoard(self):
+        
+        return self.tableroConcreto.refreshBoard()
+        
+        
+    # Method that invokes the "changeTowerPosition" method of the concrete board
+    def changeTowerPosition(self,direction, orientation, coord_y_tower, coord_x, coord_y):
+        
+        return self.tableroConcreto.changeTowerPosition(direction, orientation, coord_y_tower, coord_x, coord_y)
+        
+        
+    # Method that invokes the "drawBoard" method of the concrete board
+    def drawBoard(self):
+		
+        return self.tableroConcreto.drawBoard(self)
