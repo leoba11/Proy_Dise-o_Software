@@ -6,6 +6,7 @@ from logicChessBoard import logicChessBoard
 from chessRules import *
 from genBoard import *
 from referee import *
+from jugador import *
 from tkinter import *
 from controllerAbs import *
 import os
@@ -50,11 +51,11 @@ class Controller(ControllerAbs):
     def button_click(self):
 		
         # stores into the variables of the class the names written names
-        self.playerWhite_name = self.inicio.chessWindowConcreta.entry1.get()
-        self.playerBlack_name = self.inicio.chessWindowConcreta.entry2.get()
+        self.whitePlayer = Jugador(self.inicio.chessWindowConcreta.entry1.get())
+        self.blackPlayer = Jugador(self.inicio.chessWindowConcreta.entry2.get())
 
         # Checks if the players names have been written in order to start the game
-        if len(self.playerWhite_name) is 0 or len(self.playerBlack_name) is 0:
+        if len(self.whitePlayer.getName()) is 0 or len(self.blackPlayer.getName()) is 0:
             self.no_names()
               
         # Hides this window and shows the board
@@ -66,7 +67,7 @@ class Controller(ControllerAbs):
         
         # Creates the view of the board
         board_root = Toplevel(self.parent)
-        self.chessView = GenChessBoard(chessBoard(self.logic_board, 8, 8, "#F3D484", "#A05D06", 64, board_root, self.playerWhite_name, self.playerBlack_name, self))
+        self.chessView = GenChessBoard(chessBoard(self.logic_board, 8, 8, "#F3D484", "#A05D06", 64, board_root, self.whitePlayer.getName(), self.blackPlayer.getName(), self))
         self.chessView.chessBoardConcreto.pack(side='top', fill='both', expand='true', padx=4, pady=4)
         self.chessView.loadInitPosPiece()
         
