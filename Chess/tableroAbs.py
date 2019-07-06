@@ -8,6 +8,7 @@ from chessBoard import *
 from tkinter import *
 from tkinter import messagebox
 from piezagen import PiezaGen
+from abc import ABCMeta, abstractmethod
 
 class tableroAbs(metaclass=ABCMeta):
 

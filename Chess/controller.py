@@ -1,7 +1,10 @@
 from chessWindow import initialWindow
 from chessBoard import chessBoard
+from genChessBoard import *
+from genChessWindow import *
 from logicChessBoard import logicChessBoard
 from chessRules import *
+from genBoard import *
 from referee import *
 from tkinter import *
 from controllerAbs import *
@@ -31,13 +34,13 @@ class Controller(ControllerAbs):
         self.parent = parent
         
         # Creates the logic board
-        self.logic_board = logicChessBoard()
+        self.logic_board = GenericBoard(logicChessBoard(), 8, 8)
         
         # Creates the referee
         self.referee = Referee(self, self.logic_board)
         
         # Creates the view of the initial window
-        self.inicio = initialWindow(parent, self.logic_board, self)
+        self.inicio = GenChessWindow(initialWindow(parent, self.logic_board, self))
         
         
         
@@ -47,8 +50,8 @@ class Controller(ControllerAbs):
     def button_click(self):
 		
         # stores into the variables of the class the names written names
-        self.playerWhite_name = self.inicio.entry1.get()
-        self.playerBlack_name = self.inicio.entry2.get()
+        self.playerWhite_name = self.inicio.chessWindowConcreta.entry1.get()
+        self.playerBlack_name = self.inicio.chessWindowConcreta.entry2.get()
 
         # Checks if the players names have been written in order to start the game
         if len(self.playerWhite_name) is 0 or len(self.playerBlack_name) is 0:
@@ -63,14 +66,14 @@ class Controller(ControllerAbs):
         
         # Creates the view of the board
         board_root = Toplevel(self.parent)
-        self.chessView = chessBoard(self.logic_board, 8, 8, "#F3D484", "#A05D06", 64, board_root, self.playerWhite_name, self.playerBlack_name, self)
-        self.chessView.pack(side='top', fill='both', expand='true', padx=4, pady=4)
+        self.chessView = GenChessBoard(chessBoard(self.logic_board, 8, 8, "#F3D484", "#A05D06", 64, board_root, self.playerWhite_name, self.playerBlack_name, self))
+        self.chessView.chessBoardConcreto.pack(side='top', fill='both', expand='true', padx=4, pady=4)
         self.chessView.loadInitPosPiece()
         
     
     # Method that closes all the windows and finishes the program execution
     def button_quit(self):
-        self.inicio.quit()
+        self.inicio.chessWindowConcreta.quit()
 
 
     # Subroutine that shows the error message box to the user
@@ -187,7 +190,7 @@ class Controller(ControllerAbs):
                            
                             if (self.logic_board.board[coord_x][coord_y] != '*'):
                                 self.chessView.change_counter_loses(self.logic_board.board[coord_x][coord_y].getName())
-                                self.chessView.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
+                                self.chessView.chessBoardConcreto.canvas.delete(self.logic_board.board[coord_x][coord_y].getName())
                             
                             
                             self.logic_board.board[coord_x][coord_y] = self.logic_board.board[temp_x][temp_y]

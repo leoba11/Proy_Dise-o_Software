@@ -307,3 +307,7 @@ class logicChessBoard(tableroAbs):
         print(piecesforLogic)
     def printBoard(self):
         print(self.board)
+        
+        
+    def getPotentialKingThreatened(self):
+        return self.potential_king_killed

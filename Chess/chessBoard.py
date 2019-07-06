@@ -8,17 +8,24 @@ from reina import Reina
 from alfil import Alfil
 from torre import Torre
 from peon import Peon
+from absChessBoard import *
 
 from chessRules import *
 
 import PIL.Image
 import PIL.ImageTk
 
-class chessBoard(tk.Frame, genBoard): #Hereda de tk y genBoard
+class chessBoard(tk.Frame, AbsChessBoard): #Hereda de tk 
     
     def __init__(self, logic_board, rows, columns, color1, color2, size, parent, playerWhite_name, playerBlack_name, controller):
-        pass
-        genBoard.__init__(self, rows, columns, color1, color2)
+        
+        self.rows = rows
+        
+        self.columns = columns
+        
+        self.color1 = color1
+        
+        self.color2 = color2
         
         self.controller = controller
         
