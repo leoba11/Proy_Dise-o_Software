@@ -16,6 +16,7 @@ class tableroAbs(metaclass=ABCMeta):
         self.rows = rows # cantidad de filas
         self.cols = cols # cantidad de columnas
 
+        # secuencia general de llamado a los métodos
         self.drawBoard()
         self.loadPieces()
         self.putPiecesOnBoard()
