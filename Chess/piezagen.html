@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module piezagen</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>piezagen</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/akkarim/Documents/Disen%CC%83o%20de%20Software/Proy_Diseno_Software/Chess/piezagen.py">/Users/akkarim/Documents/Diseño de Software/Proy_Diseno_Software/Chess/piezagen.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="piezagen.html#PiezaGen">PiezaGen</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PiezaGen">class <strong>PiezaGen</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PiezaGen">PiezaGen</a>(piezaConcreta)<br>
+&nbsp;<br>
+Clase&nbsp;Pieza&nbsp;genérica:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Crea&nbsp;ua&nbsp;pieza&nbsp;de&nbsp;cualquier&nbsp;tipo&nbsp;del&nbsp;MARDA&nbsp;con&nbsp;sus&nbsp;métodos.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PiezaGen-__init__"><strong>__init__</strong></a>(self, piezaConcreta)</dt><dd><tt>Construye&nbsp;una&nbsp;pieza&nbsp;a&nbsp;partir&nbsp;de&nbsp;una&nbsp;pieza&nbsp;concreta.<br>
+:param&nbsp;piezaConcreta:&nbsp;Pieza&nbsp;concreta&nbsp;con&nbsp;que&nbsp;se&nbsp;va&nbsp;a&nbsp;trabajar</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-canMove"><strong>canMove</strong></a>(self, chessBoard)</dt><dd><tt>Pregunta&nbsp;si&nbsp;la&nbsp;pieza&nbsp;puede&nbsp;moverse&nbsp;de&nbsp;manera&nbsp;válida,&nbsp;verifica&nbsp;si&nbsp;es&nbsp;su&nbsp;turno,<br>
+si&nbsp;no&nbsp;hay&nbsp;obstáculos&nbsp;o&nbsp;enemigos.<br>
+:param&nbsp;chessBoard:&nbsp;Tablero&nbsp;donde&nbsp;se&nbsp;va&nbsp;a&nbsp;mover&nbsp;la&nbsp;pieza<br>
+:return:&nbsp;Boolean</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-getColor"><strong>getColor</strong></a>(self)</dt><dd><tt>:return:&nbsp;Devuelve&nbsp;el&nbsp;color&nbsp;de&nbsp;la&nbsp;pieza</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-getCoordX"><strong>getCoordX</strong></a>(self)</dt><dd><tt>:return:&nbsp;Devuelve&nbsp;la&nbsp;coordenada&nbsp;X&nbsp;de&nbsp;la&nbsp;pieza</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-getCoordY"><strong>getCoordY</strong></a>(self)</dt><dd><tt>:return:&nbsp;Devuelve&nbsp;la&nbsp;coordenada&nbsp;Y&nbsp;de&nbsp;la&nbsp;pieza</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-getImage"><strong>getImage</strong></a>(self)</dt><dd><tt>Devuelve&nbsp;la&nbsp;imagen&nbsp;de&nbsp;la&nbsp;pieza&nbsp;para&nbsp;poder&nbsp;así&nbsp;ser&nbsp;quitada&nbsp;del&nbsp;tablero.<br>
+:return:&nbsp;La&nbsp;imagen</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-getName"><strong>getName</strong></a>(self)</dt><dd><tt>:return:&nbsp;Devuelve&nbsp;el&nbsp;nombre&nbsp;de&nbsp;la&nbsp;pieza</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-getTipo"><strong>getTipo</strong></a>(self)</dt><dd><tt>:return:&nbsp;Devuelve&nbsp;el&nbsp;tipo&nbsp;de&nbsp;la&nbsp;pieza</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-movePiece"><strong>movePiece</strong></a>(self, newCoordinates)</dt><dd><tt>Mueve&nbsp;la&nbsp;pieza.<br>
+:param&nbsp;newCoordinates:&nbsp;Coordenadas&nbsp;a&nbsp;donde&nbsp;la&nbsp;va&nbsp;a&nbsp;mover.</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-noFirstMove"><strong>noFirstMove</strong></a>(self)</dt><dd><tt>Chequea&nbsp;si&nbsp;el&nbsp;peón&nbsp;puede&nbsp;hacer&nbsp;la&nbsp;primera&nbsp;jugada&nbsp;de&nbsp;moverse&nbsp;2&nbsp;cuadros.<br>
+:return:&nbsp;Booleano</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-setCoordX"><strong>setCoordX</strong></a>(self, nuevaCoordX)</dt><dd><tt>Asigna&nbsp;una&nbsp;coordenada&nbsp;X&nbsp;a&nbsp;la&nbsp;pieza.<br>
+:param&nbsp;nuevaCoordX:&nbsp;Nueva&nbsp;coordenada&nbsp;en&nbsp;X</tt></dd></dl>
+
+<dl><dt><a name="PiezaGen-setCoordY"><strong>setCoordY</strong></a>(self, nuevaCoordY)</dt><dd><tt>Asigna&nbsp;una&nbsp;coordenada&nbsp;Y&nbsp;a&nbsp;la&nbsp;pieza.<br>
+:param&nbsp;nuevaCoordY:&nbsp;Nueva&nbsp;coordenada&nbsp;en&nbsp;Y</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

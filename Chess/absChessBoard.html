@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module absChessBoard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>absChessBoard</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/akkarim/Documents/Disen%CC%83o%20de%20Software/Proy_Diseno_Software/Chess/absChessBoard.py">/Users/akkarim/Documents/Diseño de Software/Proy_Diseno_Software/Chess/absChessBoard.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="absChessBoard.html#AbsChessBoard">AbsChessBoard</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="AbsChessBoard">class <strong>AbsChessBoard</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;Abstracta&nbsp;de&nbsp;Tablero&nbsp;de&nbsp;Ajedrez:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Clase&nbsp;de&nbsp;vista&nbsp;del&nbsp;tablero,&nbsp;hereda&nbsp;de&nbsp;la&nbsp;clase&nbsp;ChessBoard.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Se&nbsp;encarga&nbsp;de&nbsp;la&nbsp;parte&nbsp;gráfica&nbsp;del&nbsp;tablero&nbsp;de&nbsp;Ajedrez&nbsp;del&nbsp;MARDA.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cuenta&nbsp;con&nbsp;2&nbsp;atributos:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;color:&nbsp;El&nbsp;color&nbsp;negro,&nbsp;o&nbsp;algún&nbsp;otro&nbsp;que&nbsp;se&nbsp;escoja.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;oddColor:&nbsp;Color&nbsp;blanco,&nbsp;o&nbsp;algún&nbsp;otro&nbsp;que&nbsp;se&nbsp;escoja.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="AbsChessBoard-addPiece"><strong>addPiece</strong></a>(self, name, image, row, column)</dt><dd><tt>Agrega&nbsp;una&nbsp;pieza&nbsp;al&nbsp;vector&nbsp;de&nbsp;piezas.<br>
+:param&nbsp;name:&nbsp;Nombre&nbsp;de&nbsp;la&nbsp;pieza.<br>
+:param&nbsp;image:&nbsp;Le&nbsp;asiga&nbsp;una&nbsp;imagen&nbsp;a&nbsp;la&nbsp;pieza<br>
+:param&nbsp;row/column:&nbsp;Coordenadas&nbsp;de&nbsp;la&nbsp;pieza.</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-change_counter_loses"><strong>change_counter_loses</strong></a>(self, piece_dead_name)</dt><dd><tt>Cambia&nbsp;el&nbsp;contador&nbsp;de&nbsp;las&nbsp;piezas&nbsp;comidas.<br>
+:param&nbsp;piece_dead_name:&nbsp;Pieza&nbsp;que&nbsp;se&nbsp;comió.</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-drawRectangle"><strong>drawRectangle</strong></a>(self, x1, y1, x2, y2, color)</dt><dd><tt>Dibuja&nbsp;un&nbsp;rectángulo&nbsp;que&nbsp;sera&nbsp;usado&nbsp;en&nbsp;el&nbsp;canvas.<br>
+:param&nbsp;x1,&nbsp;y1,&nbsp;x2,&nbsp;y2:&nbsp;Dimensiones&nbsp;de&nbsp;los&nbsp;rectángulos&nbsp;de&nbsp;colores.<br>
+:param&nbsp;color:&nbsp;Color&nbsp;del&nbsp;rectágulo&nbsp;que&nbsp;se&nbsp;va&nbsp;a&nbsp;dibujar,</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-getEvenColor"><strong>getEvenColor</strong></a>(self)</dt><dd><tt>Obtiene&nbsp;el&nbsp;color&nbsp;par.<br>
+:return:&nbsp;Color</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-getOddColor"><strong>getOddColor</strong></a>(self)</dt><dd><tt>Obtiene&nbsp;el&nbsp;color&nbsp;impar.<br>
+:return:&nbsp;Color</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-loadInitPosPiece"><strong>loadInitPosPiece</strong></a>(self)</dt><dd><tt>Carga&nbsp;las&nbsp;posiciones&nbsp;iniciales&nbsp;de&nbsp;cada&nbsp;pieza</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-placePiece"><strong>placePiece</strong></a>(self, name, row, column)</dt><dd><tt>Pone&nbsp;y&nbsp;dibuja&nbsp;la&nbsp;pieza&nbsp;con&nbsp;su&nbsp;imagen&nbsp;en&nbsp;el&nbsp;tablero.<br>
+:param&nbsp;name:&nbsp;Nombre&nbsp;de&nbsp;la&nbsp;pieza&nbsp;a&nbsp;poner<br>
+:param&nbsp;row/colum:&nbsp;Coordenadas&nbsp;de&nbsp;la&nbsp;pieza&nbsp;a&nbsp;poner</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-printPieces"><strong>printPieces</strong></a>(self)</dt><dd><tt>Imprime&nbsp;todas&nbsp;las&nbsp;piezas&nbsp;que&nbsp;hay&nbsp;en&nbsp;el&nbsp;vector.</tt></dd></dl>
+
+<dl><dt><a name="AbsChessBoard-refresh"><strong>refresh</strong></a>(self)</dt><dd><tt>Refreca&nbsp;los&nbsp;dibujos&nbsp;del&nbsp;tablero.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset({'addPiece', 'change_counter_loses', 'drawRectangle', 'loadInitPosPiece', 'placePiece', 'printPieces', ...})</dl>
+
+<dl><dt><strong>color</strong> = ''</dl>
+
+<dl><dt><strong>oddColor</strong> = ''</dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
